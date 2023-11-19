@@ -1,13 +1,13 @@
 //
-//  LoginScreenView.swift
+//  ChatsView.swift
 //  PawPal
 //
-//  Created by Yitian Guo on 11/17/23.
+//  Created by Yitian Guo on 11/19/23.
 //
 
 import UIKit
 
-class LoginScreenView: UIView {
+class ChatsView: UIView {
 
     /*
     // Only override draw() if you perform custom drawing.
