@@ -8,22 +8,33 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    
+    let loginView = LoginView()
+    
+    override func loadView() {
+        view = loginView
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = "PawPal"
+        
+        loginView.buttonLogin.addTarget(self, action: #selector(onLoginTapped), for: .touchUpInside)
+        loginView.buttonSignUp.addTarget(self, action: #selector(onSignUpTapped), for: .touchUpInside)
+        loginView.buttonForgotPassword.addTarget(self, action: #selector(onForgotPasswordTapped), for: .touchUpInside)
     }
-    */
+    
+    @objc func onLoginTapped() {
+        
+    }
+    
+    @objc func onSignUpTapped() {
+        
+    }
+    
+    @objc func onForgotPasswordTapped() {
+        
+    }
 
 }
