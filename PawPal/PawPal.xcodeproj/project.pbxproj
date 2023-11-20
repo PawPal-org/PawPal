@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12B783A52B0B7E1F0004B7F8 /* MeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A42B0B7E1F0004B7F8 /* MeTableViewCell.swift */; };
+		12B783A72B0B7E3C0004B7F8 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A62B0B7E3C0004B7F8 /* SettingTableViewCell.swift */; };
+		12B783A92B0B7E5E0004B7F8 /* LogOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A82B0B7E5E0004B7F8 /* LogOutTableViewCell.swift */; };
+		12B783AB2B0B7E9A0004B7F8 /* MyPetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783AA2B0B7E9A0004B7F8 /* MyPetsView.swift */; };
+		12B783AD2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783AC2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift */; };
+		12B783AF2B0B7EC80004B7F8 /* MyPetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783AE2B0B7EC80004B7F8 /* MyPetsViewController.swift */; };
 		4FE2CCC72B0866D5003AC533 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCC62B0866D5003AC533 /* AppDelegate.swift */; };
 		4FE2CCC92B0866D5003AC533 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCC82B0866D5003AC533 /* SceneDelegate.swift */; };
 		4FE2CCCB2B0866D5003AC533 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCCA2B0866D5003AC533 /* ViewController.swift */; };
@@ -37,6 +43,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		12B783A42B0B7E1F0004B7F8 /* MeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeTableViewCell.swift; sourceTree = "<group>"; };
+		12B783A62B0B7E3C0004B7F8 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		12B783A82B0B7E5E0004B7F8 /* LogOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutTableViewCell.swift; sourceTree = "<group>"; };
+		12B783AA2B0B7E9A0004B7F8 /* MyPetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsView.swift; sourceTree = "<group>"; };
+		12B783AC2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsTableViewCell.swift; sourceTree = "<group>"; };
+		12B783AE2B0B7EC80004B7F8 /* MyPetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsViewController.swift; sourceTree = "<group>"; };
 		4FE2CCC32B0866D5003AC533 /* PawPal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PawPal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FE2CCC62B0866D5003AC533 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FE2CCC82B0866D5003AC533 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +91,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12B783B02B0B7ED00004B7F8 /* My Pets */ = {
+			isa = PBXGroup;
+			children = (
+				12B783B12B0B7EE40004B7F8 /* My Pets View */,
+				12B783AE2B0B7EC80004B7F8 /* MyPetsViewController.swift */,
+			);
+			path = "My Pets";
+			sourceTree = "<group>";
+		};
+		12B783B12B0B7EE40004B7F8 /* My Pets View */ = {
+			isa = PBXGroup;
+			children = (
+				12B783AA2B0B7E9A0004B7F8 /* MyPetsView.swift */,
+				12B783AC2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift */,
+			);
+			path = "My Pets View";
+			sourceTree = "<group>";
+		};
 		4FE2CCBA2B0866D5003AC533 = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +256,7 @@
 			children = (
 				64824E1F2B0AB218004CFE1D /* View */,
 				64824E1D2B0AB1F4004CFE1D /* MeViewController.swift */,
+				12B783B02B0B7ED00004B7F8 /* My Pets */,
 			);
 			path = "Me Screen";
 			sourceTree = "<group>";
@@ -234,6 +265,9 @@
 			isa = PBXGroup;
 			children = (
 				64824E1B2B0AB1EA004CFE1D /* MeView.swift */,
+				12B783A42B0B7E1F0004B7F8 /* MeTableViewCell.swift */,
+				12B783A62B0B7E3C0004B7F8 /* SettingTableViewCell.swift */,
+				12B783A82B0B7E5E0004B7F8 /* LogOutTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -320,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				64824E192B0AB1B8004CFE1D /* ChatsView.swift in Sources */,
+				12B783AF2B0B7EC80004B7F8 /* MyPetsViewController.swift in Sources */,
 				4FE2CCED2B0AE171003AC533 /* RegisterFirebaseManager.swift in Sources */,
 				645F922A2B0982C700FAC72C /* LoginView.swift in Sources */,
 				64824E102B0AB171004CFE1D /* BeFriendsView.swift in Sources */,
@@ -328,6 +363,11 @@
 				64824E0A2B0AB122004CFE1D /* DiscoverViewController.swift in Sources */,
 				4FE2CCEF2B0AFE12003AC533 /* CardView.swift in Sources */,
 				64824E082B0AB10D004CFE1D /* MomentsViewController.swift in Sources */,
+				12B783AD2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift in Sources */,
+				12B783A72B0B7E3C0004B7F8 /* SettingTableViewCell.swift in Sources */,
+				12B783AB2B0B7E9A0004B7F8 /* MyPetsView.swift in Sources */,
+				12B783A52B0B7E1F0004B7F8 /* MeTableViewCell.swift in Sources */,
+				12B783A92B0B7E5E0004B7F8 /* LogOutTableViewCell.swift in Sources */,
 				64824E062B0AB0FD004CFE1D /* MomentsView.swift in Sources */,
 				64824E172B0AB1AD004CFE1D /* ChatsViewController.swift in Sources */,
 				64824E1E2B0AB1F4004CFE1D /* MeViewController.swift in Sources */,
