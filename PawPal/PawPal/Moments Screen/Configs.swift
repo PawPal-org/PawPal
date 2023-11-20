@@ -6,3 +6,6 @@
 //
 
 import Foundation
+class Configs{
+    static let tableViewMomentsID = "tableViewMomentsID"
+}
