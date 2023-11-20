@@ -17,6 +17,7 @@
 		4FE2CCE92B0ADF23003AC533 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCE82B0ADF23003AC533 /* RegisterView.swift */; };
 		4FE2CCEB2B0ADF4F003AC533 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCEA2B0ADF4F003AC533 /* RegisterViewController.swift */; };
 		4FE2CCED2B0AE171003AC533 /* RegisterFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCEC2B0AE171003AC533 /* RegisterFirebaseManager.swift */; };
+		4FE2CCEF2B0AFE12003AC533 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCEE2B0AFE12003AC533 /* CardView.swift */; };
 		645F922A2B0982C700FAC72C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F92292B0982C700FAC72C /* LoginView.swift */; };
 		64824DF72B0AA4DA004CFE1D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 64824DF62B0AA4DA004CFE1D /* FirebaseAuth */; };
 		64824DF92B0AA4E4004CFE1D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 64824DF82B0AA4E4004CFE1D /* FirebaseStorage */; };
@@ -48,6 +49,7 @@
 		4FE2CCE82B0ADF23003AC533 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		4FE2CCEA2B0ADF4F003AC533 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		4FE2CCEC2B0AE171003AC533 /* RegisterFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterFirebaseManager.swift; sourceTree = "<group>"; };
+		4FE2CCEE2B0AFE12003AC533 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		645F92292B0982C700FAC72C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		64824E052B0AB0FD004CFE1D /* MomentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentsView.swift; sourceTree = "<group>"; };
 		64824E072B0AB10D004CFE1D /* MomentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentsViewController.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				64824E0C2B0AB141004CFE1D /* DiscoverView.swift */,
+				4FE2CCEE2B0AFE12003AC533 /* CardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				64824E212B0AB230004CFE1D /* LoginViewController.swift in Sources */,
 				4FE2CCCB2B0866D5003AC533 /* ViewController.swift in Sources */,
 				64824E0A2B0AB122004CFE1D /* DiscoverViewController.swift in Sources */,
+				4FE2CCEF2B0AFE12003AC533 /* CardView.swift in Sources */,
 				64824E082B0AB10D004CFE1D /* MomentsViewController.swift in Sources */,
 				64824E062B0AB0FD004CFE1D /* MomentsView.swift in Sources */,
 				64824E172B0AB1AD004CFE1D /* ChatsViewController.swift in Sources */,
