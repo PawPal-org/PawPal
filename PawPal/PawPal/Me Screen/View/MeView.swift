@@ -69,8 +69,9 @@ class MeView: UIView {
     
     func setupImageUser(){
         imageUser = UIImageView()
-        imageUser.image = UIImage(systemName: "person.fill")
-        imageUser.contentMode = .scaleToFill
+        imageUser.image = UIImage(systemName: "person.crop.square.fill")
+        //imageUser.image = UIImage(systemName: "dog")
+        imageUser.contentMode = .scaleAspectFit
         imageUser.clipsToBounds = true
         imageUser.layer.cornerRadius = 10
         imageUser.translatesAutoresizingMaskIntoConstraints = false
@@ -79,7 +80,7 @@ class MeView: UIView {
     
     func setupLabelName(){
         labelName = UILabel()
-        labelName.font = UIFont.boldSystemFont(ofSize: 27)
+        labelName.font = UIFont(name: titleFont, size: 28)
         labelName.textAlignment = .left
         labelName.translatesAutoresizingMaskIntoConstraints = false
         upperProfileView.addSubview(labelName)
@@ -87,7 +88,7 @@ class MeView: UIView {
     
     func setupLabelUserName(){
         labelUserName = UILabel()
-        labelUserName.font = UIFont.systemFont(ofSize: 23)
+        labelUserName.font = UIFont(name: secondTitleFont, size: 23)
         labelUserName.textAlignment = .left
         labelUserName.translatesAutoresizingMaskIntoConstraints = false
         upperProfileView.addSubview(labelUserName)

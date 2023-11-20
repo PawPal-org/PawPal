@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+let normalFont = "KohinoorBangla-Regular"
+let boldFont = "KohinoorBangla-Semibold"
+let lightFont = "KohinoorBangla-Light"
+let titleFont = "Noteworthy-Bold"
+let secondTitleFont = "Noteworthy-Light"

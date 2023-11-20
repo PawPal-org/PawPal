@@ -45,6 +45,11 @@ class MeViewController: UIViewController {
         
         meScreen.labelName.text = "Name"
         meScreen.labelUserName.text = "Username"
+        
+        // Disable scrolling for the table views
+        meScreen.meTable.isScrollEnabled = false
+        meScreen.settingTable.isScrollEnabled = false
+        meScreen.logOutTable.isScrollEnabled = false
     }
     
 }
@@ -94,6 +99,7 @@ extension MeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        tableView.deselectRow(at: indexPath, animated: true)
         if tableView == meScreen.meTable {
             // Handle "My Pets", "My Posts", "GPS" cell tabbed
             // Using indexPath.row
@@ -121,6 +127,8 @@ extension MeViewController: UITableViewDataSource, UITableViewDelegate {
             logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             
             self.present(logoutAlert, animated: true)
+            
+
         }
     }
     

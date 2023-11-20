@@ -24,6 +24,7 @@
 		4FE2CCEB2B0ADF4F003AC533 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCEA2B0ADF4F003AC533 /* RegisterViewController.swift */; };
 		4FE2CCED2B0AE171003AC533 /* RegisterFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCEC2B0AE171003AC533 /* RegisterFirebaseManager.swift */; };
 		4FE2CCEF2B0AFE12003AC533 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCEE2B0AFE12003AC533 /* CardView.swift */; };
+		4FE2CCF22B0B87EF003AC533 /* fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCF12B0B87EF003AC533 /* fonts.swift */; };
 		645F922A2B0982C700FAC72C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F92292B0982C700FAC72C /* LoginView.swift */; };
 		64824DF72B0AA4DA004CFE1D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 64824DF62B0AA4DA004CFE1D /* FirebaseAuth */; };
 		64824DF92B0AA4E4004CFE1D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 64824DF82B0AA4E4004CFE1D /* FirebaseStorage */; };
@@ -62,6 +63,7 @@
 		4FE2CCEA2B0ADF4F003AC533 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		4FE2CCEC2B0AE171003AC533 /* RegisterFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterFirebaseManager.swift; sourceTree = "<group>"; };
 		4FE2CCEE2B0AFE12003AC533 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		4FE2CCF12B0B87EF003AC533 /* fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fonts.swift; sourceTree = "<group>"; };
 		645F92292B0982C700FAC72C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		64824E052B0AB0FD004CFE1D /* MomentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentsView.swift; sourceTree = "<group>"; };
 		64824E072B0AB10D004CFE1D /* MomentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentsViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		4FE2CCC52B0866D5003AC533 /* PawPal */ = {
 			isa = PBXGroup;
 			children = (
+				4FE2CCF02B0B87CA003AC533 /* Resources */,
 				4FE2CCE72B0ADEE7003AC533 /* Register Screen */,
 				64824E022B0AB0BB004CFE1D /* Discover Screen */,
 				64824E0E2B0AB154004CFE1D /* BeFriends Screen */,
@@ -140,7 +143,6 @@
 				4FE2CCC62B0866D5003AC533 /* AppDelegate.swift */,
 				4FE2CCC82B0866D5003AC533 /* SceneDelegate.swift */,
 				4FE2CCCC2B0866D5003AC533 /* Main.storyboard */,
-				4FE2CCCF2B0866D6003AC533 /* Assets.xcassets */,
 				4FE2CCD12B0866D6003AC533 /* LaunchScreen.storyboard */,
 				4FE2CCD42B0866D6003AC533 /* Info.plist */,
 				4FE2CCDA2B086CF5003AC533 /* GoogleService-Info.plist */,
@@ -156,6 +158,15 @@
 				4FE2CCEC2B0AE171003AC533 /* RegisterFirebaseManager.swift */,
 			);
 			path = "Register Screen";
+			sourceTree = "<group>";
+		};
+		4FE2CCF02B0B87CA003AC533 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4FE2CCCF2B0866D6003AC533 /* Assets.xcassets */,
+				4FE2CCF12B0B87EF003AC533 /* fonts.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		645F92282B0982C700FAC72C /* View */ = {
@@ -353,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FE2CCF22B0B87EF003AC533 /* fonts.swift in Sources */,
 				64824E192B0AB1B8004CFE1D /* ChatsView.swift in Sources */,
 				12B783AF2B0B7EC80004B7F8 /* MyPetsViewController.swift in Sources */,
 				4FE2CCED2B0AE171003AC533 /* RegisterFirebaseManager.swift in Sources */,

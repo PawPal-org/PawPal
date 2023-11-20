@@ -9,9 +9,7 @@ import UIKit
 
 class CardView: UIView {
     
-    let normalFont = "KohinoorBangla-Regular"
-    let boldFont = "KohinoorBangla-Semibold"
-    let lightFont = "KohinoorBangla-Light"
+    
     //MARK: Variables for cards' front
     let imageView = UIImageView()
     let labelName = UILabel()
@@ -104,7 +102,7 @@ class CardView: UIView {
     }
 
     private func setupLabelName() {
-        labelName.font = UIFont(name: "Noteworthy-Bold", size: 30)
+        labelName.font = UIFont(name: titleFont, size: 30)
         labelName.textAlignment = .center
         labelName.translatesAutoresizingMaskIntoConstraints = false
     }

@@ -39,7 +39,7 @@ class SettingTableViewCell: UITableViewCell {
     
     func setupLabelTitle(){
         labelTitle = UILabel()
-        labelTitle.font = UIFont.boldSystemFont(ofSize: 20)
+        labelTitle.font = UIFont(name: normalFont, size: 20)
         labelTitle.translatesAutoresizingMaskIntoConstraints = false
         wrapperCellView.addSubview(labelTitle)
     }
