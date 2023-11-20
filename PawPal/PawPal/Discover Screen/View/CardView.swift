@@ -8,12 +8,26 @@
 import UIKit
 
 class CardView: UIView {
-    let imageView = UIImageView()
-    let titleLabel = UILabel()
-    let detailLabel = UILabel()
     
-    let flippedTitleLabel = UILabel()
-    let flippedDetailView = UILabel()
+    let normalFont = "KohinoorBangla-Regular"
+    let boldFont = "KohinoorBangla-Semibold"
+    let lightFont = "KohinoorBangla-Light"
+    //MARK: Variables for cards' front
+    let imageView = UIImageView()
+    let labelName = UILabel()
+    let labelSex = UILabel()
+    let labelBreed = UILabel()
+    let labelLocation = UILabel()
+    //MARK: Variables for cards' back
+    let flippedButtonIcon = UIButton()
+    let flippedLabelName = UILabel()
+    let flippedLabelSex = UILabel()
+    let flippedLabelAge = UILabel()
+    let flippedLabelBreed = UILabel()
+    let flippedLabelBirthday = UILabel()
+    let flippedLabelWeight = UILabel()
+    let flippedLabelVaccinations = UILabel()
+    let flippedLabelDescriptions = UILabel()
     var isFlipped = false
 
     override init(frame: CGRect) {
@@ -36,66 +50,169 @@ class CardView: UIView {
 
     private func setupSubviews() {
         addSubview(imageView)
-        addSubview(titleLabel)
-        addSubview(detailLabel)
+        addSubview(labelName)
+        addSubview(labelSex)
+        addSubview(labelBreed)
+        addSubview(labelLocation)
+        
 
         setupImageView()
-        setupTitleLabel()
-        setupDetailLabel()
+        setupLabelName()
+        setupLabelSex()
+        setupLabelBreed()
+        setupLabelLocation()
     }
     
     private func setupFlippedStateSubviews(){
-        addSubview(flippedTitleLabel)
-        addSubview(flippedDetailView)
+        addSubview(flippedButtonIcon)
+        addSubview(flippedLabelName)
+        addSubview(flippedLabelSex)
+        addSubview(flippedLabelAge)
+        addSubview(flippedLabelBreed)
+        addSubview(flippedLabelBirthday)
+        addSubview(flippedLabelWeight)
+        addSubview(flippedLabelVaccinations)
+        addSubview(flippedLabelDescriptions)
         
-        setupFlippedTitleLabel()
-        setupFlippedDetailLabel()
-        flippedDetailView.isHidden = true
-        flippedTitleLabel.isHidden = true
+        setupFlippedLabelName()
+        setupFlippedLabelSex()
+        setupFlippedButtonIcon()
+        setupFlippedLabelAge()
+        setupFlippedLabelBreed()
+        setupFlippedLabelBirthday()
+        setupFlippedLabelWeight()
+        setupFlippedLabelVaccinations()
+        setupFlippedLabelDescriptions()
+        
+        flippedButtonIcon.isHidden = true
+        flippedLabelName.isHidden = true
+        flippedLabelSex.isHidden = true
+        flippedLabelAge.isHidden = true
+        flippedLabelBreed.isHidden = true
+        flippedLabelBirthday.isHidden = true
+        flippedLabelWeight.isHidden = true
+        flippedLabelVaccinations.isHidden = true
+        flippedLabelDescriptions.isHidden = true
     }
     
-    func configureFlippedState(title: String, details: String){
-        flippedTitleLabel.text = title
-        flippedDetailView.text = details
-    }
+    
 
     private func setupImageView() {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-
     }
 
-    private func setupTitleLabel() {
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        titleLabel.textAlignment = .center
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    private func setupFlippedTitleLabel() {
-        flippedTitleLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        flippedTitleLabel.textAlignment = .center
-        flippedTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+    private func setupLabelName() {
+        labelName.font = UIFont(name: "Noteworthy-Bold", size: 30)
+        labelName.textAlignment = .center
+        labelName.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func setupDetailLabel() {
-        detailLabel.font = UIFont.systemFont(ofSize: 16)
-        detailLabel.numberOfLines = 0
-        detailLabel.textAlignment = .center
-        detailLabel.translatesAutoresizingMaskIntoConstraints = false
+    private func setupLabelSex(){
+        labelSex.font = UIFont(name: normalFont, size: 25)
+        labelSex.textAlignment = .right
+        labelSex.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func setupFlippedDetailLabel() {
-        flippedDetailView.font = UIFont.systemFont(ofSize: 16)
-        flippedDetailView.numberOfLines = 0
-        flippedDetailView.textAlignment = .center
-        flippedDetailView.translatesAutoresizingMaskIntoConstraints = false
+    private func setupLabelBreed() {
+        labelBreed.font = UIFont(name: normalFont, size: 20)
+        labelBreed.numberOfLines = 0
+        labelBreed.textAlignment = .left
+        labelBreed.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupLabelLocation() {
+        labelLocation.font = UIFont(name: lightFont, size: 16)
+        labelLocation.numberOfLines = 0
+        labelLocation.textAlignment = .left
+        labelLocation.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    func configure(with image: UIImage, title: String, details: String) {
+    func setupFlippedButtonIcon(){
+        
+        flippedButtonIcon.setBackgroundImage(UIImage(systemName: "dog.circle"), for: .normal)
+        flippedButtonIcon.translatesAutoresizingMaskIntoConstraints = false
+        
+    }
+    
+    private func setupFlippedLabelName() {
+        //flippedLabelName.font = UIFont.boldSystemFont(ofSize: 30)
+        flippedLabelName.font = UIFont(name: "Noteworthy-Light", size: 30)
+        flippedLabelName.textAlignment = .right
+        flippedLabelName.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    
+    private func setupFlippedLabelSex() {
+        flippedLabelSex.font = UIFont(name: normalFont, size: 20)
+        flippedLabelSex.numberOfLines = 0
+        flippedLabelSex.textAlignment = .left
+        flippedLabelSex.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupFlippedLabelAge() {
+        flippedLabelAge.font = UIFont(name: normalFont, size: 20)
+        flippedLabelAge.numberOfLines = 0
+        flippedLabelAge.textAlignment = .left
+        flippedLabelAge.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupFlippedLabelBreed() {
+        flippedLabelBreed.font = UIFont(name: normalFont, size: 20)
+        flippedLabelBreed.numberOfLines = 0
+        flippedLabelBreed.textAlignment = .left
+        flippedLabelBreed.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupFlippedLabelBirthday() {
+        flippedLabelBirthday.font = UIFont(name: normalFont, size: 20)
+        flippedLabelBirthday.numberOfLines = 0
+        flippedLabelBirthday.textAlignment = .left
+        flippedLabelBirthday.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupFlippedLabelWeight() {
+        flippedLabelWeight.font = UIFont(name: normalFont, size: 20)
+        flippedLabelWeight.numberOfLines = 0
+        flippedLabelWeight.textAlignment = .left
+        flippedLabelWeight.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupFlippedLabelVaccinations() {
+        flippedLabelVaccinations.font = UIFont(name: normalFont, size: 20)
+        flippedLabelVaccinations.numberOfLines = 0
+        flippedLabelVaccinations.textAlignment = .left
+        flippedLabelVaccinations.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupFlippedLabelDescriptions() {
+        flippedLabelDescriptions.font = UIFont(name: normalFont, size: 20)
+        flippedLabelDescriptions.numberOfLines = 0
+        flippedLabelDescriptions.textAlignment = .left
+        flippedLabelDescriptions.translatesAutoresizingMaskIntoConstraints = false
+        
+    }
+
+    func configure(with image: UIImage, name: String, sex: String, breed: String, location: String) {
         imageView.image = image
-        titleLabel.text = title
-        detailLabel.text = details
+        labelName.text = name
+        labelSex.text = sex
+        labelBreed.text = breed
+        labelLocation.text = location
+    }
+    
+    func configureFlippedState(with image: UIImage, name: String, sex: String, age: String, breed: String,
+                               birthday: String, weight: String, vaccinations: String, descriptions: String){
+        flippedButtonIcon.setImage(image, for: .normal)
+        flippedLabelName.text = name
+        flippedLabelSex.text = "\(sex)"
+        flippedLabelAge.text = "\(age)"
+        flippedLabelBreed.text = "Breed: \(breed)"
+        flippedLabelBirthday.text = "Birthday: \(birthday)"
+        flippedLabelWeight.text = "Weight: \(weight)\n"
+        flippedLabelVaccinations.text = "Vaccinations: \n\(vaccinations)"
+        flippedLabelDescriptions.text = "\n\(descriptions)"
     }
     
     func initConstraints(){
@@ -105,19 +222,45 @@ class CardView: UIView {
             imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             imageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
             
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            labelName.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            labelName.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 18),
             
-            detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
-            detailLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            detailLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            detailLabel.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor, constant: -10),
+            labelSex.bottomAnchor.constraint(equalTo: labelName.bottomAnchor),
+            labelSex.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -8),
             
-            flippedTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            flippedTitleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            flippedDetailView.topAnchor.constraint(equalTo: flippedTitleLabel.bottomAnchor, constant: 40),
-            flippedDetailView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+            labelBreed.topAnchor.constraint(equalTo: labelName.bottomAnchor, constant: 3),
+            labelBreed.leadingAnchor.constraint(equalTo: labelName.leadingAnchor),
+            labelBreed.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            labelBreed.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor, constant: -10),
+            
+            labelLocation.topAnchor.constraint(equalTo: labelBreed.bottomAnchor, constant: 2),
+            labelLocation.leadingAnchor.constraint(equalTo: labelName.leadingAnchor),
+            
+            flippedButtonIcon.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
+            flippedButtonIcon.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            flippedButtonIcon.widthAnchor.constraint(equalToConstant: 150),
+            flippedButtonIcon.heightAnchor.constraint(equalToConstant: 150),
+            
+            flippedLabelName.bottomAnchor.constraint(equalTo: flippedButtonIcon.bottomAnchor, constant: -40),
+            flippedLabelName.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+
+            flippedLabelSex.topAnchor.constraint(equalTo: flippedLabelName.bottomAnchor,constant: 8),
+            flippedLabelSex.leadingAnchor.constraint(equalTo: flippedLabelName.leadingAnchor),
+            
+            flippedLabelAge.topAnchor.constraint(equalTo: flippedLabelSex.topAnchor),
+            flippedLabelAge.trailingAnchor.constraint(equalTo: flippedLabelName.trailingAnchor),
+            
+            flippedLabelBreed.topAnchor.constraint(equalTo: flippedButtonIcon.bottomAnchor, constant: 20),
+            flippedLabelBreed.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20),
+            flippedLabelBirthday.topAnchor.constraint(equalTo: flippedLabelBreed.bottomAnchor, constant: 8),
+            flippedLabelBirthday.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20),
+            flippedLabelWeight.topAnchor.constraint(equalTo: flippedLabelBirthday.bottomAnchor, constant: 8),
+            flippedLabelWeight.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20),
+            flippedLabelVaccinations.topAnchor.constraint(equalTo: flippedLabelWeight.bottomAnchor, constant: 8),
+            flippedLabelVaccinations.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20),
+            flippedLabelDescriptions.topAnchor.constraint(equalTo: flippedLabelVaccinations.bottomAnchor, constant: 8),
+            flippedLabelDescriptions.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20),
+            flippedLabelDescriptions.widthAnchor.constraint(equalToConstant: 280)
         ])
     }
 }

@@ -24,14 +24,26 @@ class DiscoverViewController: UIViewController {
     private func setupCardStack() {
         for i in 1...5 {
             let cardView = createNewCardView()
+            var tempSexArray = ["He","She"]
+            var tempBreedArray = ["Sibreian Husky", "Golden Retriver", "Border Collie", "Unknown"]
+            
             cardView.configure(
                 with: ((UIImage(systemName: "pawprint.fill") ?? UIImage(systemName: "cross"))!),
-                title: "Card \(i)",
-                details: "Details for card \(i)"
+                name: "Puppy No.\(i)",
+                sex: "\(tempSexArray[i%2])",
+                breed: "\(tempBreedArray[i%4])",
+                location: "San Jose"
             )
             cardView.configureFlippedState(
-                title: "Flipped Card \(i)",
-                details: "Details for card \(i)")
+                with: ((UIImage(systemName: "dog.circle") ?? UIImage(systemName: "cross"))!),
+                name: "Puppy No.\(i)",
+                sex: "\(tempSexArray[i%2])",
+                age: "3 yrs",
+                breed: "\(tempBreedArray[i%4])",
+                birthday: "July 24, 2021",
+                weight: "80 lbs",
+                vaccinations: "Bordetella Bronchiseptica\nCanine Distemper\nCanine Hepatitis\nCanine Parainfluenza",
+                descriptions: "I would love to play with any other dogs!")
             
             cardStack.append(cardView)
             view.addSubview(cardView)
@@ -74,6 +86,7 @@ class DiscoverViewController: UIViewController {
         switch sender.direction {
         case .right:
             likedCards.append(senderView)
+            print(likedCards)
             animateCard(card: topCard, translation: 500) // Swipe right
         case .left:
             animateCard(card: topCard, translation: -500) // Swipe left
@@ -99,11 +112,21 @@ class DiscoverViewController: UIViewController {
             // Change the content of the card to show detailed information
             card.isFlipped.toggle()
             let showFlipped = card.isFlipped
-                        card.imageView.isHidden = showFlipped
-                        card.titleLabel.isHidden = showFlipped
-                        card.detailLabel.isHidden = showFlipped
-                        card.flippedTitleLabel.isHidden = !showFlipped
-                        card.flippedDetailView.isHidden = !showFlipped
+            card.imageView.isHidden = showFlipped
+            card.labelName.isHidden = showFlipped
+            card.labelBreed.isHidden = showFlipped
+            card.labelSex.isHidden = showFlipped
+            card.labelLocation.isHidden = showFlipped
+            
+            card.flippedButtonIcon.isHidden = !showFlipped
+            card.flippedLabelName.isHidden = !showFlipped
+            card.flippedLabelAge.isHidden = !showFlipped
+            card.flippedLabelSex.isHidden = !showFlipped
+            card.flippedLabelBreed.isHidden = !showFlipped
+            card.flippedLabelBirthday.isHidden = !showFlipped
+            card.flippedLabelWeight.isHidden = !showFlipped
+            card.flippedLabelVaccinations.isHidden = !showFlipped
+            card.flippedLabelDescriptions.isHidden = !showFlipped
         })
     }
 
@@ -126,6 +149,8 @@ class DiscoverViewController: UIViewController {
         resetButton.addTarget(self, action: #selector(resetDeck), for: .touchUpInside)
         resetButton.backgroundColor = .systemBlue
         emptyCard.addSubview(resetButton)
+        print(likedCards)
+        
     }
 
     @objc func resetDeck() {
