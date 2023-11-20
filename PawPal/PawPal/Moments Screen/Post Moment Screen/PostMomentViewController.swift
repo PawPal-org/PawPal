@@ -31,6 +31,18 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
             selectedImages.append(selectedImage)
         }
         postMomentScreen.collectionView.reloadData()
+        
+        let barIcon = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.up.circle"),
+            style: .plain,
+            target: self,
+            action: #selector(onPostBarButtonTapped)
+        )
+        navigationItem.rightBarButtonItems = [barIcon]
+    }
+    
+    @objc func onPostBarButtonTapped() {
+        // post a new moment
     }
     
     //MARK: UICollectionViewDataSource Methods
@@ -47,7 +59,9 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
             
             if cell.contentView.subviews.isEmpty {
                 let addButton = UIButton(frame: cell.bounds)
+                addButton.backgroundColor = .lightGray
                 addButton.setImage(UIImage(systemName: "plus"), for: .normal)
+                addButton.tintColor = .black
                 addButton.addTarget(self, action: #selector(addImageButtonTapped), for: .touchUpInside)
                 cell.contentView.addSubview(addButton)
             }

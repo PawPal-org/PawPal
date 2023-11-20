@@ -41,6 +41,15 @@
 		64824E1C2B0AB1EA004CFE1D /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64824E1B2B0AB1EA004CFE1D /* MeView.swift */; };
 		64824E1E2B0AB1F4004CFE1D /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64824E1D2B0AB1F4004CFE1D /* MeViewController.swift */; };
 		64824E212B0AB230004CFE1D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64824E202B0AB230004CFE1D /* LoginViewController.swift */; };
+		64ECD8DD2B0BB7670077E96E /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ECD8D12B0BB7670077E96E /* Configs.swift */; };
+		64ECD8DE2B0BB7670077E96E /* ImageCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ECD8D22B0BB7670077E96E /* ImageCollectionViewManager.swift */; };
+		64ECD8DF2B0BB7670077E96E /* MomentsTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ECD8D32B0BB7670077E96E /* MomentsTableViewManager.swift */; };
+		64ECD8E02B0BB7670077E96E /* PostMomentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ECD8D52B0BB7670077E96E /* PostMomentViewController.swift */; };
+		64ECD8E12B0BB7670077E96E /* PostMomentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ECD8D72B0BB7670077E96E /* PostMomentView.swift */; };
+		64ECD8E22B0BB7670077E96E /* Moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ECD8D82B0BB7670077E96E /* Moment.swift */; };
+		64ECD8E32B0BB7670077E96E /* MomentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ECD8DA2B0BB7670077E96E /* MomentsView.swift */; };
+		64ECD8E42B0BB7670077E96E /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ECD8DB2B0BB7670077E96E /* ImageCollectionViewCell.swift */; };
+		64ECD8E52B0BB7670077E96E /* MomentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ECD8DC2B0BB7670077E96E /* MomentsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +85,15 @@
 		64824E1B2B0AB1EA004CFE1D /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		64824E1D2B0AB1F4004CFE1D /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
 		64824E202B0AB230004CFE1D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		64ECD8D12B0BB7670077E96E /* Configs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
+		64ECD8D22B0BB7670077E96E /* ImageCollectionViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewManager.swift; sourceTree = "<group>"; };
+		64ECD8D32B0BB7670077E96E /* MomentsTableViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MomentsTableViewManager.swift; sourceTree = "<group>"; };
+		64ECD8D52B0BB7670077E96E /* PostMomentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMomentViewController.swift; sourceTree = "<group>"; };
+		64ECD8D72B0BB7670077E96E /* PostMomentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMomentView.swift; sourceTree = "<group>"; };
+		64ECD8D82B0BB7670077E96E /* Moment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Moment.swift; sourceTree = "<group>"; };
+		64ECD8DA2B0BB7670077E96E /* MomentsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MomentsView.swift; sourceTree = "<group>"; };
+		64ECD8DB2B0BB7670077E96E /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		64ECD8DC2B0BB7670077E96E /* MomentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MomentsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +215,12 @@
 			isa = PBXGroup;
 			children = (
 				64824E042B0AB0E1004CFE1D /* View */,
+				64ECD8D12B0BB7670077E96E /* Configs.swift */,
+				64ECD8D22B0BB7670077E96E /* ImageCollectionViewManager.swift */,
+				64ECD8D82B0BB7670077E96E /* Moment.swift */,
+				64ECD8D32B0BB7670077E96E /* MomentsTableViewManager.swift */,
+				64ECD8D42B0BB7670077E96E /* Post Moment Screen */,
+				64ECD8D92B0BB7670077E96E /* View */,
 				64824E072B0AB10D004CFE1D /* MomentsViewController.swift */,
 			);
 			path = "Moments Screen";
@@ -283,6 +307,33 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		64ECD8D42B0BB7670077E96E /* Post Moment Screen */ = {
+			isa = PBXGroup;
+			children = (
+				64ECD8D52B0BB7670077E96E /* PostMomentViewController.swift */,
+				64ECD8D62B0BB7670077E96E /* View */,
+			);
+			path = "Post Moment Screen";
+			sourceTree = "<group>";
+		};
+		64ECD8D62B0BB7670077E96E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				64ECD8D72B0BB7670077E96E /* PostMomentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		64ECD8D92B0BB7670077E96E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				64ECD8DA2B0BB7670077E96E /* MomentsView.swift */,
+				64ECD8DB2B0BB7670077E96E /* ImageCollectionViewCell.swift */,
+				64ECD8DC2B0BB7670077E96E /* MomentsTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -364,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64ECD8E42B0BB7670077E96E /* ImageCollectionViewCell.swift in Sources */,
 				4FE2CCF22B0B87EF003AC533 /* fonts.swift in Sources */,
 				64824E192B0AB1B8004CFE1D /* ChatsView.swift in Sources */,
 				12B783AF2B0B7EC80004B7F8 /* MyPetsViewController.swift in Sources */,
@@ -372,24 +424,32 @@
 				64824E102B0AB171004CFE1D /* BeFriendsView.swift in Sources */,
 				64824E212B0AB230004CFE1D /* LoginViewController.swift in Sources */,
 				4FE2CCCB2B0866D5003AC533 /* ViewController.swift in Sources */,
+				64ECD8DD2B0BB7670077E96E /* Configs.swift in Sources */,
 				64824E0A2B0AB122004CFE1D /* DiscoverViewController.swift in Sources */,
+				64ECD8DF2B0BB7670077E96E /* MomentsTableViewManager.swift in Sources */,
 				4FE2CCEF2B0AFE12003AC533 /* CardView.swift in Sources */,
 				64824E082B0AB10D004CFE1D /* MomentsViewController.swift in Sources */,
 				12B783AD2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift in Sources */,
 				12B783A72B0B7E3C0004B7F8 /* SettingTableViewCell.swift in Sources */,
+				64ECD8E52B0BB7670077E96E /* MomentsTableViewCell.swift in Sources */,
 				12B783AB2B0B7E9A0004B7F8 /* MyPetsView.swift in Sources */,
 				12B783A52B0B7E1F0004B7F8 /* MeTableViewCell.swift in Sources */,
 				12B783A92B0B7E5E0004B7F8 /* LogOutTableViewCell.swift in Sources */,
 				64824E062B0AB0FD004CFE1D /* MomentsView.swift in Sources */,
 				64824E172B0AB1AD004CFE1D /* ChatsViewController.swift in Sources */,
 				64824E1E2B0AB1F4004CFE1D /* MeViewController.swift in Sources */,
+				64ECD8DE2B0BB7670077E96E /* ImageCollectionViewManager.swift in Sources */,
 				4FE2CCC72B0866D5003AC533 /* AppDelegate.swift in Sources */,
+				64ECD8E22B0BB7670077E96E /* Moment.swift in Sources */,
 				4FE2CCC92B0866D5003AC533 /* SceneDelegate.swift in Sources */,
 				64824E0D2B0AB141004CFE1D /* DiscoverView.swift in Sources */,
 				4FE2CCEB2B0ADF4F003AC533 /* RegisterViewController.swift in Sources */,
+				64ECD8E02B0BB7670077E96E /* PostMomentViewController.swift in Sources */,
 				4FE2CCE92B0ADF23003AC533 /* RegisterView.swift in Sources */,
 				64824E132B0AB189004CFE1D /* BeFriendsViewController.swift in Sources */,
 				64824E1C2B0AB1EA004CFE1D /* MeView.swift in Sources */,
+				64ECD8E32B0BB7670077E96E /* MomentsView.swift in Sources */,
+				64ECD8E12B0BB7670077E96E /* PostMomentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

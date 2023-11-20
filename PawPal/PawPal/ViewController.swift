@@ -45,7 +45,7 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
             selectedImage: UIImage(systemName: "m.square.fill")
         )
         tabMoments.tabBarItem = tabMomentsBarItem
-        tabMoments.title = "Discover"
+        tabMoments.title = "Moments"
         
         //MARK: setting up Chats tab bar...
         let tabChats = UINavigationController(rootViewController: ChatsViewController())
