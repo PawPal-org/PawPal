@@ -30,7 +30,8 @@ class LoginViewController: UIViewController {
     }
     
     @objc func onSignUpTapped() {
-        
+        let registerViewController = RegisterViewController()
+        self.navigationController?.pushViewController(registerViewController, animated: true)
     }
     
     @objc func onForgotPasswordTapped() {

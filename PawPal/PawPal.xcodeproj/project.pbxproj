@@ -14,6 +14,9 @@
 		4FE2CCD02B0866D6003AC533 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FE2CCCF2B0866D6003AC533 /* Assets.xcassets */; };
 		4FE2CCD32B0866D6003AC533 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FE2CCD12B0866D6003AC533 /* LaunchScreen.storyboard */; };
 		4FE2CCDB2B086CF5003AC533 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FE2CCDA2B086CF5003AC533 /* GoogleService-Info.plist */; };
+		4FE2CCE92B0ADF23003AC533 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCE82B0ADF23003AC533 /* RegisterView.swift */; };
+		4FE2CCEB2B0ADF4F003AC533 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCEA2B0ADF4F003AC533 /* RegisterViewController.swift */; };
+		4FE2CCED2B0AE171003AC533 /* RegisterFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCEC2B0AE171003AC533 /* RegisterFirebaseManager.swift */; };
 		645F922A2B0982C700FAC72C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F92292B0982C700FAC72C /* LoginView.swift */; };
 		64824DF72B0AA4DA004CFE1D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 64824DF62B0AA4DA004CFE1D /* FirebaseAuth */; };
 		64824DF92B0AA4E4004CFE1D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 64824DF82B0AA4E4004CFE1D /* FirebaseStorage */; };
@@ -42,6 +45,9 @@
 		4FE2CCD22B0866D6003AC533 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4FE2CCD42B0866D6003AC533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FE2CCDA2B086CF5003AC533 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4FE2CCE82B0ADF23003AC533 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		4FE2CCEA2B0ADF4F003AC533 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		4FE2CCEC2B0AE171003AC533 /* RegisterFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterFirebaseManager.swift; sourceTree = "<group>"; };
 		645F92292B0982C700FAC72C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		64824E052B0AB0FD004CFE1D /* MomentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentsView.swift; sourceTree = "<group>"; };
 		64824E072B0AB10D004CFE1D /* MomentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentsViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +97,7 @@
 		4FE2CCC52B0866D5003AC533 /* PawPal */ = {
 			isa = PBXGroup;
 			children = (
+				4FE2CCE72B0ADEE7003AC533 /* Register Screen */,
 				64824E022B0AB0BB004CFE1D /* Discover Screen */,
 				64824E0E2B0AB154004CFE1D /* BeFriends Screen */,
 				64824E012B0AB0A4004CFE1D /* Moments Screen */,
@@ -107,6 +114,16 @@
 				4FE2CCDA2B086CF5003AC533 /* GoogleService-Info.plist */,
 			);
 			path = PawPal;
+			sourceTree = "<group>";
+		};
+		4FE2CCE72B0ADEE7003AC533 /* Register Screen */ = {
+			isa = PBXGroup;
+			children = (
+				4FE2CCE82B0ADF23003AC533 /* RegisterView.swift */,
+				4FE2CCEA2B0ADF4F003AC533 /* RegisterViewController.swift */,
+				4FE2CCEC2B0AE171003AC533 /* RegisterFirebaseManager.swift */,
+			);
+			path = "Register Screen";
 			sourceTree = "<group>";
 		};
 		645F92282B0982C700FAC72C /* View */ = {
@@ -300,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				64824E192B0AB1B8004CFE1D /* ChatsView.swift in Sources */,
+				4FE2CCED2B0AE171003AC533 /* RegisterFirebaseManager.swift in Sources */,
 				645F922A2B0982C700FAC72C /* LoginView.swift in Sources */,
 				64824E102B0AB171004CFE1D /* BeFriendsView.swift in Sources */,
 				64824E212B0AB230004CFE1D /* LoginViewController.swift in Sources */,
@@ -312,6 +330,8 @@
 				4FE2CCC72B0866D5003AC533 /* AppDelegate.swift in Sources */,
 				4FE2CCC92B0866D5003AC533 /* SceneDelegate.swift in Sources */,
 				64824E0D2B0AB141004CFE1D /* DiscoverView.swift in Sources */,
+				4FE2CCEB2B0ADF4F003AC533 /* RegisterViewController.swift in Sources */,
+				4FE2CCE92B0ADF23003AC533 /* RegisterView.swift in Sources */,
 				64824E132B0AB189004CFE1D /* BeFriendsViewController.swift in Sources */,
 				64824E1C2B0AB1EA004CFE1D /* MeView.swift in Sources */,
 			);
