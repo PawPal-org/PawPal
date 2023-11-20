@@ -23,12 +23,16 @@ class DiscoverViewController: UIViewController {
 
     private func setupCardStack() {
         for i in 1...5 {
-            cardView = createNewCardView()
+            let cardView = createNewCardView()
             cardView.configure(
                 with: ((UIImage(systemName: "pawprint.fill") ?? UIImage(systemName: "cross"))!),
                 title: "Card \(i)",
                 details: "Details for card \(i)"
             )
+            cardView.configureFlippedState(
+                title: "Flipped Card \(i)",
+                details: "Details for card \(i)")
+            
             cardStack.append(cardView)
             view.addSubview(cardView)
             positionCard(cardView)
@@ -38,7 +42,7 @@ class DiscoverViewController: UIViewController {
     }
 
     private func createNewCardView() -> CardView {
-        let cardSize = CGSize(width: 300, height: 400)
+        let cardSize = CGSize(width: 350, height: 600)
         let cardViewTemp = CardView(frame: CGRect(x: (view.frame.width - cardSize.width) / 2,
                                               y: (view.frame.height - cardSize.height) / 2,
                                               width: cardSize.width,
@@ -91,8 +95,15 @@ class DiscoverViewController: UIViewController {
     @objc func flipCard(_ sender: UITapGestureRecognizer) {
         guard let card = sender.view as? CardView else { return }
 
-        UIView.transition(with: card, duration: 1.0, options: .transitionFlipFromRight, animations: {
+        UIView.transition(with: card, duration: 1.0, options: [.transitionFlipFromRight, .showHideTransitionViews], animations: {
             // Change the content of the card to show detailed information
+            card.isFlipped.toggle()
+            let showFlipped = card.isFlipped
+                        card.imageView.isHidden = showFlipped
+                        card.titleLabel.isHidden = showFlipped
+                        card.detailLabel.isHidden = showFlipped
+                        card.flippedTitleLabel.isHidden = !showFlipped
+                        card.flippedDetailView.isHidden = !showFlipped
         })
     }
 
@@ -110,16 +121,23 @@ class DiscoverViewController: UIViewController {
         view.addSubview(emptyCard)
         positionCard(emptyCard)
 
-        let resetButton = UIButton(frame: CGRect(x: 50, y: 150, width: 200, height: 50))
+        let resetButton = UIButton(frame: CGRect(x: 75, y: 150, width: 200, height: 50))
         resetButton.setTitle("View Deck Again", for: .normal)
         resetButton.addTarget(self, action: #selector(resetDeck), for: .touchUpInside)
-        resetButton.backgroundColor = .blue
+        resetButton.backgroundColor = .systemBlue
         emptyCard.addSubview(resetButton)
     }
 
     @objc func resetDeck() {
-        // Code to reset the card deck and start over
-        // This might involve refilling the cardStack array and re-adding views
+        // Remove existing card views from the superview
+        for card in cardStack {
+            card.removeFromSuperview()
+        }
+        // Clear the arrays
+        cardStack.removeAll()
+        likedCards.removeAll()
+
+        // Setup the card stack again
         setupCardStack()
     }
 }
