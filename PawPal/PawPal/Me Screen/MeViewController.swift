@@ -106,6 +106,10 @@ extension MeViewController: UITableViewDataSource, UITableViewDelegate {
                 let myPetsController = MyPetsViewController()
                 navigationController?.pushViewController(myPetsController, animated: true)
             }
+            else if indexPath.row == 2 {
+                let mapViewController = MapViewController()
+                navigationController?.pushViewController(mapViewController, animated: true)
+            }
         } else if tableView == meScreen.settingTable {
             //Handle "Setting" cell tabbed
         } else if tableView == meScreen.logOutTable {

@@ -100,6 +100,7 @@ class CardView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.tintColor = backgroundColorBeige
     }
 
     private func setupLabelName() {
@@ -132,7 +133,7 @@ class CardView: UIView {
         
         flippedButtonIcon.setBackgroundImage(UIImage(systemName: "dog.circle"), for: .normal)
         flippedButtonIcon.translatesAutoresizingMaskIntoConstraints = false
-        
+        flippedButtonIcon.tintColor = backgroundColorBeige
     }
     
     private func setupFlippedLabelName() {

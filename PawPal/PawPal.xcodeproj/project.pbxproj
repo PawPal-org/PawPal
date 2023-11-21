@@ -27,6 +27,18 @@
 		4FE2CCED2B0AE171003AC533 /* RegisterFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCEC2B0AE171003AC533 /* RegisterFirebaseManager.swift */; };
 		4FE2CCEF2B0AFE12003AC533 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCEE2B0AFE12003AC533 /* CardView.swift */; };
 		4FE2CCF22B0B87EF003AC533 /* fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCF12B0B87EF003AC533 /* fonts.swift */; };
+		4FE2CCF52B0C8C22003AC533 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCF42B0C8C22003AC533 /* MapView.swift */; };
+		4FE2CCF72B0C8C34003AC533 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCF62B0C8C34003AC533 /* MapViewController.swift */; };
+		4FE2CCF92B0C8F53003AC533 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCF82B0C8F53003AC533 /* LocationManager.swift */; };
+		4FE2CCFB2B0C9526003AC533 /* MapConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCFA2B0C9526003AC533 /* MapConfigs.swift */; };
+		4FE2CCFD2B0C9562003AC533 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCFC2B0C9562003AC533 /* NotificationNames.swift */; };
+		4FE2CCFF2B0C960A003AC533 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCFE2B0C960A003AC533 /* SearchTableViewCell.swift */; };
+		4FE2CD012B0C9635003AC533 /* SearchBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CD002B0C9635003AC533 /* SearchBottomSheet.swift */; };
+		4FE2CD032B0C9661003AC533 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CD022B0C9661003AC533 /* SearchViewController.swift */; };
+		4FE2CD052B0C96AF003AC533 /* SearchTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CD042B0C96AF003AC533 /* SearchTableViewManager.swift */; };
+		4FE2CD092B0C96F8003AC533 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CD082B0C96F8003AC533 /* Place.swift */; };
+		4FE2CD0B2B0C9788003AC533 /* MapAnnotationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CD0A2B0C9788003AC533 /* MapAnnotationDelegate.swift */; };
+		4FE2CD0D2B0C97B1003AC533 /* LoadPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CD0C2B0C97B1003AC533 /* LoadPlaces.swift */; };
 		645F922A2B0982C700FAC72C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F92292B0982C700FAC72C /* LoginView.swift */; };
 		64824DF72B0AA4DA004CFE1D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 64824DF62B0AA4DA004CFE1D /* FirebaseAuth */; };
 		64824DF92B0AA4E4004CFE1D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 64824DF82B0AA4E4004CFE1D /* FirebaseStorage */; };
@@ -77,6 +89,18 @@
 		4FE2CCEC2B0AE171003AC533 /* RegisterFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterFirebaseManager.swift; sourceTree = "<group>"; };
 		4FE2CCEE2B0AFE12003AC533 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		4FE2CCF12B0B87EF003AC533 /* fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fonts.swift; sourceTree = "<group>"; };
+		4FE2CCF42B0C8C22003AC533 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		4FE2CCF62B0C8C34003AC533 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		4FE2CCF82B0C8F53003AC533 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		4FE2CCFA2B0C9526003AC533 /* MapConfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapConfigs.swift; sourceTree = "<group>"; };
+		4FE2CCFC2B0C9562003AC533 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
+		4FE2CCFE2B0C960A003AC533 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		4FE2CD002B0C9635003AC533 /* SearchBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBottomSheet.swift; sourceTree = "<group>"; };
+		4FE2CD022B0C9661003AC533 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		4FE2CD042B0C96AF003AC533 /* SearchTableViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewManager.swift; sourceTree = "<group>"; };
+		4FE2CD082B0C96F8003AC533 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		4FE2CD0A2B0C9788003AC533 /* MapAnnotationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationDelegate.swift; sourceTree = "<group>"; };
+		4FE2CD0C2B0C97B1003AC533 /* LoadPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadPlaces.swift; sourceTree = "<group>"; };
 		645F92292B0982C700FAC72C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		64824E052B0AB0FD004CFE1D /* MomentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentsView.swift; sourceTree = "<group>"; };
 		64824E072B0AB10D004CFE1D /* MomentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentsViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +217,25 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		4FE2CCF32B0C8BD3003AC533 /* GPS */ = {
+			isa = PBXGroup;
+			children = (
+				4FE2CCF42B0C8C22003AC533 /* MapView.swift */,
+				4FE2CCF62B0C8C34003AC533 /* MapViewController.swift */,
+				4FE2CCF82B0C8F53003AC533 /* LocationManager.swift */,
+				4FE2CCFA2B0C9526003AC533 /* MapConfigs.swift */,
+				4FE2CCFC2B0C9562003AC533 /* NotificationNames.swift */,
+				4FE2CCFE2B0C960A003AC533 /* SearchTableViewCell.swift */,
+				4FE2CD002B0C9635003AC533 /* SearchBottomSheet.swift */,
+				4FE2CD022B0C9661003AC533 /* SearchViewController.swift */,
+				4FE2CD042B0C96AF003AC533 /* SearchTableViewManager.swift */,
+				4FE2CD082B0C96F8003AC533 /* Place.swift */,
+				4FE2CD0A2B0C9788003AC533 /* MapAnnotationDelegate.swift */,
+				4FE2CD0C2B0C97B1003AC533 /* LoadPlaces.swift */,
+			);
+			path = GPS;
+			sourceTree = "<group>";
+		};
 		645F92282B0982C700FAC72C /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +338,7 @@
 		64824E1A2B0AB1D9004CFE1D /* Me Screen */ = {
 			isa = PBXGroup;
 			children = (
+				4FE2CCF32B0C8BD3003AC533 /* GPS */,
 				64824E1F2B0AB218004CFE1D /* View */,
 				64824E1D2B0AB1F4004CFE1D /* MeViewController.swift */,
 				12B783B02B0B7ED00004B7F8 /* My Pets */,
@@ -427,27 +471,39 @@
 				12B783AF2B0B7EC80004B7F8 /* MyPetsViewController.swift in Sources */,
 				4FE2CCED2B0AE171003AC533 /* RegisterFirebaseManager.swift in Sources */,
 				645F922A2B0982C700FAC72C /* LoginView.swift in Sources */,
+				4FE2CD092B0C96F8003AC533 /* Place.swift in Sources */,
+				4FE2CCFB2B0C9526003AC533 /* MapConfigs.swift in Sources */,
+				4FE2CD052B0C96AF003AC533 /* SearchTableViewManager.swift in Sources */,
 				64824E102B0AB171004CFE1D /* BeFriendsView.swift in Sources */,
+				4FE2CD0B2B0C9788003AC533 /* MapAnnotationDelegate.swift in Sources */,
 				12B86AFC2B0C2E57005E1F3B /* colors.swift in Sources */,
 				64824E212B0AB230004CFE1D /* LoginViewController.swift in Sources */,
 				4FE2CCCB2B0866D5003AC533 /* ViewController.swift in Sources */,
 				64ECD8DD2B0BB7670077E96E /* Configs.swift in Sources */,
 				64824E0A2B0AB122004CFE1D /* DiscoverViewController.swift in Sources */,
+				4FE2CCF92B0C8F53003AC533 /* LocationManager.swift in Sources */,
 				64ECD8DF2B0BB7670077E96E /* MomentsTableViewManager.swift in Sources */,
 				4FE2CCEF2B0AFE12003AC533 /* CardView.swift in Sources */,
 				64824E082B0AB10D004CFE1D /* MomentsViewController.swift in Sources */,
+				4FE2CCF52B0C8C22003AC533 /* MapView.swift in Sources */,
 				12B783AD2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift in Sources */,
 				12B783A72B0B7E3C0004B7F8 /* SettingTableViewCell.swift in Sources */,
 				64ECD8E52B0BB7670077E96E /* MomentsTableViewCell.swift in Sources */,
+				4FE2CCF72B0C8C34003AC533 /* MapViewController.swift in Sources */,
+				4FE2CD012B0C9635003AC533 /* SearchBottomSheet.swift in Sources */,
 				12B783AB2B0B7E9A0004B7F8 /* MyPetsView.swift in Sources */,
 				12B783A52B0B7E1F0004B7F8 /* MeTableViewCell.swift in Sources */,
+				4FE2CD0D2B0C97B1003AC533 /* LoadPlaces.swift in Sources */,
 				12B783A92B0B7E5E0004B7F8 /* LogOutTableViewCell.swift in Sources */,
+				4FE2CCFD2B0C9562003AC533 /* NotificationNames.swift in Sources */,
 				64824E062B0AB0FD004CFE1D /* MomentsView.swift in Sources */,
 				12B86AFA2B0C2D90005E1F3B /* Pet.swift in Sources */,
 				64824E172B0AB1AD004CFE1D /* ChatsViewController.swift in Sources */,
+				4FE2CD032B0C9661003AC533 /* SearchViewController.swift in Sources */,
 				64824E1E2B0AB1F4004CFE1D /* MeViewController.swift in Sources */,
 				64ECD8DE2B0BB7670077E96E /* ImageCollectionViewManager.swift in Sources */,
 				4FE2CCC72B0866D5003AC533 /* AppDelegate.swift in Sources */,
+				4FE2CCFF2B0C960A003AC533 /* SearchTableViewCell.swift in Sources */,
 				64ECD8E22B0BB7670077E96E /* Moment.swift in Sources */,
 				4FE2CCC92B0866D5003AC533 /* SceneDelegate.swift in Sources */,
 				64824E0D2B0AB141004CFE1D /* DiscoverView.swift in Sources */,
