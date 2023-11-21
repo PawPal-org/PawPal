@@ -76,6 +76,12 @@ class MyPetsTableViewCell: UITableViewCell {
             wrapperCellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             wrapperCellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             
+            imagePet.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 8),
+            imagePet.centerYAnchor.constraint(equalTo: wrapperCellView.centerYAnchor),
+            //MARK: set the height and width of an ImageView with constraints
+            imagePet.heightAnchor.constraint(equalTo: wrapperCellView.heightAnchor, constant: -20),
+            imagePet.widthAnchor.constraint(equalTo: wrapperCellView.heightAnchor, constant: -20),
+            
             labelName.topAnchor.constraint(equalTo: wrapperCellView.topAnchor, constant: 2),
             labelName.leadingAnchor.constraint(equalTo: imagePet.trailingAnchor, constant: 8),
             labelName.heightAnchor.constraint(equalToConstant: 32),
@@ -83,24 +89,20 @@ class MyPetsTableViewCell: UITableViewCell {
             
             labelSex.topAnchor.constraint(equalTo: labelName.bottomAnchor, constant: 2),
             labelSex.leadingAnchor.constraint(equalTo: labelName.leadingAnchor),
-            labelSex.heightAnchor.constraint(equalToConstant: 32),
+            //labelSex.heightAnchor.constraint(equalToConstant: 32),
             labelSex.widthAnchor.constraint(lessThanOrEqualTo: wrapperCellView.widthAnchor),
             
             labelAge.topAnchor.constraint(equalTo: labelSex.bottomAnchor, constant: 2),
             labelAge.leadingAnchor.constraint(equalTo: labelName.leadingAnchor),
-            labelAge.heightAnchor.constraint(equalToConstant: 32),
+            //labelAge.heightAnchor.constraint(equalToConstant: 32),
             labelAge.widthAnchor.constraint(lessThanOrEqualTo: wrapperCellView.widthAnchor),
             
             labelWeight.topAnchor.constraint(equalTo: labelAge.bottomAnchor, constant: 2),
             labelWeight.leadingAnchor.constraint(equalTo: labelName.leadingAnchor),
-            labelWeight.heightAnchor.constraint(equalToConstant: 32),
+            //labelWeight.heightAnchor.constraint(equalToConstant: 32),
             labelWeight.widthAnchor.constraint(lessThanOrEqualTo: wrapperCellView.widthAnchor),
             
-            imagePet.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 8),
-            imagePet.centerYAnchor.constraint(equalTo: wrapperCellView.centerYAnchor),
-            //MARK: set the height and width of an ImageView with constraints
-            imagePet.heightAnchor.constraint(equalTo: wrapperCellView.heightAnchor, constant: -20),
-            imagePet.widthAnchor.constraint(equalTo: wrapperCellView.heightAnchor, constant: -20),
+            
             
             wrapperCellView.heightAnchor.constraint(equalToConstant: 104)
         ])

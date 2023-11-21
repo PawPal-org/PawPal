@@ -30,6 +30,13 @@ class MyPetsViewController: UIViewController {
 //        }
         
         myPetScreen.tableViewPet.separatorStyle = .none
+        let barIcon = UIBarButtonItem(
+            image: UIImage(systemName: "plus.circle.fill"),
+            style: .plain,
+            target: self,
+            action: #selector(onAddBarButtonTapped)
+        )
+        navigationItem.rightBarButtonItems = [barIcon]
         
         //MARK: patching the table view delegate and datasource to controller...
         myPetScreen.tableViewPet.delegate = self
@@ -37,6 +44,10 @@ class MyPetsViewController: UIViewController {
         
         pets.append(Pet(name:"Sprite", sex: "Male, Neutered", age: "3 yrs", weight: "80 lbs"))
         pets.append(Pet(name:"Sprite", sex: "Male, Neutered", age: "3 yrs", weight: "80 lbs"))
+    }
+    
+    @objc func onAddBarButtonTapped(){
+        //navigationController?.pushViewController(, animated: <#T##Bool#>)
     }
 
 }
