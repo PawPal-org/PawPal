@@ -25,9 +25,9 @@ class MomentsView: UIView {
     //MARK: initializing the UI elements...
     func setupProfilePic(){
         profilePicButton = UIButton()
-        profilePicButton.setImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        profilePicButton.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
         profilePicButton.imageView?.contentMode = .scaleAspectFill
-        profilePicButton.layer.cornerRadius = 40
+        profilePicButton.layer.cornerRadius = 15
         profilePicButton.clipsToBounds = true
         // profilePicButton.layer.masksToBounds = true
         profilePicButton.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +36,7 @@ class MomentsView: UIView {
     
     func setupLabelText(){
         labelText = UILabel()
-        labelText.font = .boldSystemFont(ofSize: 14)
+        labelText.font = UIFont(name: titleFont, size: 16)
         labelText.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(labelText)
     }
@@ -51,14 +51,14 @@ class MomentsView: UIView {
     //MARK: setting up constraints...
     func initConstraints(){
         NSLayoutConstraint.activate([
-            profilePicButton.widthAnchor.constraint(equalToConstant: 40),
-            profilePicButton.heightAnchor.constraint(equalToConstant: 40),
+            profilePicButton.widthAnchor.constraint(equalToConstant: 30),
+            profilePicButton.heightAnchor.constraint(equalToConstant: 30),
             profilePicButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8),
-            profilePicButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            profilePicButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -13),
             
             labelText.topAnchor.constraint(equalTo: profilePicButton.topAnchor),
             labelText.bottomAnchor.constraint(equalTo: profilePicButton.bottomAnchor),
-            labelText.trailingAnchor.constraint(equalTo: self.profilePicButton.leadingAnchor, constant: 0),
+            labelText.trailingAnchor.constraint(equalTo: self.profilePicButton.leadingAnchor, constant: -2),
             
             tableViewMoments.topAnchor.constraint(equalTo: profilePicButton.bottomAnchor, constant: 8),
             tableViewMoments.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),

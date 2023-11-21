@@ -62,14 +62,16 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     
     func setupLabelName(){
         labelName = UILabel()
-        labelName.font = UIFont.boldSystemFont(ofSize: 14)
+        //labelName.font = UIFont.boldSystemFont(ofSize: 14)
+        labelName.font = UIFont(name: boldFont, size: 16)
         labelName.translatesAutoresizingMaskIntoConstraints = false
         wrapperCellView.addSubview(labelName)
     }
     
     func setupLabelText(){
         labelText = UILabel()
-        labelText.font = UIFont.systemFont(ofSize: 14)
+        //labelText.font = UIFont.systemFont(ofSize: 14)
+        labelText.font = UIFont(name: normalFont, size: 14)
         labelText.textColor = .darkGray
         labelText.numberOfLines = 0         // Allows multi-line text
         labelText.translatesAutoresizingMaskIntoConstraints = false
@@ -95,11 +97,11 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     
     func setupUserImageButton() {
         userImageButton = UIButton()
-        userImageButton.setImage(UIImage(systemName: "person.crop.circle"), for: .normal)
+        userImageButton.setBackgroundImage(UIImage(systemName: "person.crop.circle")!.withRenderingMode(.alwaysOriginal), for: .normal)
         userImageButton.tintColor = .gray
         userImageButton.contentMode = .scaleAspectFill
         userImageButton.clipsToBounds = true
-        userImageButton.layer.cornerRadius = 10
+        userImageButton.layer.cornerRadius = 11.5
         userImageButton.translatesAutoresizingMaskIntoConstraints = false
         wrapperCellView.addSubview(userImageButton)
     
@@ -135,10 +137,10 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
             wrapperCellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             wrapperCellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             
-            userImageButton.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: -2),
+            userImageButton.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: -11.5),
             userImageButton.topAnchor.constraint(equalTo: wrapperCellView.topAnchor, constant: 0),
-            userImageButton.widthAnchor.constraint(equalToConstant: 20),
-            userImageButton.heightAnchor.constraint(equalToConstant: 20),
+            userImageButton.widthAnchor.constraint(equalToConstant: 23),
+            userImageButton.heightAnchor.constraint(equalToConstant: 23),
             
             labelName.topAnchor.constraint(equalTo: wrapperCellView.topAnchor, constant: 0),
             labelName.leadingAnchor.constraint(equalTo: userImageButton.trailingAnchor, constant: 8),

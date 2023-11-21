@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class CardView: UIView {
     
@@ -136,8 +137,8 @@ class CardView: UIView {
     
     private func setupFlippedLabelName() {
         //flippedLabelName.font = UIFont.boldSystemFont(ofSize: 30)
-        flippedLabelName.font = UIFont(name: "Noteworthy-Light", size: 30)
-        flippedLabelName.textAlignment = .right
+        flippedLabelName.font = UIFont(name: "Noteworthy-Light", size: 40)
+        flippedLabelName.textAlignment = .center
         flippedLabelName.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -200,6 +201,14 @@ class CardView: UIView {
         labelLocation.text = location
     }
     
+    func convertTimestampToString(_ timestamp: Timestamp) -> String {
+        let date = timestamp.dateValue()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // Change to the desired format
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
     func configureFlippedState(with image: UIImage, name: String, sex: String, age: String, breed: String,
                                birthday: String, weight: String, vaccinations: String, descriptions: String){
         flippedButtonIcon.setImage(image, for: .normal)
@@ -209,9 +218,13 @@ class CardView: UIView {
         flippedLabelBreed.text = "Breed: \(breed)"
         flippedLabelBirthday.text = "Birthday: \(birthday)"
         flippedLabelWeight.text = "Weight: \(weight)\n"
-        flippedLabelVaccinations.text = "Vaccinations: \n\(vaccinations)"
+        let tempVacc = vaccinations.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+        let vacc = tempVacc.joined(separator: "\n")
+        flippedLabelVaccinations.text = "Vaccinations: \n\(vacc)"
         flippedLabelDescriptions.text = "\n\(descriptions)"
     }
+    
+    
     
     func initConstraints(){
         NSLayoutConstraint.activate([
@@ -239,14 +252,14 @@ class CardView: UIView {
             flippedButtonIcon.widthAnchor.constraint(equalToConstant: 150),
             flippedButtonIcon.heightAnchor.constraint(equalToConstant: 150),
             
-            flippedLabelName.bottomAnchor.constraint(equalTo: flippedButtonIcon.bottomAnchor, constant: -40),
-            flippedLabelName.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+            flippedLabelName.bottomAnchor.constraint(equalTo: flippedButtonIcon.bottomAnchor, constant: -45),
+            flippedLabelName.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
 
             flippedLabelSex.topAnchor.constraint(equalTo: flippedLabelName.bottomAnchor,constant: 8),
-            flippedLabelSex.leadingAnchor.constraint(equalTo: flippedLabelName.leadingAnchor),
+            flippedLabelSex.leadingAnchor.constraint(equalTo: flippedButtonIcon.trailingAnchor,constant: 20),
             
             flippedLabelAge.topAnchor.constraint(equalTo: flippedLabelSex.topAnchor),
-            flippedLabelAge.trailingAnchor.constraint(equalTo: flippedLabelName.trailingAnchor),
+            flippedLabelAge.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             
             flippedLabelBreed.topAnchor.constraint(equalTo: flippedButtonIcon.bottomAnchor, constant: 20),
             flippedLabelBreed.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20),

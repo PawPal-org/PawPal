@@ -2,25 +2,102 @@
 //  DiscoverViewController.swift
 //  PawPal
 //
-//  Created by Yitian Guo on 11/19/23.
+//  Created by Schromeo on 11/19/23.
 //
 
 import UIKit
+import FirebaseFirestore
 
 class DiscoverViewController: UIViewController {
     
     var cardStack: [CardView] = []
     var likedCards: [CardView] = []
     var cardView: CardView!
+    let db = Firestore.firestore()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = backgroundColorBeige
         title = "Discover"
-        setupCardStack()
-        
+        //setupCardStack()
+        fetchPetsData()
     }
-
+    
+    private func fetchPetsData() {
+        db.collection("users").getDocuments { [weak self] (usersSnapshot, usersError) in
+            if let error = usersError {
+                print("Error fetching users: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let self = self, let usersDocuments = usersSnapshot?.documents else { return }
+            
+            for userDocument in usersDocuments {
+                let userEmail = userDocument.documentID
+                self.db.collection("users").document(userEmail).collection("myPets").getDocuments { (petsSnapshot, petsError) in
+                    if let error = petsError {
+                        print("Error getting pets for user \(userEmail): \(error.localizedDescription)")
+                        return
+                    }
+                        
+                    guard let petsDocuments = petsSnapshot?.documents else { return }
+                    
+                    for petDocument in petsDocuments {
+                        self.processPetDocument(petDocument)
+                    }
+                }
+            }
+        }
+    }
+        
+    private func processPetDocument(_ document: QueryDocumentSnapshot) {
+        let petData = document.data()
+        let petName = petData["name"] as? String ?? "Unknown"
+        let petAge = petData["age"] as? String ?? "Unknown"
+        let petBreed = petData["breed"] as? String ?? "Unknown"
+        let petLocation = petData["location"] as? String ?? "Unknown"
+        let petSex = petData["sex"] as? String ?? "Unknown"
+        let petWeight = petData["weight"] as? String ?? "Unknown"
+        let petDescriptions = petData["descriptions"] as? String ?? "Woof~ Woof~"
+        let petVaccinations = petData["vaccinations"] as? String ?? "not uploaded yet"
+        
+        let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM-dd-yyyy"
+        var petBirthday = "Unknown"
+        if let tempBirthday = petData["birthday"] as? Timestamp {
+            let date = tempBirthday.dateValue()
+            petBirthday = dateFormatter.string(from: date)
+        }
+        
+        // Use the pet data to configure card view
+        DispatchQueue.main.async {
+            let cardView = self.createNewCardView()
+            cardView.configure(with: UIImage(systemName: "pawprint.fill")!, name: petName, sex: petSex, breed: petBreed, location: petLocation)
+            cardView.configureFlippedState(
+                with: UIImage(systemName: "dog.circle")!,
+                name: petName,
+                sex: petSex,
+                age: petAge,
+                breed: petBreed,
+                birthday: petBirthday,
+                weight: petWeight,
+                vaccinations: petVaccinations,
+                descriptions: petDescriptions
+            )
+            
+            self.cardStack.append(cardView)
+            self.view.addSubview(cardView)
+            self.positionCard(cardView)
+            self.setupGestures(for: cardView)
+                
+            // Bring the top card to front after all cards have been added
+            if let lastCard = self.cardStack.last {
+                self.view.bringSubviewToFront(lastCard)
+            }
+        }
+    }
+    
+    //A loop for creating random puppy info just for testing
     private func setupCardStack() {
         for i in 1...5 {
             let cardView = createNewCardView()
@@ -85,6 +162,7 @@ class DiscoverViewController: UIViewController {
             if translation.x > 100 { // Threshold for right swipe
                 animateCard(card: card, translation: 500) // Swipe right
                 likedCards.append(card)
+                print(likedCards)
             } else if translation.x < -100 { // Threshold for left swipe
                 animateCard(card: card, translation: -500) // Swipe left
             } else {
@@ -100,7 +178,6 @@ class DiscoverViewController: UIViewController {
         }
     }
 
-    
     
     private func showNextCard() {
         if let nextCard = cardStack.last {
@@ -168,7 +245,8 @@ class DiscoverViewController: UIViewController {
         likedCards.removeAll()
 
         // Setup the card stack again
-        setupCardStack()
+        //setupCardStack()
+        fetchPetsData()
     }
 }
 
