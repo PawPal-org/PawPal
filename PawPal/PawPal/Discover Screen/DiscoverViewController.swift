@@ -66,37 +66,42 @@ class DiscoverViewController: UIViewController {
         // Optionally, apply slight transformations for a stacked look
     }
 
+    //MARK: Drag and Swipe
     private func setupGestures(for cardView: CardView) {
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-        swipeRight.direction = .right
-        cardView.addGestureRecognizer(swipeRight)
-
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-        swipeLeft.direction = .left
-        cardView.addGestureRecognizer(swipeLeft)
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        cardView.addGestureRecognizer(panGesture)
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(flipCard(_:)))
         cardView.addGestureRecognizer(tapGesture)
-
     }
+    
+    @objc func handlePan(_ sender: UIPanGestureRecognizer) {
+        guard let card = sender.view as? CardView else { return }
 
-    @objc func handleSwipe(_ sender: UISwipeGestureRecognizer) {
-        guard let topCard = cardStack.popLast(), let senderView = sender.view as? CardView else { return }
+        let translation = sender.translation(in: view)
+        card.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
 
-        switch sender.direction {
-        case .right:
-            likedCards.append(senderView)
-            print(likedCards)
-            animateCard(card: topCard, translation: 500) // Swipe right
-        case .left:
-            animateCard(card: topCard, translation: -500) // Swipe left
-        default:
-            break
+        if sender.state == .ended {
+            if translation.x > 100 { // Threshold for right swipe
+                animateCard(card: card, translation: 500) // Swipe right
+                likedCards.append(card)
+            } else if translation.x < -100 { // Threshold for left swipe
+                animateCard(card: card, translation: -500) // Swipe left
+            } else {
+                // Return to original position if not swiped far enough
+                UIView.animate(withDuration: 0.2) {
+                    card.center = self.view.center
+                }
+            }
+
+            if let topCard = cardStack.popLast() {
+                showNextCard()
+            }
         }
-
-        showNextCard()
     }
 
+    
+    
     private func showNextCard() {
         if let nextCard = cardStack.last {
             view.bringSubviewToFront(nextCard)
@@ -108,7 +113,7 @@ class DiscoverViewController: UIViewController {
     @objc func flipCard(_ sender: UITapGestureRecognizer) {
         guard let card = sender.view as? CardView else { return }
 
-        UIView.transition(with: card, duration: 1.0, options: [.transitionFlipFromRight, .showHideTransitionViews], animations: {
+        UIView.transition(with: card, duration: 0.8, options: [.transitionFlipFromRight, .showHideTransitionViews], animations: {
             // Change the content of the card to show detailed information
             card.isFlipped.toggle()
             let showFlipped = card.isFlipped
