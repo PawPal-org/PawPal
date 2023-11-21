@@ -8,22 +8,58 @@
 import UIKit
 
 class MyPetsViewController: UIViewController {
+    
+    //MARK: creating instance of DisplayView
+    let myPetScreen = MyPetsView()
+    
+    var pets = [Pet]()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    //MARK: patch the view of the controller to the DisplayView
+    override func loadView() {
+        view = myPetScreen
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        navigationController?.navigationBar.prefersLargeTitles = false
+        title = "My Pets"
+//        if let font = UIFont(name: titleFont, size: 30) {
+//            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: font]
+//
+//        }
+        
+        myPetScreen.tableViewPet.separatorStyle = .none
+        
+        //MARK: patching the table view delegate and datasource to controller...
+        myPetScreen.tableViewPet.delegate = self
+        myPetScreen.tableViewPet.dataSource = self
+        
+        pets.append(Pet(name:"Sprite", sex: "Male, Neutered", age: "3 yrs", weight: "80 lbs"))
+        pets.append(Pet(name:"Sprite", sex: "Male, Neutered", age: "3 yrs", weight: "80 lbs"))
     }
-    */
 
+}
+
+extension MyPetsViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return pets.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "pet", for: indexPath) as! MyPetsTableViewCell
+        cell.labelName.text = pets[indexPath.row].name
+        cell.labelSex.text = pets[indexPath.row].sex
+        cell.labelAge.text = pets[indexPath.row].age
+        cell.labelWeight.text = pets[indexPath.row].weight
+        
+        return cell
+    }
+    
+    //MARK: deal with user interaction with a cell...
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    }
+    
+    
 }

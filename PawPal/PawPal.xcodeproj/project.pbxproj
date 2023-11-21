@@ -13,6 +13,8 @@
 		12B783AB2B0B7E9A0004B7F8 /* MyPetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783AA2B0B7E9A0004B7F8 /* MyPetsView.swift */; };
 		12B783AD2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783AC2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift */; };
 		12B783AF2B0B7EC80004B7F8 /* MyPetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783AE2B0B7EC80004B7F8 /* MyPetsViewController.swift */; };
+		12B86AFA2B0C2D90005E1F3B /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B86AF92B0C2D90005E1F3B /* Pet.swift */; };
+		12B86AFC2B0C2E57005E1F3B /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B86AFB2B0C2E57005E1F3B /* colors.swift */; };
 		4FE2CCC72B0866D5003AC533 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCC62B0866D5003AC533 /* AppDelegate.swift */; };
 		4FE2CCC92B0866D5003AC533 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCC82B0866D5003AC533 /* SceneDelegate.swift */; };
 		4FE2CCCB2B0866D5003AC533 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCCA2B0866D5003AC533 /* ViewController.swift */; };
@@ -59,6 +61,8 @@
 		12B783AA2B0B7E9A0004B7F8 /* MyPetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsView.swift; sourceTree = "<group>"; };
 		12B783AC2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsTableViewCell.swift; sourceTree = "<group>"; };
 		12B783AE2B0B7EC80004B7F8 /* MyPetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsViewController.swift; sourceTree = "<group>"; };
+		12B86AF92B0C2D90005E1F3B /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
+		12B86AFB2B0C2E57005E1F3B /* colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
 		4FE2CCC32B0866D5003AC533 /* PawPal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PawPal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FE2CCC62B0866D5003AC533 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FE2CCC82B0866D5003AC533 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +120,7 @@
 			children = (
 				12B783B12B0B7EE40004B7F8 /* My Pets View */,
 				12B783AE2B0B7EC80004B7F8 /* MyPetsViewController.swift */,
+				12B86AF92B0C2D90005E1F3B /* Pet.swift */,
 			);
 			path = "My Pets";
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 			children = (
 				4FE2CCCF2B0866D6003AC533 /* Assets.xcassets */,
 				4FE2CCF12B0B87EF003AC533 /* fonts.swift */,
+				12B86AFB2B0C2E57005E1F3B /* colors.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -422,6 +428,7 @@
 				4FE2CCED2B0AE171003AC533 /* RegisterFirebaseManager.swift in Sources */,
 				645F922A2B0982C700FAC72C /* LoginView.swift in Sources */,
 				64824E102B0AB171004CFE1D /* BeFriendsView.swift in Sources */,
+				12B86AFC2B0C2E57005E1F3B /* colors.swift in Sources */,
 				64824E212B0AB230004CFE1D /* LoginViewController.swift in Sources */,
 				4FE2CCCB2B0866D5003AC533 /* ViewController.swift in Sources */,
 				64ECD8DD2B0BB7670077E96E /* Configs.swift in Sources */,
@@ -436,6 +443,7 @@
 				12B783A52B0B7E1F0004B7F8 /* MeTableViewCell.swift in Sources */,
 				12B783A92B0B7E5E0004B7F8 /* LogOutTableViewCell.swift in Sources */,
 				64824E062B0AB0FD004CFE1D /* MomentsView.swift in Sources */,
+				12B86AFA2B0C2D90005E1F3B /* Pet.swift in Sources */,
 				64824E172B0AB1AD004CFE1D /* ChatsViewController.swift in Sources */,
 				64824E1E2B0AB1F4004CFE1D /* MeViewController.swift in Sources */,
 				64ECD8DE2B0BB7670077E96E /* ImageCollectionViewManager.swift in Sources */,

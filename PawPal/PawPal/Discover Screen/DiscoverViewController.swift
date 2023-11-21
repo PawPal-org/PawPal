@@ -15,7 +15,7 @@ class DiscoverViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 240/255, green: 237/255, blue: 233/255, alpha: 1.0)
+        view.backgroundColor = backgroundColorBeige
         title = "Discover"
         setupCardStack()
         

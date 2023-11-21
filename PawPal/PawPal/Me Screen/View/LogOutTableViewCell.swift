@@ -24,7 +24,7 @@ class LogOutTableViewCell: UITableViewCell {
     }
 
     func setupWrapperCellView(){
-        wrapperCellView = UITableViewCell()
+        wrapperCellView = UIView()
         
         //working with the shadows and colors...
         wrapperCellView.backgroundColor = .white

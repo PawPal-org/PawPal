@@ -102,7 +102,10 @@ extension MeViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         if tableView == meScreen.meTable {
             // Handle "My Pets", "My Posts", "GPS" cell tabbed
-            // Using indexPath.row
+            if indexPath.row == 0 {
+                let myPetsController = MyPetsViewController()
+                navigationController?.pushViewController(myPetsController, animated: true)
+            }
         } else if tableView == meScreen.settingTable {
             //Handle "Setting" cell tabbed
         } else if tableView == meScreen.logOutTable {
