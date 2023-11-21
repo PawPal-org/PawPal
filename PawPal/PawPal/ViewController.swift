@@ -17,12 +17,28 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
     }
     
     func setUpTabBarController() {
+        //MARK: resize custom image to match standard tab bar item size
+        let discoverImage = resizeImage(image: UIImage(named: "Discover")!, targetSize: CGSize(width: 50, height: 50))
+        let discoverSelectedImage = resizeImage(image: UIImage(named: "Discover")!, targetSize: CGSize(width: 50, height: 50))
+        
+        let beFriendsImage = resizeImage(image: UIImage(named: "BeFriends")!, targetSize: CGSize(width: 50, height: 50))
+        let beFriendsSelectedImage = resizeImage(image: UIImage(named: "BeFriends")!, targetSize: CGSize(width: 50, height: 50))
+        
+        let momentsImage = resizeImage(image: UIImage(named: "Moments")!, targetSize: CGSize(width: 50, height: 50))
+        let momentsSelectedImage = resizeImage(image: UIImage(named: "Moments")!, targetSize: CGSize(width: 50, height: 50))
+        
+        let chatsImage = resizeImage(image: UIImage(named: "Chats")!, targetSize: CGSize(width: 50, height: 50))
+        let chatsSelectedImage = resizeImage(image: UIImage(named: "Chats")!, targetSize: CGSize(width: 50, height: 50))
+        
+        let meImage = resizeImage(image: UIImage(named: "Me")!, targetSize: CGSize(width: 50, height: 50))
+        let meSelectedImage = resizeImage(image: UIImage(named: "Me")!, targetSize: CGSize(width: 50, height: 50))
+        
         //MARK: setting up Discover tab bar...
         let tabDiscover = UINavigationController(rootViewController: DiscoverViewController())
         let tabDiscoverBarItem = UITabBarItem(
             title: "Discover",
-            image: UIImage(systemName: "d.square")?.withRenderingMode(.alwaysOriginal),
-            selectedImage: UIImage(systemName: "d.square.fill")
+            image: discoverImage.withRenderingMode(.alwaysTemplate),
+            selectedImage: discoverSelectedImage.withRenderingMode(.alwaysTemplate)
         )
         tabDiscover.tabBarItem = tabDiscoverBarItem
         tabDiscover.title = "Discover"
@@ -31,8 +47,8 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         let tabBeFriends = UINavigationController(rootViewController: BeFriendsViewController())
         let tabBeFriendsBarItem = UITabBarItem(
             title: "BeFriends",
-            image: UIImage(systemName: "b.square")?.withRenderingMode(.alwaysOriginal),
-            selectedImage: UIImage(systemName: "b.square.fill")
+            image: beFriendsImage.withRenderingMode(.alwaysTemplate),
+            selectedImage: beFriendsSelectedImage.withRenderingMode(.alwaysTemplate)
         )
         tabBeFriends.tabBarItem = tabBeFriendsBarItem
         tabBeFriends.title = "BeFriends"
@@ -41,8 +57,8 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         let tabMoments = UINavigationController(rootViewController: MomentsViewController())
         let tabMomentsBarItem = UITabBarItem(
             title: "Moments",
-            image: UIImage(systemName: "m.square")?.withRenderingMode(.alwaysOriginal),
-            selectedImage: UIImage(systemName: "m.square.fill")
+            image: momentsImage.withRenderingMode(.alwaysTemplate),
+            selectedImage: momentsSelectedImage.withRenderingMode(.alwaysTemplate)
         )
         tabMoments.tabBarItem = tabMomentsBarItem
         tabMoments.title = "Moments"
@@ -51,8 +67,8 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         let tabChats = UINavigationController(rootViewController: ChatsViewController())
         let tabChatsBarItem = UITabBarItem(
             title: "Chats",
-            image: UIImage(systemName: "c.square")?.withRenderingMode(.alwaysOriginal),
-            selectedImage: UIImage(systemName: "c.square.fill")
+            image: chatsImage.withRenderingMode(.alwaysTemplate),
+            selectedImage: chatsSelectedImage.withRenderingMode(.alwaysTemplate)
         )
         tabChats.tabBarItem = tabChatsBarItem
         tabChats.title = "Chats"
@@ -61,15 +77,40 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         let tabMe = UINavigationController(rootViewController: MeViewController())
         let tabMeBarItem = UITabBarItem(
             title: "Me",
-            image: UIImage(systemName: "m.square")?.withRenderingMode(.alwaysOriginal),
-            selectedImage: UIImage(systemName: "m.square.fill")
+            image: meImage.withRenderingMode(.alwaysTemplate),
+            selectedImage: meSelectedImage.withRenderingMode(.alwaysTemplate)
         )
         tabMe.tabBarItem = tabMeBarItem
         tabMe.title = "Me"
         
         //MARK: setting up this view controller as the Tab Bar Controller...
         self.viewControllers = [tabDiscover, tabBeFriends, tabMoments, tabChats, tabMe]
+        
+        // Apply tintColor for tab items
+        self.tabBar.tintColor = UIColor.systemBlue
+        self.tabBar.unselectedItemTintColor = UIColor.lightGray
     }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
 
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage!
+    }
 }
 
