@@ -51,12 +51,6 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
         wrapperCellView = UIView()
         
         //working with the shadows and colors...
-//        wrapperCellView.backgroundColor = .white
-//        wrapperCellView.layer.cornerRadius = 6.0
-//        wrapperCellView.layer.shadowColor = UIColor.gray.cgColor
-//        wrapperCellView.layer.shadowOffset = .zero
-//        wrapperCellView.layer.shadowRadius = 4.0
-//        wrapperCellView.layer.shadowOpacity = 0.4
         wrapperCellView.backgroundColor = .clear
         wrapperCellView.layer.cornerRadius = 0
         wrapperCellView.layer.shadowOpacity = 0
@@ -66,8 +60,7 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     
     func setupLabelName(){
         labelName = UILabel()
-        //labelName.font = UIFont.boldSystemFont(ofSize: 14)
-        labelName.font = UIFont(name: boldFont, size: 16)
+        labelName.font = UIFont(name: titleFont, size: 16)
         labelName.translatesAutoresizingMaskIntoConstraints = false
         wrapperCellView.addSubview(labelName)
     }
@@ -139,6 +132,8 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
         pageControl.pageIndicatorTintColor = UIColor.lightGray
         pageControl.currentPageIndicatorTintColor = UIColor.black
         pageControl.translatesAutoresizingMaskIntoConstraints = false
+        let scale = CGAffineTransform(scaleX: 0.7, y: 0.7)
+        pageControl.transform = scale
         wrapperCellView.addSubview(pageControl)
     }
     
@@ -147,8 +142,8 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
             
             wrapperCellView.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant: 10),
             wrapperCellView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10),
-            wrapperCellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            wrapperCellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            wrapperCellView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
+            wrapperCellView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
             
             userImageButton.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: -11.5),
             userImageButton.topAnchor.constraint(equalTo: wrapperCellView.topAnchor, constant: 0),

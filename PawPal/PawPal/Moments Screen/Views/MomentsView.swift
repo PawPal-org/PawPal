@@ -8,14 +8,16 @@
 import UIKit
 
 class MomentsView: UIView {
+    var backgroundView: UIView!
     var profilePicButton: UIButton!
     var labelText: UILabel!
     var tableViewMoments: UITableView!
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
         
+        setupBackgroundView()
         setupProfilePic()
         setupLabelText()
         setupTableViewMoments()
@@ -23,6 +25,14 @@ class MomentsView: UIView {
     }
     
     //MARK: initializing the UI elements...
+    func setupBackgroundView() {
+        backgroundView = UIView()
+        backgroundView.backgroundColor = backgroundColorBeige
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(backgroundView)
+        self.sendSubviewToBack(backgroundView)
+    }
+    
     func setupProfilePic(){
         profilePicButton = UIButton()
         profilePicButton.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
@@ -51,6 +61,12 @@ class MomentsView: UIView {
     //MARK: setting up constraints...
     func initConstraints(){
         NSLayoutConstraint.activate([
+            
+            backgroundView.topAnchor.constraint(equalTo: self.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: tableViewMoments.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
             profilePicButton.widthAnchor.constraint(equalToConstant: 30),
             profilePicButton.heightAnchor.constraint(equalToConstant: 30),
             profilePicButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8),
@@ -58,12 +74,12 @@ class MomentsView: UIView {
             
             labelText.topAnchor.constraint(equalTo: profilePicButton.topAnchor),
             labelText.bottomAnchor.constraint(equalTo: profilePicButton.bottomAnchor),
-            labelText.trailingAnchor.constraint(equalTo: self.profilePicButton.leadingAnchor, constant: -2),
+            labelText.trailingAnchor.constraint(equalTo: profilePicButton.leadingAnchor, constant: -2),
             
-            tableViewMoments.topAnchor.constraint(equalTo: profilePicButton.bottomAnchor, constant: 8),
+            tableViewMoments.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 48),
             tableViewMoments.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
-            tableViewMoments.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            tableViewMoments.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            tableViewMoments.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            tableViewMoments.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             
         ])
     }

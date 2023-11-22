@@ -16,6 +16,8 @@ extension MomentsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Configs.tableViewMomentsID, for: indexPath) as! MomentsTableViewCell
         
+        cell.selectionStyle = .none
+        
         let moment = moments[indexPath.row]
         cell.labelName.text = moment.name
         cell.labelText.text = moment.text

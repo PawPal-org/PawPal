@@ -23,8 +23,11 @@ class PostMomentView: UIView {
     
     func setupTextView() {
         textView.font = UIFont.systemFont(ofSize: 16)
-        textView.isScrollEnabled = false
+        textView.isScrollEnabled = true
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.layer.borderColor = backgroundColorBeige.cgColor
+        textView.layer.borderWidth = 1.0
+        textView.layer.cornerRadius = 8
         self.addSubview(textView)
         
     }
@@ -47,7 +50,7 @@ class PostMomentView: UIView {
             textView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8),
             textView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             textView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            textView.heightAnchor.constraint(equalToConstant: 100),
+            textView.heightAnchor.constraint(equalToConstant: 120),
             
             collectionView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 8),
             collectionView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 8),
@@ -55,7 +58,7 @@ class PostMomentView: UIView {
             collectionView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         ])
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

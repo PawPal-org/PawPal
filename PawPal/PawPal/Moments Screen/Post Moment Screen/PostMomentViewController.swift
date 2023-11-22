@@ -23,6 +23,10 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        let attributes = [
+            NSAttributedString.Key.font: UIFont(name: titleFont, size: 21)!
+        ]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
         title = "New Post"
 
         postMomentScreen.collectionView.dataSource = self
@@ -119,28 +123,32 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // the last cell which will be 'Add' button
+        // the last cell will be 'Add' button
         if indexPath.row == selectedImages.count {
             
-            // Dequeue a different cell or reuse the same type but configure for the 'Add' button
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addCell", for: indexPath)
             
+            // Configure add button cell...
             if cell.contentView.subviews.isEmpty {
                 let addButton = UIButton(frame: cell.bounds)
-                addButton.backgroundColor = .lightGray
+                addButton.backgroundColor = backgroundColorBeige
                 addButton.setImage(UIImage(systemName: "plus"), for: .normal)
                 addButton.tintColor = .black
                 addButton.addTarget(self, action: #selector(addImageButtonTapped), for: .touchUpInside)
                 cell.contentView.addSubview(addButton)
             }
+            
             return cell
             
         } else {
-            //normal image cell
+            // normal image cell
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath)
-            // add an imageView to the cell if it doesn't already contain one
-            if cell.contentView.subviews.isEmpty {
-                let imageView = UIImageView(frame: cell.bounds)
+            
+            let imageView: UIImageView
+            if let existingImageView = cell.contentView.subviews.first(where: { $0 is UIImageView }) as? UIImageView {
+                imageView = existingImageView
+            } else {
+                imageView = UIImageView(frame: cell.bounds)
                 imageView.contentMode = .scaleAspectFill
                 imageView.clipsToBounds = true
                 imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -153,11 +161,43 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
                     imageView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor)
                 ])
             }
-           
-            let imageView = cell.contentView.subviews[0] as! UIImageView
             imageView.image = selectedImages[indexPath.row]
+            
+            // delete button
+            let deleteButton = UIButton(type: .system)
+            deleteButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+            deleteButton.tintColor = .white
+            deleteButton.translatesAutoresizingMaskIntoConstraints = false
+            deleteButton.tag = indexPath.row // Tag button with the index
+            deleteButton.addTarget(self, action: #selector(deleteImageButtonTapped(_:)), for: .touchUpInside)
+            
+            cell.contentView.addSubview(deleteButton)
+            
+            NSLayoutConstraint.activate([
+                deleteButton.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 5),
+                deleteButton.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -5),
+                deleteButton.widthAnchor.constraint(equalToConstant: 20),
+                deleteButton.heightAnchor.constraint(equalToConstant: 20)
+            ])
+            
             return cell
         }
+    }
+    
+    @objc func deleteImageButtonTapped(_ sender: UIButton) {
+        let index = sender.tag
+
+        let alert = UIAlertController(title: "Delete Image", message: "Are you sure you want to delete this image?", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            self?.selectedImages.remove(at: index)
+            self?.postMomentScreen.collectionView.reloadData()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+
+        self.present(alert, animated: true)
     }
 
     //MARK: UICollectionViewDelegateFlowLayout Methods

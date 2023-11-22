@@ -138,7 +138,10 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @objc func profilePicButtonTapped() {
-        // go to a single user's moments
+        let MyMomentScreen = MyMomentsViewController()
+        MyMomentScreen.userEmail = self.currentUser?.email
+        MyMomentScreen.userName = self.currentUserName
+        self.navigationController?.pushViewController(MyMomentScreen, animated: true)
     }
     
     func fetchFriendsMoments() {
