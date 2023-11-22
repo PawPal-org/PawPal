@@ -19,6 +19,7 @@ extension MomentsViewController: UITableViewDelegate, UITableViewDataSource{
         let moment = moments[indexPath.row]
         cell.labelName.text = moment.name
         cell.labelText.text = moment.text
+        cell.imageUrls = moment.imageUrls
         cell.labelTimestamp.text = DateFormatter.localizedString(from: moment.timestamp, dateStyle: .short, timeStyle: .short)
                 
         return cell

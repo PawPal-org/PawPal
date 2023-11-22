@@ -14,6 +14,8 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
     let momentsView = MomentsView()
     var moments = [Moment]()
     var currentUser: FirebaseAuth.User?
+    var currentUserName: String?
+    var latestMomentTimestamp: Date?
     
     override func loadView() {
         view = momentsView
@@ -23,16 +25,23 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        // NotificationCenter.default.addObserver(self, selector: #selector(momentsNeedsReload), name: .didPostMoment, object: nil)
+    
+        // setting the tableView and other UI components
         momentsView.tableViewMoments.dataSource = self
         momentsView.tableViewMoments.delegate = self
-        
         momentsView.profilePicButton.addTarget(self, action: #selector(profilePicButtonTapped), for: .touchUpInside)
+        setupNavigationBar()
         
-        Auth.auth().currentUser?.reload(completion: { (error) in
-            self.currentUser = Auth.auth().currentUser
-            self.momentsView.labelText.text = "\(self.currentUser?.email ?? "Anonymous")"
-        })
-
+        // reloading the current user data and set up the refresh control
+        reloadCurrentUser()
+        setupRefreshControl()
+        
+        // fetching moments as soon as the view loads
+        fetchFriendsMoments()
+    }
+    
+    func setupNavigationBar() {
         let barIcon = UIBarButtonItem(
             image: UIImage(systemName: "plus.circle.fill"),
             style: .plain,
@@ -40,10 +49,49 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
             action: #selector(onAddBarButtonTapped)
         )
         navigationItem.rightBarButtonItems = [barIcon]
-        
-        fetchFriendsMoments()
-        
     }
+    
+    func reloadCurrentUser() {
+        Auth.auth().currentUser?.reload(completion: { (error) in
+            self.currentUser = Auth.auth().currentUser
+            
+            // Check if the user is logged in and has an email
+            if let userEmail = self.currentUser?.email {
+                let db = Firestore.firestore()
+                db.collection("users").document(userEmail).getDocument { (document, error) in
+                    if let document = document, document.exists, let data = document.data() {
+                        let userName = data["name"] as? String ?? "Anonymous"
+                        self.momentsView.labelText.text = userName
+                    } else {
+                        print("Document does not exist or failed to fetch user name")
+                        self.momentsView.labelText.text = "Anonymous"
+                    }
+                }
+            } else {
+                self.momentsView.labelText.text = "Anonymous"
+            }
+        })
+    }
+    
+    func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshMoments(_:)), for: .valueChanged)
+        momentsView.tableViewMoments.refreshControl = refreshControl
+    }
+    
+    @objc func refreshMoments(_ sender: UIRefreshControl) {
+        print("refresh.")
+        fetchFriendsMoments()
+        sender.endRefreshing()
+    }
+    
+//    deinit {
+//        NotificationCenter.default.removeObserver(self)
+//    }
+    
+//    @objc func momentsNeedsReload() {
+//        fetchFriendsMoments()
+//    }
     
     @objc func onAddBarButtonTapped(){
         let postAlert = UIAlertController(title: "Post a new moment", message: "Record your life with pets!",
@@ -80,13 +128,14 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
             return
         }
         let postMomentScreen = PostMomentViewController()
+        postMomentScreen.userEmail = self.currentUser?.email
         postMomentScreen.selectedImage = selectedImage
         self.navigationController?.pushViewController(postMomentScreen, animated: true)
     }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
-    
     
     @objc func profilePicButtonTapped() {
         // go to a single user's moments
@@ -96,70 +145,70 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
         guard let currentUserEmail = Auth.auth().currentUser?.email else { return }
         let db = Firestore.firestore()
 
-        // fetch current user's friends list
-        db.collection("users").document(currentUserEmail).getDocument { (document, error) in
+        db.collection("users").document(currentUserEmail).getDocument { [weak self] (document, error) in
+            guard let self = self else { return }
+
             if let document = document, let data = document.data() {
                 var friendsEmails = data["friends"] as? [String] ?? []
-                friendsEmails.append(currentUserEmail) // include current user
-                var allMoments = [Moment]()
+                friendsEmails.append(currentUserEmail) // Include current user
 
+                let queryTimestamp = self.latestMomentTimestamp ?? Date(timeIntervalSince1970: 0)
+                var newMoments = [Moment]()
                 let group = DispatchGroup()
 
                 for email in friendsEmails {
                     group.enter()
-                    
-                    // fetch moments for each user
-                    self.fetchUserMoments(email: email) { moments in
-                        allMoments.append(contentsOf: moments)
-                        group.leave()
+                    db.collection("users").document(email).getDocument { (userDoc, userErr) in
+                        guard let userName = userDoc?.data()?["name"] as? String else {
+                            print("Error getting user name for email: \(email)")
+                            group.leave()
+                            return
+                        }
+
+                        db.collection("users").document(email).collection("moments")
+                          .whereField("timestamp", isGreaterThan: queryTimestamp)
+                          .order(by: "timestamp", descending: true)
+                          .limit(to: 10)
+                          .getDocuments { (querySnapshot, err) in
+                              if let err = err {
+                                  print("Error getting moments for \(email): \(err)")
+                                  group.leave()
+                                  return
+                              }
+                              for document in querySnapshot!.documents {
+                                  do {
+                                      var moment = try document.data(as: Moment.self)
+                                      moment.name = userName // Set the userName for each moment
+                                      newMoments.append(moment)
+                                  } catch {
+                                      print(error)
+                                  }
+                              }
+                              group.leave()
+                          }
                     }
                 }
 
                 group.notify(queue: .main) {
-                    self.moments = allMoments.sorted { $0.timestamp > $1.timestamp }
-                    self.momentsView.tableViewMoments.reloadData()
+                    self.updateMoments(newMoments)
                 }
             } else if let error = error {
                 print("Error fetching user document: \(error)")
             }
         }
     }
+    
+    func updateMoments(_ newMoments: [Moment]) {
+        var sortedNewMoments = newMoments
+        sortedNewMoments.sort { $0.timestamp > $1.timestamp }
 
-    func fetchUserMoments(email: String, completion: @escaping ([Moment]) -> Void) {
-        let db = Firestore.firestore()
-
-        db.collection("users").document(email).getDocument { (userDoc, err) in
-            if let err = err {
-                print("Error getting user document: \(err)")
-                completion([])
-                return
-            }
-
-            guard let userName = userDoc?.data()?["name"] as? String else {
-                print("User name not found for email: \(email)")
-                completion([])
-                return
-            }
-
-            db.collection("users").document(email).collection("moments").getDocuments { (querySnapshot, err) in
-                var moments = [Moment]()
-                if let err = err {
-                    print("Error getting moments: \(err)")
-                    completion([])
-                } else {
-                    for document in querySnapshot!.documents {
-                        do {
-                            var moment = try document.data(as: Moment.self)
-                            moment.name = userName // set the userName for each moment after decoding
-                            moments.append(moment)
-                        } catch {
-                            print(error)
-                        }
-                    }
-                    completion(moments)
-                }
+        if let newestMoment = sortedNewMoments.first?.timestamp {
+            if newestMoment > (self.latestMomentTimestamp ?? Date.distantPast) {
+                self.latestMomentTimestamp = newestMoment
+                self.moments.insert(contentsOf: sortedNewMoments, at: 0)
             }
         }
+        self.momentsView.tableViewMoments.reloadData()
     }
 
 }

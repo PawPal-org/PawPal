@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -14,15 +15,17 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     var labelText: UILabel!
     var labelTimestamp: UILabel!
     var collectionView: UICollectionView!
+    var pageControl: UIPageControl!
     
     var userImageButton: UIButton!
     var likeButton: UIButton!
     
-    var images: [UIImage] = [
-        UIImage(named: "Test1")!,
-        UIImage(named: "Test2")!,
-        UIImage(named: "Test3")!
-    ]
+    var imageUrls: [String] = [] {
+        didSet {
+            fetchImages()
+        }
+    }
+    var images: [UIImage] = []
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -32,6 +35,7 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
         setupLabelText()
         setupLabelTimestamp()
         setupCollectionView()
+        setupPageControl()
         
         setupLikeButton()
         setupUserImageButton()
@@ -70,7 +74,6 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     
     func setupLabelText(){
         labelText = UILabel()
-        //labelText.font = UIFont.systemFont(ofSize: 14)
         labelText.font = UIFont(name: normalFont, size: 14)
         labelText.textColor = .darkGray
         labelText.numberOfLines = 0         // Allows multi-line text
@@ -115,7 +118,6 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        // layout.itemSize = CGSize(width: 200, height: 200)
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -128,6 +130,17 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
         
         collectionView.contentInsetAdjustmentBehavior = .never
      }
+    
+    func setupPageControl() {
+        pageControl = UIPageControl()
+        pageControl.numberOfPages = images.count
+        pageControl.currentPage = 0
+        pageControl.tintColor = UIColor.lightGray
+        pageControl.pageIndicatorTintColor = UIColor.lightGray
+        pageControl.currentPageIndicatorTintColor = UIColor.black
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        wrapperCellView.addSubview(pageControl)
+    }
     
     func initConstraints(){
         NSLayoutConstraint.activate([
@@ -151,7 +164,11 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
             collectionView.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
             collectionView.heightAnchor.constraint(equalToConstant: 200),
             
-            labelText.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 8),
+            pageControl.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 8),
+            pageControl.centerXAnchor.constraint(equalTo: wrapperCellView.centerXAnchor),
+            pageControl.heightAnchor.constraint(equalToConstant: 20),
+            
+            labelText.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 8),
             labelText.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
             labelText.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
             
@@ -174,6 +191,55 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     @objc func userImageButtonTapped() {
         // go to a single user's moments
     }
+    
+    func updatePageControl() {
+        pageControl.numberOfPages = images.count
+        pageControl.currentPage = 0
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let width = scrollView.frame.width - (scrollView.contentInset.left*2)
+        let currentPage = collectionView.contentOffset.x / width
+        if 0.0 <= currentPage && currentPage < Double(pageControl.numberOfPages) {
+            pageControl.currentPage = Int(currentPage)
+        }
+    }
+    
+    func fetchImages() {
+        images.removeAll()
+        let storage = Storage.storage()
+
+        for urlString in imageUrls {
+            if let url = URL(string: urlString) {
+                let imageName = url.lastPathComponent
+
+                // Check cache first
+                if let cachedImage = ImageCache.shared.getImage(for: imageName) {
+                    self.images.append(cachedImage)
+                    self.collectionView.reloadData()
+                    self.updatePageControl()
+                    continue
+                }
+
+                print("Fetching image: \(imageName)")
+                let storageRef = storage.reference().child("post_images").child(imageName)
+
+                storageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                    DispatchQueue.main.async {
+                        if let error = error {
+                            print("Error downloading image: \(error)")
+                        } else if let data = data, let image = UIImage(data: data) {
+                            ImageCache.shared.setImage(image, for: imageName)
+                            self.images.append(image)
+                            self.collectionView.reloadData()
+                            self.updatePageControl()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     override func awakeFromNib() {
         super.awakeFromNib()

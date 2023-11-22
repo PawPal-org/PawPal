@@ -13,18 +13,21 @@ struct Moment: Codable {
     var text: String
     var timestamp: Date
     var name: String?
+    var imageUrls: [String] = []
 
     enum CodingKeys: String, CodingKey {
         case id
         case text
         case timestamp
-        // name is not included (not in the moment document)
+        case imageUrls
+        // name is not in the moment document
     }
 
-    init(text: String, timestamp: Date, name: String?) {
+    init(text: String, timestamp: Date, name: String?, imageUrls: [String]) {
         self.text = text
         self.timestamp = timestamp
         self.name = name
+        self.imageUrls = imageUrls
     }
 }
 

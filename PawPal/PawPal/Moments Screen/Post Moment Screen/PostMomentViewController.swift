@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseStorage
 
 class PostMomentViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 
+    var userEmail: String?
     let postMomentScreen = PostMomentView()
     var selectedImage: UIImage?
     var selectedImages: [UIImage] = []
@@ -42,7 +45,72 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     @objc func onPostBarButtonTapped() {
-        // post a new moment
+
+        guard let userEmail = self.userEmail, let textContent = postMomentScreen.textView.text, !textContent.isEmpty else {
+            // alert the user that they must enter text for the post
+            return
+        }
+
+        let firestore = Firestore.firestore()
+        var imageUrls: [String] = []
+        let group = DispatchGroup()
+        
+        for image in selectedImages {
+            group.enter()
+
+            let imageName = UUID().uuidString + ".jpg"
+            let storageRef = Storage.storage().reference().child("post_images").child(imageName)
+            
+            if let imageData = image.jpegData(compressionQuality: 0.8) {
+                storageRef.putData(imageData, metadata: nil) { metadata, error in
+                    guard error == nil else {
+                        group.leave()
+                        return
+                    }
+                    
+                    storageRef.downloadURL { url, error in
+                        guard let downloadURL = url else {
+                            group.leave()
+                            return
+                        }
+                        
+                        imageUrls.append(downloadURL.absoluteString)
+                        group.leave()
+                    }
+                }
+            }
+        }
+        
+        group.notify(queue: .main) {
+            
+            let userDocRef = firestore.collection("users").document(userEmail)
+            let momentID = UUID().uuidString
+            
+            let momentDocRef = userDocRef.collection("moments").document(momentID)
+            
+            let momentData = [
+                "text": textContent,
+                "timestamp": FieldValue.serverTimestamp(),
+                "imageUrls": imageUrls
+            ] as [String : Any]
+            
+            momentDocRef.setData(momentData) { [weak self] error in
+                guard let strongSelf = self else { return }
+                
+                if let error = error {
+                    print("\(error)")
+                } else {
+                    
+                    // NotificationCenter.default.post(name: .didPostMoment, object: nil)
+
+                    let alert = UIAlertController(title: "Success", message: "Your moment has been posted!", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                        strongSelf.navigationController?.popViewController(animated: true)
+                    }))
+                    strongSelf.present(alert, animated: true)
+                }
+            }
+        }
     }
     
     //MARK: UICollectionViewDataSource Methods
