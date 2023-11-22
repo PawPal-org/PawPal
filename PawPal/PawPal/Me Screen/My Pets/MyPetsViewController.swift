@@ -22,13 +22,14 @@ class MyPetsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        navigationController?.navigationBar.prefersLargeTitles = false
-        title = "My Pets"
-//        if let font = UIFont(name: titleFont, size: 30) {
-//            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: font]
-//
-//        }
         
+        navigationController?.navigationBar.prefersLargeTitles = false
+        let attributes = [
+            NSAttributedString.Key.font: UIFont(name: titleFont, size: 21)!
+        ]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
+        title = "My Pets"
+
         myPetScreen.tableViewPet.separatorStyle = .none
         let barIcon = UIBarButtonItem(
             image: UIImage(systemName: "plus.circle.fill"),
