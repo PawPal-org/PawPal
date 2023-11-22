@@ -14,6 +14,7 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTabBarController()
+        addTabBarBackground()
     }
     
     func setUpTabBarController() {
@@ -112,5 +113,21 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
 
         return newImage!
     }
+    
+    func addTabBarBackground() {
+        let tabBarBackgroundView = UIView()
+        tabBarBackgroundView.backgroundColor = lighterBackgroundColorBeige
+        tabBarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        self.tabBar.addSubview(tabBarBackgroundView)
+        self.tabBar.insertSubview(tabBarBackgroundView, at: 0)
+
+        NSLayoutConstraint.activate([
+            tabBarBackgroundView.topAnchor.constraint(equalTo: tabBar.topAnchor, constant: -5),
+            tabBarBackgroundView.bottomAnchor.constraint(equalTo: tabBar.bottomAnchor),
+            tabBarBackgroundView.leadingAnchor.constraint(equalTo: tabBar.leadingAnchor),
+            tabBarBackgroundView.trailingAnchor.constraint(equalTo: tabBar.trailingAnchor)
+        ])
+    }
+
 }
 
