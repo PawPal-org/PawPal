@@ -70,6 +70,15 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
             } else {
                 self.momentsView.labelText.text = "Anonymous"
             }
+            
+            if let url = self.currentUser?.photoURL{
+                URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+                   guard let data = data, error == nil, let image = UIImage(data: data) else { return }
+                   DispatchQueue.main.async {
+                       self?.momentsView.profilePicButton.setImage(image, for: .normal)
+                   }
+               }.resume()
+            }
         })
     }
     
@@ -155,7 +164,6 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
                 var friendsEmails = data["friends"] as? [String] ?? []
                 friendsEmails.append(currentUserEmail) // Include current user
 
-                let queryTimestamp = self.latestMomentTimestamp ?? Date(timeIntervalSince1970: 0)
                 var newMoments = [Moment]()
                 let group = DispatchGroup()
 
@@ -169,7 +177,6 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
                         }
 
                         db.collection("users").document(email).collection("moments")
-                          .whereField("timestamp", isGreaterThan: queryTimestamp)
                           .order(by: "timestamp", descending: true)
                           .limit(to: 10)
                           .getDocuments { (querySnapshot, err) in
@@ -178,10 +185,12 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
                                   group.leave()
                                   return
                               }
+                              let profileImageUrlString = (userDoc?.data()?["profileImageUrl"] as? String) ?? ""
                               for document in querySnapshot!.documents {
                                   do {
                                       var moment = try document.data(as: Moment.self)
-                                      moment.name = userName // Set the userName for each moment
+                                      moment.name = userName
+                                      moment.profileImageUrl = profileImageUrlString
                                       newMoments.append(moment)
                                   } catch {
                                       print(error)
@@ -201,16 +210,11 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
+    
     func updateMoments(_ newMoments: [Moment]) {
         var sortedNewMoments = newMoments
         sortedNewMoments.sort { $0.timestamp > $1.timestamp }
-
-        if let newestMoment = sortedNewMoments.first?.timestamp {
-            if newestMoment > (self.latestMomentTimestamp ?? Date.distantPast) {
-                self.latestMomentTimestamp = newestMoment
-                self.moments.insert(contentsOf: sortedNewMoments, at: 0)
-            }
-        }
+        self.moments = sortedNewMoments
         self.momentsView.tableViewMoments.reloadData()
     }
 

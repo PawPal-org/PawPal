@@ -22,7 +22,7 @@ extension RegisterViewController{
         if let image = pickedImage{
             if let jpegData = image.jpegData(compressionQuality: 80){
                 let storageRef = storage.reference()
-                let imagesRepo = storageRef.child("imagesUsers")
+                let imagesRepo = storageRef.child("user_images")
                 let imageRef = imagesRepo.child("\(NSUUID().uuidString).jpg")
                 
                 let uploadTask = imageRef.putData(jpegData, completion: {(metadata, error) in
@@ -69,39 +69,7 @@ extension RegisterViewController{
             })
         }
     }
-    
-//    func registerNewAccount(){
-//        //MARK: create a Firebase user with email and password...
-//        if let name = registerView.textFieldName.text,
-//           let email = registerView.textFieldEmail.text,
-//           let password = registerView.textFieldPassword.text{
-//            //Validations....
-//            Auth.auth().createUser(withEmail: email, password: password, completion: {result, error in
-//                if error == nil{
-//                    //MARK: the user creation is successful...
-//                    self.setNameOfTheUserInFirebaseAuth(name: name)
-//                }else{
-//                    //MARK: there is a error creating the user...
-//                    print(error ?? "error")
-//                }
-//            })
-//        }
-//    }
-    
-//    //MARK: We set the name of the user after we create the account...
-//    func setNameOfTheUserInFirebaseAuth(name: String){
-//        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-//        changeRequest?.displayName = name
-//        changeRequest?.commitChanges(completion: {(error) in
-//            if error == nil{
-//                //MARK: the profile update is successful...
-//                self.navigationController?.popViewController(animated: true)
-//            }else{
-//                //MARK: there was an error updating the profile...
-//                print("Error occured: \(String(describing: error))")
-//            }
-//        })
-//    }
+
     
     func setNameAndPhotoOfTheUserInFirebaseAuth(name: String, email: String, photoURL: URL?){
         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
@@ -138,11 +106,12 @@ extension RegisterViewController{
             return
         }
         
+        var newUser = ["email": newUserEmail, "name": currentUser.displayName ?? ""]
+        if let photoURL = currentUser.photoURL {
+            newUser["profileImageUrl"] = photoURL.absoluteString
+        }
+        
         let collectionUsers = database.collection("users")
-        
-        let newUser = ["email": newUserEmail, "name": currentUser.displayName ?? ""]
-            
-        
         // Using the email as the document ID
         collectionUsers.document(newUserEmail).setData(newUser) { error in
             if let error = error {

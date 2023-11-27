@@ -16,15 +16,18 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     var labelTimestamp: UILabel!
     var collectionView: UICollectionView!
     var pageControl: UIPageControl!
-    
     var userImageButton: UIButton!
     var likeButton: UIButton!
     
-    var imageUrls: [String] = [] {
+    var momentID: String?
+    var currentProfileImageLoadTask: URLSessionDataTask?
+    
+    var imageUrls: [String: String] = [:] {
         didSet {
             fetchImages()
         }
     }
+
     var images: [UIImage] = []
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
@@ -36,7 +39,6 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
         setupLabelTimestamp()
         setupCollectionView()
         setupPageControl()
-        
         setupLikeButton()
         setupUserImageButton()
 
@@ -45,6 +47,15 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureCell(with moment: Moment) {
+        momentID = moment.id
+        labelName.text = moment.name
+        labelText.text = moment.text
+        imageUrls = moment.imageUrls
+        labelTimestamp.text = DateFormatter.localizedString(from: moment.timestamp, dateStyle: .short, timeStyle: .short)
+        fetchProfileImage(for: moment)
     }
     
     func setupWrapperCellView(){
@@ -93,7 +104,7 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     
     func setupUserImageButton() {
         userImageButton = UIButton()
-        userImageButton.setBackgroundImage(UIImage(systemName: "person.crop.circle")!.withRenderingMode(.alwaysOriginal), for: .normal)
+        userImageButton.setImage(UIImage(systemName: "person.crop.circle")!, for: .normal)
         userImageButton.tintColor = .gray
         userImageButton.contentMode = .scaleAspectFill
         userImageButton.clipsToBounds = true
@@ -203,35 +214,91 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     func fetchImages() {
         images.removeAll()
         let storage = Storage.storage()
-
-        for urlString in imageUrls {
+        
+        // Sort the dictionary based on keys to maintain order
+        let sortedUrls = imageUrls.sorted { $0.key < $1.key }.map { $0.value }
+        
+        for urlString in sortedUrls {
             if let url = URL(string: urlString) {
                 let imageName = url.lastPathComponent
 
                 // Check cache first
                 if let cachedImage = ImageCache.shared.getImage(for: imageName) {
                     self.images.append(cachedImage)
-                    self.collectionView.reloadData()
-                    self.updatePageControl()
                     continue
                 }
 
-                print("Fetching image: \(imageName)")
+                // Fetch from storage if not in cache
                 let storageRef = storage.reference().child("post_images").child(imageName)
+                fetchImage(storageRef, imageName: imageName)
+            }
+        }
 
-                storageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                    DispatchQueue.main.async {
-                        if let error = error {
-                            print("Error downloading image: \(error)")
-                        } else if let data = data, let image = UIImage(data: data) {
-                            ImageCache.shared.setImage(image, for: imageName)
-                            self.images.append(image)
-                            self.collectionView.reloadData()
-                            self.updatePageControl()
-                        }
+        self.collectionView.reloadData()
+        self.updatePageControl()
+    }
+    
+    func fetchImage(_ storageRef: StorageReference, imageName: String, isProfileImage: Bool = false) {
+        storageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Error downloading image: \(error)")
+                } else if let data = data, let image = UIImage(data: data) {
+                    ImageCache.shared.setImage(image, for: imageName)
+                    if isProfileImage {
+                        self.userImageButton.setImage(image, for: .normal)
+                    } else {
+                        self.images.append(image)
+                        self.collectionView.reloadData()
+                        self.updatePageControl()
                     }
                 }
             }
+        }
+    }
+    
+    func fetchProfileImage(for moment: Moment) {
+        guard let profileImageUrl = moment.profileImageUrl, let url = URL(string: profileImageUrl) else {
+            // Set default profile image if no URL is provided
+            self.userImageButton.setImage(UIImage(systemName: "person.crop.circle")!, for: .normal)
+            return
+        }
+        let imageName = url.lastPathComponent
+
+        // Use cached image if available
+        if let cachedImage = ImageCache.shared.getImage(for: imageName) {
+            self.userImageButton.setImage(cachedImage, for: .normal)
+            return
+        }
+
+        // Fetch from storage if not in cache
+        let storageRef = Storage.storage().reference().child("user_images").child(imageName)
+
+        // Cancel any existing image load task
+        currentProfileImageLoadTask?.cancel()
+
+        storageRef.downloadURL { [weak self] (url, error) in
+            guard let url = url, error == nil else {
+                print("Error getting download URL: \(error?.localizedDescription ?? "unknown error")")
+                return
+            }
+
+            // Fetch the image from the download URL
+            self?.currentProfileImageLoadTask = URLSession.shared.dataTask(with: url) { data, response, error in
+                guard let data = data, error == nil, let image = UIImage(data: data) else {
+                    print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
+                    return
+                }
+
+                DispatchQueue.main.async {
+                    // Check if the cell is still displaying content related to the same moment
+                    if self?.momentID == moment.id {
+                        ImageCache.shared.setImage(image, for: imageName)
+                        self?.userImageButton.setImage(image, for: .normal)
+                    }
+                }
+            }
+            self?.currentProfileImageLoadTask?.resume()
         }
     }
 

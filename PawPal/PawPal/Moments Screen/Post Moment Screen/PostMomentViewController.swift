@@ -56,32 +56,41 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
         }
 
         let firestore = Firestore.firestore()
-        var imageUrls: [String] = []
+        var imageUrlsMap: [String: String] = [:]
         let group = DispatchGroup()
         
-        for image in selectedImages {
-            group.enter()
-
+        for (index, image) in selectedImages.enumerated() {
+            group.enter() // Enter the group before starting the upload
+            
             let imageName = UUID().uuidString + ".jpg"
             let storageRef = Storage.storage().reference().child("post_images").child(imageName)
             
             if let imageData = image.jpegData(compressionQuality: 0.8) {
                 storageRef.putData(imageData, metadata: nil) { metadata, error in
-                    guard error == nil else {
-                        group.leave()
+                    
+                    if let error = error {
+                        print("Error uploading image: \(error.localizedDescription)")
+                        group.leave() // Leave the group on error
                         return
                     }
                     
                     storageRef.downloadURL { url, error in
-                        guard let downloadURL = url else {
+                        if let error = error {
+                            print("Error getting download URL: \(error.localizedDescription)")
                             group.leave()
                             return
                         }
                         
-                        imageUrls.append(downloadURL.absoluteString)
-                        group.leave()
+                        if let downloadURL = url {
+                            let locationKey = "image\(index)"
+                            imageUrlsMap[locationKey] = downloadURL.absoluteString
+                        }
+                        group.leave() // Leave the group after setting the URL
                     }
                 }
+            } else {
+                print("Error converting image to JPEG data.")
+                group.leave()
             }
         }
         
@@ -95,7 +104,7 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
             let momentData = [
                 "text": textContent,
                 "timestamp": FieldValue.serverTimestamp(),
-                "imageUrls": imageUrls
+                "imageUrls": imageUrlsMap
             ] as [String : Any]
             
             momentDocRef.setData(momentData) { [weak self] error in

@@ -10,24 +10,27 @@ import FirebaseFirestore
 
 struct Moment: Codable {
     @DocumentID var id: String?
-    var text: String
-    var timestamp: Date
     var name: String?
-    var imageUrls: [String] = []
-
+    var profileImageUrl: String?
+    var text: String
+    var imageUrls: [String: String]
+    var timestamp: Date
+    
     enum CodingKeys: String, CodingKey {
         case id
+        case profileImageUrl
         case text
-        case timestamp
         case imageUrls
+        case timestamp
         // name is not in the moment document
     }
 
-    init(text: String, timestamp: Date, name: String?, imageUrls: [String]) {
-        self.text = text
-        self.timestamp = timestamp
+    init(name: String?, text: String, profileImageUrl: String?, imageUrls: [String: String], timestamp: Date) {
         self.name = name
+        self.text = text
+        self.profileImageUrl = profileImageUrl
         self.imageUrls = imageUrls
+        self.timestamp = timestamp
     }
 }
 
