@@ -19,6 +19,8 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     var userImageButton: UIButton!
     var likeButton: UIButton!
     
+    var delegate: MomentsTableViewCellDelegate?
+    
     var momentID: String?
     var currentProfileImageLoadTask: URLSessionDataTask?
     
@@ -191,11 +193,16 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     }
     
     @objc func onLikeButtonTapped() {
-        // toggle the like status
+        delegate?.didTapLikeButton(on: self)
     }
     
     @objc func userImageButtonTapped() {
         // go to a single user's moments
+    }
+    
+    func setLiked(_ isLiked: Bool) {
+        let imageName = isLiked ? "heart.fill" : "heart"
+        likeButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
     
     func updatePageControl() {

@@ -104,7 +104,8 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
             let momentData = [
                 "text": textContent,
                 "timestamp": FieldValue.serverTimestamp(),
-                "imageUrls": imageUrlsMap
+                "imageUrls": imageUrlsMap,
+                "likes": [] as [String]
             ] as [String : Any]
             
             momentDocRef.setData(momentData) { [weak self] error in

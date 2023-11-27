@@ -191,6 +191,7 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
                                       var moment = try document.data(as: Moment.self)
                                       moment.name = userName
                                       moment.profileImageUrl = profileImageUrlString
+                                      moment.userEmail = email
                                       newMoments.append(moment)
                                   } catch {
                                       print(error)
