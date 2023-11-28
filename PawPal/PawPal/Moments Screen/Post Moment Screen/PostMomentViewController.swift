@@ -51,7 +51,16 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
     @objc func onPostBarButtonTapped() {
 
         guard let userEmail = self.userEmail, let textContent = postMomentScreen.textView.text, !textContent.isEmpty else {
-            // alert the user that they must enter text for the post
+            let alert = UIAlertController(title: "Enter Text", message: "Don't forget to enter your text!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+            return
+        }
+
+        guard !selectedImages.isEmpty else {
+            let alert = UIAlertController(title: "No Images Selected", message: "Please select at least one image to post~", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
             return
         }
 
