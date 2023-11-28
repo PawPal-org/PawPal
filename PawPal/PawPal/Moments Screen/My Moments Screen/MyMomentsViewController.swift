@@ -111,17 +111,21 @@ class MyMomentsViewController: UIViewController, UITableViewDelegate, UITableVie
                   print("Error getting documents: \(err)")
               } else {
                   self.myMoments.removeAll()
+                  var totalLikes = 0
                   for document in querySnapshot!.documents {
                       do {
                           var moment = try document.data(as: Moment.self)
                           moment.name = userName
                           moment.profileImageUrl = self.userProfileImageUrl
                           self.myMoments.append(moment)
+                          totalLikes += moment.likes.count
                       } catch {
                           print(error)
                       }
                   }
                   self.myMomentsView.tableViewMoments.reloadData()
+                  self.myMomentsView.labelMomentsCountText.text = "\(self.myMoments.count)"
+                  self.myMomentsView.labelLikesCountText.text = "\(totalLikes)"
               }
           }
     }
