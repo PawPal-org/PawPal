@@ -15,7 +15,6 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
     var moments = [Moment]()
     var currentUser: FirebaseAuth.User?
     var currentUserName: String?
-    var latestMomentTimestamp: Date?
     
     override func loadView() {
         view = momentsView
@@ -54,6 +53,7 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
     func reloadCurrentUser() {
         Auth.auth().currentUser?.reload(completion: { (error) in
             self.currentUser = Auth.auth().currentUser
+            self.currentUserName = self.currentUser?.displayName
             
             // Check if the user is logged in and has an email
             if let userEmail = self.currentUser?.email {
@@ -150,6 +150,7 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
         let MyMomentScreen = MyMomentsViewController()
         MyMomentScreen.userEmail = self.currentUser?.email
         MyMomentScreen.userName = self.currentUserName
+        MyMomentScreen.currentUser = self.currentUser
         self.navigationController?.pushViewController(MyMomentScreen, animated: true)
     }
     

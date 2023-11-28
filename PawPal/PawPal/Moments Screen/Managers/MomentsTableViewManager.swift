@@ -12,6 +12,7 @@ import FirebaseFirestore
 
 protocol MomentsTableViewCellDelegate: AnyObject {
     func didTapLikeButton(on cell: MomentsTableViewCell)
+    func didTapUserImageButton(on cell: MomentsTableViewCell)
 }
 
 extension MomentsViewController: UITableViewDelegate, UITableViewDataSource{
@@ -24,6 +25,7 @@ extension MomentsViewController: UITableViewDelegate, UITableViewDataSource{
         cell.selectionStyle = .none
         cell.delegate = self
         let moment = moments[indexPath.row]
+        cell.userEmail = moment.userEmail
         let isLiked = moment.likes.contains(Auth.auth().currentUser?.email ?? "")
         cell.setLiked(isLiked)
         cell.configureCell(with: moment)
@@ -60,5 +62,12 @@ extension MomentsViewController: MomentsTableViewCellDelegate {
                 print("Likes updated successfully")
             }
         }
+    }
+    
+    func didTapUserImageButton(on cell: MomentsTableViewCell) {
+        let myMomentsView = MyMomentsViewController()
+        myMomentsView.userEmail = cell.userEmail
+        myMomentsView.userName = cell.labelName.text
+        self.navigationController?.pushViewController(myMomentsView, animated: true)
     }
 }

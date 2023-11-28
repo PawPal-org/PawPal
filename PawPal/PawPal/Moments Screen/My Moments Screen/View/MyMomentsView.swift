@@ -38,16 +38,18 @@ class MyMomentsView: UIView {
         profilePicButton = UIButton()
         profilePicButton.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
         profilePicButton.imageView?.contentMode = .scaleAspectFill
-        profilePicButton.layer.cornerRadius = 15
         profilePicButton.clipsToBounds = true
         // profilePicButton.layer.masksToBounds = true
+        // maintain a square shape
+        let buttonSize: CGFloat = 50
+        profilePicButton.layer.cornerRadius = buttonSize / 2
         profilePicButton.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(profilePicButton)
     }
     
     func setupLabelText(){
         labelText = UILabel()
-        labelText.font = UIFont(name: titleFont, size: 16)
+        labelText.font = UIFont(name: titleFont, size: 20)
         labelText.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(labelText)
     }
@@ -75,7 +77,7 @@ class MyMomentsView: UIView {
             
             labelText.topAnchor.constraint(equalTo: profilePicButton.topAnchor),
             labelText.bottomAnchor.constraint(equalTo: profilePicButton.bottomAnchor),
-            labelText.trailingAnchor.constraint(equalTo: profilePicButton.leadingAnchor, constant: -2),
+            labelText.trailingAnchor.constraint(equalTo: profilePicButton.leadingAnchor, constant: -8),
             
             tableViewMoments.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 48),
             tableViewMoments.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),

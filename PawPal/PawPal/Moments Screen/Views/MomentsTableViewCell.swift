@@ -23,6 +23,7 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     
     var momentID: String?
     var currentProfileImageLoadTask: URLSessionDataTask?
+    var userEmail: String?
     
     var imageUrls: [String: String] = [:] {
         didSet {
@@ -158,7 +159,7 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
             wrapperCellView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
             wrapperCellView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
             
-            userImageButton.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: -11.5),
+            userImageButton.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: -10),
             userImageButton.topAnchor.constraint(equalTo: wrapperCellView.topAnchor, constant: 0),
             userImageButton.widthAnchor.constraint(equalToConstant: 23),
             userImageButton.heightAnchor.constraint(equalToConstant: 23),
@@ -197,12 +198,13 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     }
     
     @objc func userImageButtonTapped() {
-        // go to a single user's moments
+        delegate?.didTapUserImageButton(on: self)
     }
     
     func setLiked(_ isLiked: Bool) {
         let imageName = isLiked ? "heart.fill" : "heart"
         likeButton.setImage(UIImage(systemName: imageName), for: .normal)
+        likeButton.tintColor = isLiked ? UIColor.orange : UIColor.systemGray
     }
     
     func updatePageControl() {
