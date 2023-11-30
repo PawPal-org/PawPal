@@ -49,6 +49,7 @@ class ChatsTableViewCell: UITableViewCell {
         buttonProfilePic = UIButton()
         buttonProfilePic.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
         buttonProfilePic.imageView?.contentMode = .scaleAspectFill
+        buttonProfilePic.tintColor = .gray
         buttonProfilePic.layer.cornerRadius = 15
         buttonProfilePic.clipsToBounds = true
         // profilePicButton.layer.masksToBounds = true

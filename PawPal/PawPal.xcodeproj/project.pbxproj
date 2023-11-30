@@ -61,6 +61,7 @@
 		6436E5252B16DB43007FCB00 /* BarButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6436E5242B16DB43007FCB00 /* BarButtonManager.swift */; };
 		64455DCF2B0E47060073A9BC /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64455DCE2B0E47060073A9BC /* NotificationNames.swift */; };
 		645F922A2B0982C700FAC72C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F92292B0982C700FAC72C /* LoginView.swift */; };
+		6470099B2B188B1A00260136 /* SearchBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6470099A2B188B1900260136 /* SearchBarManager.swift */; };
 		64824DF72B0AA4DA004CFE1D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 64824DF62B0AA4DA004CFE1D /* FirebaseAuth */; };
 		64824DF92B0AA4E4004CFE1D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 64824DF82B0AA4E4004CFE1D /* FirebaseStorage */; };
 		64824DFB2B0AA502004CFE1D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 64824DFA2B0AA502004CFE1D /* FirebaseFirestore */; };
@@ -137,6 +138,7 @@
 		6436E5242B16DB43007FCB00 /* BarButtonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtonManager.swift; sourceTree = "<group>"; };
 		64455DCE2B0E47060073A9BC /* NotificationNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		645F92292B0982C700FAC72C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		6470099A2B188B1900260136 /* SearchBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarManager.swift; sourceTree = "<group>"; };
 		64824E072B0AB10D004CFE1D /* MomentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentsViewController.swift; sourceTree = "<group>"; };
 		64824E092B0AB122004CFE1D /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		64824E0C2B0AB141004CFE1D /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 				64824E152B0AB1A1004CFE1D /* View */,
 				64824E162B0AB1AD004CFE1D /* ChatsViewController.swift */,
 				6436E50F2B160E82007FCB00 /* ChatsTableViewManager.swift */,
+				6470099A2B188B1900260136 /* SearchBarManager.swift */,
 			);
 			path = "Chats Screen";
 			sourceTree = "<group>";
@@ -594,6 +597,7 @@
 				64824E0A2B0AB122004CFE1D /* DiscoverViewController.swift in Sources */,
 				4FE2CCF92B0C8F53003AC533 /* LocationManager.swift in Sources */,
 				4FE2CCEF2B0AFE12003AC533 /* CardView.swift in Sources */,
+				6470099B2B188B1A00260136 /* SearchBarManager.swift in Sources */,
 				64824E082B0AB10D004CFE1D /* MomentsViewController.swift in Sources */,
 				6422F5462B0E766700EA69ED /* Configs.swift in Sources */,
 				4FE2CCF52B0C8C22003AC533 /* MapView.swift in Sources */,

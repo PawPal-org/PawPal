@@ -7,21 +7,31 @@
 
 import UIKit
 
-class ChatsView: UIView {
+class ChatsView: UIView{
 
+    var searchBar: UISearchBar!
     var tableViewChats: UITableView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
         
+        setupSearchBar()
         setupTableViewChats()
         initConstraints()
+    }
+    
+    func setupSearchBar() {
+        searchBar = UISearchBar()
+        searchBar.placeholder = "Search Chats"
+        searchBar.sizeToFit()
+        searchBar.translatesAutoresizingMaskIntoConstraints = true
     }
     
     func setupTableViewChats(){
         tableViewChats = UITableView()
         tableViewChats.register(ChatsTableViewCell.self, forCellReuseIdentifier: Configs.tableViewChatsID)
+        tableViewChats.tableHeaderView = searchBar
         tableViewChats.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(tableViewChats)
     }

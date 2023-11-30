@@ -12,13 +12,13 @@ import FirebaseFirestore
 
 extension ChatsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chatsList.count
+        return isSearchActive ? filteredChatsList.count : chatsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Configs.tableViewChatsID, for: indexPath) as! ChatsTableViewCell
         
-        let chat = chatsList[indexPath.row]
+        let chat = isSearchActive ? filteredChatsList[indexPath.row] : chatsList[indexPath.row]
         
         fetchFriendNameAndPic(from: chat.friends, for: cell)
         cell.labelLastMessage.text = chat.lastMessage
@@ -28,10 +28,13 @@ extension ChatsViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let chatID = chatsList[indexPath.row].id
+        let selectedChat = isSearchActive ? filteredChatsList[indexPath.row] : chatsList[indexPath.row]
+
+        let chatID = selectedChat.id
         let messageScreen = MessageViewController()
         messageScreen.chatID = chatID
         messageScreen.currentUser = self.currentUser
+        
         self.navigationController?.pushViewController(messageScreen, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -60,17 +63,17 @@ extension ChatsViewController: UITableViewDelegate, UITableViewDataSource{
                         }
 
                         DispatchQueue.main.async {
-                            cell.buttonProfilePic.setImage(image, for: .normal)
+                            cell.buttonProfilePic.setBackgroundImage(image, for: .normal)
                         }
                     }.resume()
                 } else {
-                    //cell.buttonProfilePic.setImage(UIImage(systemName: "person.crop.circle"), for: .normal)
+                    cell.buttonProfilePic.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
                 }
             } else {
                 print("Error fetching friend's information: \(error?.localizedDescription ?? "Unknown error")")
                 DispatchQueue.main.async {
                     cell.labelName.text = "Unknown"
-                    //cell.buttonProfilePic.setImage(UIImage(systemName: "person.crop.circle"), for: .normal)
+                    cell.buttonProfilePic.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
                 }
             }
         }

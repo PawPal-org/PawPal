@@ -17,6 +17,9 @@ class ChatsViewController: UIViewController {
     var currentUser:FirebaseAuth.User?
     var chatsList = [Chat]()
     
+    var filteredChatsList = [Chat]()
+    var isSearchActive: Bool = false
+    
     override func loadView() {
         view = chatsView
     }
@@ -39,6 +42,7 @@ class ChatsViewController: UIViewController {
         
         chatsView.tableViewChats.dataSource = self
         chatsView.tableViewChats.delegate = self
+        chatsView.searchBar.delegate = self
         
     }
     
