@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BeFriendsView: UIView {
+class FriendsView: UIView {
 
     /*
     // Only override draw() if you perform custom drawing.

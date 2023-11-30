@@ -45,14 +45,14 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         tabDiscover.title = "Discover"
         
         //MARK: setting up BeFriends tab bar...
-        let tabBeFriends = UINavigationController(rootViewController: BeFriendsViewController())
-        let tabBeFriendsBarItem = UITabBarItem(
-            title: "BeFriends",
+        let tabFriends = UINavigationController(rootViewController: FriendsViewController())
+        let tabFriendsBarItem = UITabBarItem(
+            title: "Friends",
             image: beFriendsImage.withRenderingMode(.alwaysTemplate),
             selectedImage: beFriendsSelectedImage.withRenderingMode(.alwaysTemplate)
         )
-        tabBeFriends.tabBarItem = tabBeFriendsBarItem
-        tabBeFriends.title = "BeFriends"
+        tabFriends.tabBarItem = tabFriendsBarItem
+        tabFriends.title = "Friends"
         
         //MARK: setting up Moments tab bar...
         let tabMoments = UINavigationController(rootViewController: MomentsViewController())
@@ -85,7 +85,7 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         tabMe.title = "Me"
         
         //MARK: setting up this view controller as the Tab Bar Controller...
-        self.viewControllers = [tabDiscover, tabBeFriends, tabMoments, tabChats, tabMe]
+        self.viewControllers = [tabDiscover, tabFriends, tabMoments, tabChats, tabMe]
         
         // Apply tintColor for tab items
         self.tabBar.tintColor = UIColor.systemBlue

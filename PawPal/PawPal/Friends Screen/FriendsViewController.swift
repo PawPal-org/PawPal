@@ -7,14 +7,14 @@
 
 import UIKit
 
-class BeFriendsViewController: UIViewController {
+class FriendsViewController: UIViewController {
 
-    let beFriendsView = BeFriendsView()
+    let friendsView = FriendsView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "Become Friends"
+        title = "Friends"
     }
 
 }

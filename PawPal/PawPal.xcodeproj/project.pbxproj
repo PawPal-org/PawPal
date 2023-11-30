@@ -69,8 +69,8 @@
 		64824E082B0AB10D004CFE1D /* MomentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64824E072B0AB10D004CFE1D /* MomentsViewController.swift */; };
 		64824E0A2B0AB122004CFE1D /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64824E092B0AB122004CFE1D /* DiscoverViewController.swift */; };
 		64824E0D2B0AB141004CFE1D /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64824E0C2B0AB141004CFE1D /* DiscoverView.swift */; };
-		64824E102B0AB171004CFE1D /* BeFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64824E0F2B0AB171004CFE1D /* BeFriendsView.swift */; };
-		64824E132B0AB189004CFE1D /* BeFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64824E122B0AB189004CFE1D /* BeFriendsViewController.swift */; };
+		64824E102B0AB171004CFE1D /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64824E0F2B0AB171004CFE1D /* FriendsView.swift */; };
+		64824E132B0AB189004CFE1D /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64824E122B0AB189004CFE1D /* FriendsViewController.swift */; };
 		64824E172B0AB1AD004CFE1D /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64824E162B0AB1AD004CFE1D /* ChatsViewController.swift */; };
 		64824E192B0AB1B8004CFE1D /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64824E182B0AB1B8004CFE1D /* ChatsView.swift */; };
 		64824E1C2B0AB1EA004CFE1D /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64824E1B2B0AB1EA004CFE1D /* MeView.swift */; };
@@ -142,8 +142,8 @@
 		64824E072B0AB10D004CFE1D /* MomentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentsViewController.swift; sourceTree = "<group>"; };
 		64824E092B0AB122004CFE1D /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		64824E0C2B0AB141004CFE1D /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
-		64824E0F2B0AB171004CFE1D /* BeFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeFriendsView.swift; sourceTree = "<group>"; };
-		64824E122B0AB189004CFE1D /* BeFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeFriendsViewController.swift; sourceTree = "<group>"; };
+		64824E0F2B0AB171004CFE1D /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		64824E122B0AB189004CFE1D /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		64824E162B0AB1AD004CFE1D /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		64824E182B0AB1B8004CFE1D /* ChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsView.swift; sourceTree = "<group>"; };
 		64824E1B2B0AB1EA004CFE1D /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 				4FE2CCF02B0B87CA003AC533 /* Resources */,
 				4FE2CCE72B0ADEE7003AC533 /* Register Screen */,
 				64824E022B0AB0BB004CFE1D /* Discover Screen */,
-				64824E0E2B0AB154004CFE1D /* BeFriends Screen */,
+				64824E0E2B0AB154004CFE1D /* Friends Screen */,
 				64824E012B0AB0A4004CFE1D /* Moments Screen */,
 				64824E142B0AB199004CFE1D /* Chats Screen */,
 				64824E1A2B0AB1D9004CFE1D /* Me Screen */,
@@ -415,19 +415,19 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		64824E0E2B0AB154004CFE1D /* BeFriends Screen */ = {
+		64824E0E2B0AB154004CFE1D /* Friends Screen */ = {
 			isa = PBXGroup;
 			children = (
 				64824E112B0AB176004CFE1D /* View */,
-				64824E122B0AB189004CFE1D /* BeFriendsViewController.swift */,
+				64824E122B0AB189004CFE1D /* FriendsViewController.swift */,
 			);
-			path = "BeFriends Screen";
+			path = "Friends Screen";
 			sourceTree = "<group>";
 		};
 		64824E112B0AB176004CFE1D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				64824E0F2B0AB171004CFE1D /* BeFriendsView.swift */,
+				64824E0F2B0AB171004CFE1D /* FriendsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -589,7 +589,7 @@
 				4FE2CCFB2B0C9526003AC533 /* MapConfigs.swift in Sources */,
 				6436E51A2B16BE2E007FCB00 /* MessageView.swift in Sources */,
 				4FE2CD052B0C96AF003AC533 /* SearchTableViewManager.swift in Sources */,
-				64824E102B0AB171004CFE1D /* BeFriendsView.swift in Sources */,
+				64824E102B0AB171004CFE1D /* FriendsView.swift in Sources */,
 				4FE2CD0B2B0C9788003AC533 /* MapAnnotationDelegate.swift in Sources */,
 				12B86AFC2B0C2E57005E1F3B /* colors.swift in Sources */,
 				64824E212B0AB230004CFE1D /* LoginViewController.swift in Sources */,
@@ -630,7 +630,7 @@
 				6422F5412B0E766700EA69ED /* ImageCollectionViewManager.swift in Sources */,
 				64ECD8E02B0BB7670077E96E /* PostMomentViewController.swift in Sources */,
 				4FE2CCE92B0ADF23003AC533 /* RegisterView.swift in Sources */,
-				64824E132B0AB189004CFE1D /* BeFriendsViewController.swift in Sources */,
+				64824E132B0AB189004CFE1D /* FriendsViewController.swift in Sources */,
 				64824E1C2B0AB1EA004CFE1D /* MeView.swift in Sources */,
 				6436E51C2B16BE3B007FCB00 /* MessageViewController.swift in Sources */,
 				6422F5422B0E766700EA69ED /* MomentsTableViewManager.swift in Sources */,
