@@ -50,6 +50,24 @@ class FriendsViewController: UIViewController {
         friendsView.tableViewContacts.delegate = self
         friendsView.searchBar.delegate = self
         
+        setupNavigationBar()
+        
+    }
+    
+    func setupNavigationBar() {
+        let barIcon = UIBarButtonItem(
+            image: UIImage(systemName: "envelope.badge.person.crop"),
+            style: .plain,
+            target: self,
+            action: #selector(onNewFriendBarButtonTapped)
+        )
+        navigationItem.rightBarButtonItems = [barIcon]
+    }
+    
+    @objc func onNewFriendBarButtonTapped() {
+        let newFriendsScreen = NewFriendsViewController()
+        newFriendsScreen.currentUser = self.currentUser
+        self.navigationController?.pushViewController(newFriendsScreen, animated: true)
     }
     
     func fetchContacts(){

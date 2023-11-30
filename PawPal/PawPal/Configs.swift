@@ -11,4 +11,5 @@ class Configs{
     static let tableViewChatsID = "tableViewChatsID"
     static let tableViewMessageID = "tableViewMessageID"
     static let tableViewContactsID = "tableViewContactsID"
+    static let tableViewNewFriendsID = "tableViewNewFriendsID"
 }
