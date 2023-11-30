@@ -97,7 +97,7 @@ class AddPetView: UIView {
         textFieldName.placeholder = "Name"
         textFieldName.borderStyle = .roundedRect
         textFieldName.translatesAutoresizingMaskIntoConstraints = false
-        displayWrapper.addSubview(textFieldName)
+        petBackgroundButton.addSubview(textFieldName)
     }
 
     func setupTextFieldSex(){
@@ -171,13 +171,43 @@ class AddPetView: UIView {
             petPicButton.leadingAnchor.constraint(equalTo: petBackgroundButton.leadingAnchor, constant: 23),
             petPicButton.widthAnchor.constraint(equalToConstant: 130),
             petPicButton.heightAnchor.constraint(equalToConstant: 130),
-
             
+            textFieldName.bottomAnchor.constraint(equalTo: petPicButton.bottomAnchor),
+            textFieldName.leadingAnchor.constraint(equalTo: petPicButton.trailingAnchor, constant: 32),
             
+            displayWrapper.topAnchor.constraint(equalTo: petPicButton.bottomAnchor, constant: 32),
+            displayWrapper.bottomAnchor.constraint(equalTo: petBackgroundButton.bottomAnchor, constant: -16),
+            displayWrapper.leadingAnchor.constraint(equalTo: petBackgroundButton.leadingAnchor, constant: 16),
+            displayWrapper.trailingAnchor.constraint(equalTo: petBackgroundButton.trailingAnchor, constant: -16),
             
+            textFieldSex.topAnchor.constraint(equalTo: displayWrapper.topAnchor),
+            textFieldSex.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            textFieldSex.trailingAnchor.constraint(equalTo: displayWrapper.trailingAnchor),
             
+            textFieldBreed.topAnchor.constraint(equalTo: textFieldSex.bottomAnchor, constant: 16),
+            textFieldBreed.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            textFieldBreed.trailingAnchor.constraint(equalTo: displayWrapper.trailingAnchor),
             
+            textFieldBDay.topAnchor.constraint(equalTo: textFieldBreed.bottomAnchor, constant: 16),
+            textFieldBDay.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            textFieldBDay.trailingAnchor.constraint(equalTo: displayWrapper.trailingAnchor),
             
+            textFieldWeight.topAnchor.constraint(equalTo: textFieldBDay.bottomAnchor, constant: 16),
+            textFieldWeight.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            textFieldWeight.trailingAnchor.constraint(equalTo: displayWrapper.trailingAnchor),
+            
+            textFieldCity.topAnchor.constraint(equalTo: textFieldWeight.bottomAnchor, constant: 16),
+            textFieldCity.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            textFieldCity.trailingAnchor.constraint(equalTo: displayWrapper.trailingAnchor),
+            
+            textFieldVac.topAnchor.constraint(equalTo: textFieldCity.bottomAnchor, constant: 16),
+            textFieldVac.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            textFieldVac.trailingAnchor.constraint(equalTo: displayWrapper.trailingAnchor),
+            
+            textFieldDescrip.topAnchor.constraint(equalTo: textFieldVac.bottomAnchor, constant: 16),
+            textFieldDescrip.bottomAnchor.constraint(equalTo: displayWrapper.bottomAnchor),
+            textFieldDescrip.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            textFieldDescrip.trailingAnchor.constraint(equalTo: displayWrapper.trailingAnchor),
         ])
     }
     
