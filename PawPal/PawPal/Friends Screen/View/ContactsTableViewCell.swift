@@ -48,7 +48,7 @@ class ContactsTableViewCell: UITableViewCell {
         buttonProfilePic.clipsToBounds = true
         // profilePicButton.layer.masksToBounds = true
         // maintain a square shape
-        let buttonSize: CGFloat = 50
+        let buttonSize: CGFloat = 40
         buttonProfilePic.layer.cornerRadius = buttonSize / 2
         buttonProfilePic.translatesAutoresizingMaskIntoConstraints = false
         wrapperCellView.addSubview(buttonProfilePic)
@@ -70,17 +70,17 @@ class ContactsTableViewCell: UITableViewCell {
             wrapperCellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             wrapperCellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             
-            buttonProfilePic.topAnchor.constraint(equalTo: wrapperCellView.topAnchor, constant: 2),
+            buttonProfilePic.centerYAnchor.constraint(equalTo: wrapperCellView.centerYAnchor),
             buttonProfilePic.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor),
-            buttonProfilePic.widthAnchor.constraint(equalToConstant: 50),
-            buttonProfilePic.heightAnchor.constraint(equalToConstant: 50),
+            buttonProfilePic.widthAnchor.constraint(equalToConstant: 40),
+            buttonProfilePic.heightAnchor.constraint(equalToConstant: 40),
             
-            labelName.topAnchor.constraint(equalTo: buttonProfilePic.topAnchor),
+            labelName.centerYAnchor.constraint(equalTo: wrapperCellView.centerYAnchor),
             labelName.leadingAnchor.constraint(equalTo: buttonProfilePic.trailingAnchor, constant: 8),
             labelName.heightAnchor.constraint(equalToConstant: 20),
             labelName.widthAnchor.constraint(lessThanOrEqualTo: wrapperCellView.widthAnchor),
             
-            wrapperCellView.heightAnchor.constraint(equalToConstant: 60)
+            wrapperCellView.heightAnchor.constraint(equalToConstant: 40)
             
         ])
     }

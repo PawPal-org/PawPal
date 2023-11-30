@@ -20,6 +20,12 @@ class FriendsViewController: UIViewController {
     var filteredContactsList = [Contact]()
     var isSearchActive: Bool = false
     
+    struct ContactSection {
+        let letter: String
+        var contacts: [Contact]
+    }
+    var contactSections = [ContactSection]()
+    
     override func loadView() {
         view = friendsView
     }
@@ -82,9 +88,18 @@ class FriendsViewController: UIViewController {
                 self?.contactsList[index].userProfilePicUrl = profileImageUrl
 
                 DispatchQueue.main.async {
+                    self?.organizeContacts()
                     self?.friendsView.tableViewContacts.reloadData()
                 }
             }
+        }
+    }
+    
+    func organizeContacts() {
+        let groupedDictionary = Dictionary(grouping: contactsList, by: { String($0.userName?.prefix(1) ?? "#") })
+        let keys = groupedDictionary.keys.sorted()
+        contactSections = keys.map { key in
+            return ContactSection(letter: key, contacts: groupedDictionary[key]!.sorted(by: { $0.userName ?? "" < $1.userName ?? "" }))
         }
     }
 

@@ -11,14 +11,30 @@ import FirebaseAuth
 import FirebaseFirestore
 
 extension FriendsViewController: UITableViewDelegate, UITableViewDataSource{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return isSearchActive ? 1 : contactSections.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isSearchActive ? filteredContactsList.count : contactsList.count
+        return isSearchActive ? filteredContactsList.count : contactSections[section].contacts.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return isSearchActive ? nil : contactSections[section].letter
+    }
+    
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return isSearchActive ? nil : contactSections.map { $0.letter }
+    }
+
+    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return isSearchActive ? 0 : contactSections.firstIndex { $0.letter == title } ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Configs.tableViewContactsID, for: indexPath) as! ContactsTableViewCell
         
-        let contact = isSearchActive ? filteredContactsList[indexPath.row] : contactsList[indexPath.row]
+        let contact = isSearchActive ? filteredContactsList[indexPath.row] : contactSections[indexPath.section].contacts[indexPath.row]
         
         cell.labelName.text = contact.userName
         
@@ -39,11 +55,10 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //let selectedContact = isSearchActive ? filteredContactsList[indexPath.row] : contactsList[indexPath.row]
-
         //let email = selectedContact.userEmail
-        //let messageScreen = MessageViewController()
-        //messageScreen.currentUser = self.currentUser
-        //self.navigationController?.pushViewController(messageScreen, animated: true)
+        //let contactScreen = contactViewController()
+        //contactScreen.currentUser = self.currentUser
+        //self.navigationController?.pushViewController(contactScreen, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
