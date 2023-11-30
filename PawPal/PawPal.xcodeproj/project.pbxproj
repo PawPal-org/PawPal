@@ -190,8 +190,8 @@
 		12B86B2A2B17F172005E1F3B /* Add Pet */ = {
 			isa = PBXGroup;
 			children = (
-				12B86B262B17F14D005E1F3B /* AddPetViewController.swift */,
 				12B86B282B17F165005E1F3B /* AddPetView.swift */,
+				12B86B262B17F14D005E1F3B /* AddPetViewController.swift */,
 			);
 			path = "Add Pet";
 			sourceTree = "<group>";

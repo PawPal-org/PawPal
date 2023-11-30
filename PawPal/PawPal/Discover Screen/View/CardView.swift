@@ -250,8 +250,8 @@ class CardView: UIView {
             
             flippedButtonIcon.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
             flippedButtonIcon.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            flippedButtonIcon.widthAnchor.constraint(equalToConstant: 150),
-            flippedButtonIcon.heightAnchor.constraint(equalToConstant: 150),
+            flippedButtonIcon.widthAnchor.constraint(equalToConstant: 130),
+            flippedButtonIcon.heightAnchor.constraint(equalToConstant: 130),
             
             flippedLabelName.bottomAnchor.constraint(equalTo: flippedButtonIcon.bottomAnchor, constant: -45),
             flippedLabelName.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
