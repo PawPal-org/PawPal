@@ -1,20 +1,91 @@
 //
-//  BeFriendsViewController.swift
+//  FriendsViewController.swift
 //  PawPal
 //
 //  Created by Yitian Guo on 11/19/23.
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
 class FriendsViewController: UIViewController {
 
     let friendsView = FriendsView()
+    let database = Firestore.firestore()
+    
+    var currentUser:FirebaseAuth.User?
+    
+    var contactsList = [Contact]()
+    var filteredContactsList = [Contact]()
+    var isSearchActive: Bool = false
+    
+    override func loadView() {
+        view = friendsView
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.currentUser = Auth.auth().currentUser
+        fetchContacts()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        navigationController?.navigationBar.prefersLargeTitles = false
+        let attributes = [
+            NSAttributedString.Key.font: UIFont(name: titleFont, size: 21)!
+        ]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
         title = "Friends"
+        
+        friendsView.tableViewContacts.dataSource = self
+        friendsView.tableViewContacts.delegate = self
+        friendsView.searchBar.delegate = self
+        
+    }
+    
+    func fetchContacts(){
+        guard let userEmail = currentUser?.email else {
+            print("User email is not available")
+            return
+        }
+        
+        database.collection("users").document(userEmail).getDocument { [weak self] (document, error) in
+            guard let document = document, error == nil else {
+                print("Error fetching chat references: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            
+            self?.contactsList.removeAll()
+            if let friends = document.data()?["friends"] as? [String] {
+                self?.contactsList = friends.map { Contact(userEmail: $0, userName: nil, userProfilePicUrl: nil) }
+                self?.fetchFriendsDetails()
+            }
+        }
+        
+    }
+    
+    func fetchFriendsDetails() {
+        for (index, contact) in contactsList.enumerated() {
+            database.collection("users").document(contact.userEmail).getDocument { [weak self] (document, error) in
+                guard let document = document, error == nil else {
+                    print("Error fetching friend's data: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+
+                let name = document.data()?["name"] as? String ?? "Unknown"
+                let profileImageUrl = document.data()?["profileImageUrl"] as? String ?? ""
+
+                self?.contactsList[index].userName = name
+                self?.contactsList[index].userProfilePicUrl = profileImageUrl
+
+                DispatchQueue.main.async {
+                    self?.friendsView.tableViewContacts.reloadData()
+                }
+            }
+        }
     }
 
 }
