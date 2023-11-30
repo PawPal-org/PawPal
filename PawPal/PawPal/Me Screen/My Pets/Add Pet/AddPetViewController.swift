@@ -2,13 +2,19 @@
 //  AddPetViewController.swift
 //  PawPal
 //
-//  Created by Cynthia Zhang on 11/29/23.
+//  Created by Cynthia Zhang on 11/20/23.
 //
 
 import UIKit
 
 class AddPetViewController: UIViewController {
-
+    
+    let addPetScreen = AddPetView()
+    
+    override func loadView() {
+        view = addPetScreen
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

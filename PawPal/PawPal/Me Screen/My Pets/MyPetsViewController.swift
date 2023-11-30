@@ -30,6 +30,11 @@ class MyPetsViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         title = "My Pets"
 
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add, target: self,
+            action: #selector(onAddBarButtonTapped)
+        )
+        
         myPetScreen.tableViewPet.separatorStyle = .none
         let barIcon = UIBarButtonItem(
             image: UIImage(systemName: "plus.circle.fill"),
@@ -48,7 +53,8 @@ class MyPetsViewController: UIViewController {
     }
     
     @objc func onAddBarButtonTapped(){
-        //navigationController?.pushViewController(, animated: <#T##Bool#>)
+        let addPetController = AddPetViewController()
+        navigationController?.pushViewController(addPetController, animated: true)
     }
 
 }
