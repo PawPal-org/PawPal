@@ -7,10 +7,13 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class MeViewController: UIViewController {
     
     let meScreen = MeView()
+    let db = Firestore.firestore()
+    var userProfileImageUrl: String?
     
     var menuItems = [
         ("My Pets", "pawprint.circle"),
@@ -43,16 +46,78 @@ class MeViewController: UIViewController {
         meScreen.logOutTable.dataSource = self
         meScreen.logOutTable.delegate = self
         
-        meScreen.labelName.text = "Name"
-        meScreen.labelUserName.text = "Username"
-        
         // Disable scrolling for the table views
         meScreen.meTable.isScrollEnabled = false
         meScreen.settingTable.isScrollEnabled = false
         meScreen.logOutTable.isScrollEnabled = false
+        
+        fetchUserProfilePicture()
+        fetchUserName()
+    }
+    
+    func fetchUserName() {
+        guard let user = Auth.auth().currentUser, let email = user.email else { return }
+        // Safely unwrapped email to avoid passing a nil value
+        let docRef = db.collection("users").document(email)
+
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                // Assuming 'dataDescription' is for debugging purposes
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                print("Document data: \(dataDescription)")
+                    
+                // Extract 'email' and 'name' safely
+                let email = document.get("email") as? String ?? ""
+                let name = document.get("name") as? String ?? ""
+                
+                // Dispatch UI updates on the main thread
+                DispatchQueue.main.async {
+                    self.meScreen.labelName.text = name
+                    self.meScreen.labelUserName.text = email
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
+    func fetchUserProfilePicture() {
+        guard let user = Auth.auth().currentUser, let email = user.email else {
+            print("User email is not set")
+            return
+        }
+
+        let db = Firestore.firestore()
+        db.collection("users").document(email).getDocument { [weak self] documentSnapshot, error in
+            guard let self = self, let document = documentSnapshot, error == nil else {
+                print("Error fetching user profile: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+
+            if let profileImageUrlString = document.data()?["profileImageUrl"] as? String {
+                
+                self.userProfileImageUrl = profileImageUrlString // Store the URL
+
+                if let url = URL(string: profileImageUrlString) {
+                    URLSession.shared.dataTask(with: url) { data, response, error in
+                        guard let data = data, error == nil, let image = UIImage(data: data) else {
+                            print("Error downloading profile image: \(error?.localizedDescription ?? "Unknown error")")
+                            return
+                        }
+
+                        DispatchQueue.main.async {
+                            self.meScreen.imageUser.image = image
+                        }
+                    }.resume()
+                }
+            } else {
+                print("Profile image URL not found")
+            }
+        }
     }
     
 }
+
 
 extension MeViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -106,6 +171,10 @@ extension MeViewController: UITableViewDataSource, UITableViewDelegate {
                 let myPetsController = MyPetsViewController()
                 navigationController?.pushViewController(myPetsController, animated: true)
             }
+            else if indexPath.row == 1 {
+                let myMomentsViewController = MyMomentsViewController()
+                navigationController?.pushViewController(myMomentsViewController, animated: true)
+            }
             else if indexPath.row == 2 {
                 let mapViewController = MapViewController()
                 navigationController?.pushViewController(mapViewController, animated: true)
@@ -138,6 +207,5 @@ extension MeViewController: UITableViewDataSource, UITableViewDelegate {
 
         }
     }
-    
     
 }

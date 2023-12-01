@@ -69,11 +69,10 @@ class MeView: UIView {
     
     func setupImageUser(){
         imageUser = UIImageView()
-        imageUser.image = UIImage(systemName: "person.crop.square.fill")
-        //imageUser.image = UIImage(systemName: "dog")
-        imageUser.contentMode = .scaleAspectFit
+        imageUser.image = UIImage(systemName: "person.crop.circle.fill")
+        imageUser.contentMode = .scaleAspectFill
         imageUser.clipsToBounds = true
-        imageUser.layer.cornerRadius = 10
+        imageUser.layer.cornerRadius = 60
         imageUser.translatesAutoresizingMaskIntoConstraints = false
         upperProfileView.addSubview(imageUser)
     }
