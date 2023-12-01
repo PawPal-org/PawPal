@@ -70,30 +70,43 @@ extension NewFriendsViewController: UITableViewDelegate, UITableViewDataSource{
         let newFriendEmail = newFriendsList[indexPath.row].userEmail
 
         let userDocRef = database.collection("users").document(currentUserEmail)
+        let newFriendDocRef = database.collection("users").document(newFriendEmail)
 
-        userDocRef.getDocument { (documentSnapshot, error) in
-            if let document = documentSnapshot, document.exists {
-                var friendsRequest = document.get("friendsRequest") as? [String: Timestamp] ?? [:]
-                var friends = document.get("friends") as? [String] ?? []
-                
-                friendsRequest[newFriendEmail] = nil
-                
-                if !friends.contains(newFriendEmail) {
-                    friends.append(newFriendEmail)
-                }
-                
-                userDocRef.updateData([
-                    "friends": friends,
-                    "friendsRequest": friendsRequest
-                ]) { [weak self] error in
-                    if let error = error {
-                        print("Error updating document: \(error)")
-                    } else {
-                        self?.fetchNewFriends()
-                    }
-                }
-            } else if let error = error {
-                print("Error getting document: \(error)")
+        database.runTransaction({ (transaction, errorPointer) -> Any? in
+            let currentUserDocument: DocumentSnapshot
+            let newFriendDocument: DocumentSnapshot
+
+            do {
+                try currentUserDocument = transaction.getDocument(userDocRef)
+                try newFriendDocument = transaction.getDocument(newFriendDocRef)
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
+            }
+
+            var currentUserFriends = currentUserDocument.get("friends") as? [String] ?? []
+            var currentUserFriendsRequest = currentUserDocument.get("friendsRequest") as? [String: Timestamp] ?? [:]
+
+            currentUserFriendsRequest[newFriendEmail] = nil
+            if !currentUserFriends.contains(newFriendEmail) {
+                currentUserFriends.append(newFriendEmail)
+            }
+
+            transaction.updateData(["friends": currentUserFriends, "friendsRequest": currentUserFriendsRequest], forDocument: userDocRef)
+
+            var newFriendFriends = newFriendDocument.get("friends") as? [String] ?? []
+            if !newFriendFriends.contains(currentUserEmail) {
+                newFriendFriends.append(currentUserEmail)
+            }
+
+            transaction.updateData(["friends": newFriendFriends], forDocument: newFriendDocRef)
+
+            return nil
+        }) { [weak self] (object, error) in
+            if let error = error {
+                print("Error updating documents: \(error)")
+            } else {
+                self?.fetchNewFriends()
             }
         }
     }
