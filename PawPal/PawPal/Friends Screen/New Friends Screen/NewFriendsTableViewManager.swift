@@ -66,11 +66,80 @@ extension NewFriendsViewController: UITableViewDelegate, UITableViewDataSource{
     }
 
     func handleAcceptAction(at indexPath: IndexPath) {
-        
+        guard let currentUserEmail = currentUser?.email else { return }
+        let newFriendEmail = newFriendsList[indexPath.row].userEmail
+
+        let userDocRef = database.collection("users").document(currentUserEmail)
+
+        userDocRef.getDocument { (documentSnapshot, error) in
+            if let document = documentSnapshot, document.exists {
+                var friendsRequest = document.get("friendsRequest") as? [String: Timestamp] ?? [:]
+                var friends = document.get("friends") as? [String] ?? []
+                
+                friendsRequest[newFriendEmail] = nil
+                
+                if !friends.contains(newFriendEmail) {
+                    friends.append(newFriendEmail)
+                }
+                
+                userDocRef.updateData([
+                    "friends": friends,
+                    "friendsRequest": friendsRequest
+                ]) { [weak self] error in
+                    if let error = error {
+                        print("Error updating document: \(error)")
+                    } else {
+                        self?.fetchNewFriends()
+                    }
+                }
+            } else if let error = error {
+                print("Error getting document: \(error)")
+            }
+        }
     }
 
+
     func handleRejectAction(at indexPath: IndexPath) {
-       
+        let alert = UIAlertController(title: "Reject Friend Request",
+                                      message: "Are you sure you want to reject this friend request?",
+                                      preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.confirmRejectAction(at: indexPath)
+        }))
+
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true, completion: nil)
     }
+    
+    func confirmRejectAction(at indexPath: IndexPath) {
+        guard let currentUserEmail = currentUser?.email else { return }
+        let rejectedFriendEmail = newFriendsList[indexPath.row].userEmail
+
+        let userDocRef = database.collection("users").document(currentUserEmail)
+
+        userDocRef.getDocument { (documentSnapshot, error) in
+            if let document = documentSnapshot, document.exists {
+                var friendsRequest = document.get("friendsRequest") as? [String: Timestamp] ?? [:]
+                
+                friendsRequest.removeValue(forKey: rejectedFriendEmail)
+                
+                userDocRef.updateData([
+                    "friendsRequest": friendsRequest
+                ]) { [weak self] error in
+                    if let error = error {
+                        print("Error updating document: \(error)")
+                    } else {
+                        self?.fetchNewFriends()
+                    }
+                }
+            } else if let error = error {
+                print("Error getting document: \(error)")
+            }
+        }
+    }
+
     
 }

@@ -56,15 +56,13 @@ class NewFriendsViewController: UIViewController {
             }
             
             self?.newFriendsList.removeAll()
-            if let friendRequestsArray = document.data()?["friendsRequest"] as? [[String: Any]] {
-                self?.newFriendsList = friendRequestsArray.compactMap { dict in
-                    if let userEmail = dict.keys.first,
-                       let timestamp = (dict[userEmail] as? Timestamp)?.dateValue() {
-                        return FriendRequest(userEmail: userEmail, userName: nil, userProfilePicUrl: nil,timestamp: timestamp)
-                    }
-                    return nil
+            if let friendRequestsMap = document.data()?["friendsRequest"] as? [String: Timestamp] {
+                for (email, timestamp) in friendRequestsMap {
+                    let dateValue = timestamp.dateValue()
+                    let friendRequest = FriendRequest(userEmail: email, userName: nil, userProfilePicUrl: nil, timestamp: dateValue)
+                    self?.newFriendsList.append(friendRequest)
                 }
-                self?.newFriendsList.sort(by: { ($0.timestamp ) > ($1.timestamp ) })
+                self?.newFriendsList.sort(by: { $0.timestamp > $1.timestamp })
                 self?.fetchFriendsDetails()
             }
         }
