@@ -19,7 +19,7 @@ class AddPetView: UIView {
     var textFieldBreed: UITextField!
     var textFieldCity: UITextField!
     
-    var textFieldBDay: UITextField!
+    var datePickerBDay: UIDatePicker!
     var textFieldWeight: UITextField!
     var textFieldVac: UITextField!
     var textFieldDescrip: UITextField!
@@ -40,7 +40,7 @@ class AddPetView: UIView {
         setupTextFieldSex()
         setupTextFieldBreed()
         setupTextFieldCity()
-        setupTextFieldBDay()
+        setupDatePickerBDay()
         setupTextFieldWeight()
         setupTextFieldVac()
         setupTextFieldDescrip()
@@ -129,12 +129,11 @@ class AddPetView: UIView {
         displayWrapper.addSubview(textFieldCity)
     }
     
-    func setupTextFieldBDay(){
-        textFieldBDay = UITextField()
-        textFieldBDay.placeholder = "Birthday"
-        textFieldBDay.borderStyle = .roundedRect
-        textFieldBDay.translatesAutoresizingMaskIntoConstraints = false
-        displayWrapper.addSubview(textFieldBDay)
+    func setupDatePickerBDay(){
+        datePickerBDay = UIDatePicker()
+        datePickerBDay.datePickerMode = .date
+        datePickerBDay.translatesAutoresizingMaskIntoConstraints = false
+        displayWrapper.addSubview(datePickerBDay)
     }
     
     func setupTextFieldWeight(){
@@ -195,11 +194,11 @@ class AddPetView: UIView {
             textFieldBreed.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
             textFieldBreed.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
             
-            textFieldBDay.topAnchor.constraint(equalTo: textFieldBreed.bottomAnchor, constant: 16),
-            textFieldBDay.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
-            textFieldBDay.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
+            datePickerBDay.topAnchor.constraint(equalTo: textFieldBreed.bottomAnchor, constant: 16),
+            datePickerBDay.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            datePickerBDay.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
             
-            textFieldWeight.topAnchor.constraint(equalTo: textFieldBDay.bottomAnchor, constant: 16),
+            textFieldWeight.topAnchor.constraint(equalTo: datePickerBDay.bottomAnchor, constant: 16),
             textFieldWeight.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
             textFieldWeight.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
             
@@ -220,6 +219,12 @@ class AddPetView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func getTimestamp() {
+        let selectedDate = datePickerBDay.date
+        let timestamp = selectedDate.timeIntervalSince1970
+        print("Selected Timestamp: \(timestamp)")
     }
     
 }
