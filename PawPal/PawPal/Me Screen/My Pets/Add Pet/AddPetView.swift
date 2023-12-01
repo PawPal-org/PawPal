@@ -221,11 +221,11 @@ class AddPetView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func getTimestamp() {
-        let selectedDate = datePickerBDay.date
-        let timestamp = selectedDate.timeIntervalSince1970
-        print("Selected Timestamp: \(timestamp)")
-    }
+//    @objc func getTimestamp() {
+//        let selectedDate = datePickerBDay.date
+//        let timestamp = selectedDate.timeIntervalSince1970
+//        print("Selected Timestamp: \(timestamp)")
+//    }
     
 }
 

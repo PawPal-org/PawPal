@@ -33,6 +33,7 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
         contactView.tableViewOptions.delegate = self
         contactView.tableViewOptions.dataSource = self
         contactView.tableViewOptions.register(OptionsTableViewCell.self, forCellReuseIdentifier: Configs.tableViewOptionsID)
+        contactView.tableViewOptions.isScrollEnabled = false
         
         fetchProfilePic()
     }
