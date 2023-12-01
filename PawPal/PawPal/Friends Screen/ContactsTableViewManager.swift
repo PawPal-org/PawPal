@@ -54,11 +54,13 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let selectedContact = isSearchActive ? filteredContactsList[indexPath.row] : contactsList[indexPath.row]
-        //let email = selectedContact.userEmail
-        //let contactScreen = contactViewController()
-        //contactScreen.currentUser = self.currentUser
-        //self.navigationController?.pushViewController(contactScreen, animated: true)
+        let selectedContact = isSearchActive ? filteredContactsList[indexPath.row] : contactSections[indexPath.section].contacts[indexPath.row]
+        
+        let contactScreen = ContactViewController()
+        contactScreen.currentUser = self.currentUser
+        contactScreen.contact = selectedContact
+        
+        self.navigationController?.pushViewController(contactScreen, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
