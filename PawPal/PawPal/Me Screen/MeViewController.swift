@@ -14,6 +14,7 @@ class MeViewController: UIViewController {
     let meScreen = MeView()
     let db = Firestore.firestore()
     var userProfileImageUrl: String?
+    var currentUser: FirebaseAuth.User?
     
     var menuItems = [
         ("My Pets", "pawprint.circle"),
@@ -173,6 +174,10 @@ extension MeViewController: UITableViewDataSource, UITableViewDelegate {
             }
             else if indexPath.row == 1 {
                 let myMomentsViewController = MyMomentsViewController()
+                self.currentUser = Auth.auth().currentUser
+                myMomentsViewController.userEmail = self.currentUser?.email
+                myMomentsViewController.userName = self.currentUser?.displayName
+                myMomentsViewController.currentUser = self.currentUser
                 navigationController?.pushViewController(myMomentsViewController, animated: true)
             }
             else if indexPath.row == 2 {
