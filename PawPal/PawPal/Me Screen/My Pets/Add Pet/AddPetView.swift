@@ -54,7 +54,7 @@ class AddPetView: UIView {
     //MARK: defining the attributes
     func setupPetBackgroudButton() {
         petBackgroundButton = UIButton(type: .system)
-        petBackgroundButton.backgroundColor = .systemOrange
+        petBackgroundButton.backgroundColor = .systemYellow.withAlphaComponent(0.7)
         petBackgroundButton.layer.cornerRadius = 40
         petBackgroundButton.clipsToBounds = true
         petBackgroundButton.translatesAutoresizingMaskIntoConstraints = false
@@ -64,12 +64,13 @@ class AddPetView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         if let image = UIImage(systemName: "pawprint.fill") {
-            setButtonBackgroundImage(image: image, tintColor: .white)
+            setButtonBackgroundImage(image: image, tintColor: .systemOrange, alpha: 0.2)
         }
     }
 
-    func setButtonBackgroundImage(image: UIImage, tintColor: UIColor) {
+    func setButtonBackgroundImage(image: UIImage, tintColor: UIColor, alpha: CGFloat) {
         let coloredImage = image.withTintColor(tintColor, renderingMode: .alwaysOriginal)
+        let translucentImage = coloredImage.withAlpha(alpha)
         let buttonSize = petBackgroundButton.bounds.size // obtain button size
         if let resizedImage = coloredImage.resizedImageForButtonBackground(newSize: buttonSize) {
             petBackgroundButton.setBackgroundImage(resizedImage, for: .normal)
@@ -80,7 +81,7 @@ class AddPetView: UIView {
     func setupPetPicButton() {
         petPicButton = UIButton(type: .system)
         petPicButton.setBackgroundImage(UIImage(systemName: "dog.circle"), for: .normal)
-        petPicButton.tintColor = .systemOrange
+        petPicButton.tintColor = .white
         petPicButton.translatesAutoresizingMaskIntoConstraints = false
         petBackgroundButton.addSubview(petPicButton)
     }
@@ -95,7 +96,11 @@ class AddPetView: UIView {
     func setupTextFieldName(){
         textFieldName = UITextField()
         textFieldName.placeholder = "Name"
+//        textFieldName.attributedPlaceholder = NSAttributedString(string: "Name",
+//                                                                 attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         textFieldName.borderStyle = .roundedRect
+//        textFieldName.layer.borderColor = UIColor.white.cgColor // Set border color
+//        textFieldName.layer.borderWidth = 2.0 // Set border width
         textFieldName.translatesAutoresizingMaskIntoConstraints = false
         petBackgroundButton.addSubview(textFieldName)
     }
@@ -103,6 +108,7 @@ class AddPetView: UIView {
     func setupTextFieldSex(){
         textFieldSex = UITextField()
         textFieldSex.placeholder = "Sex"
+        textFieldSex.borderStyle = .roundedRect
         textFieldSex.translatesAutoresizingMaskIntoConstraints = false
         displayWrapper.addSubview(textFieldSex)
     }
@@ -167,47 +173,48 @@ class AddPetView: UIView {
             petBackgroundButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 21),
             petBackgroundButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -22),
             
-            petPicButton.topAnchor.constraint(equalTo: petBackgroundButton.topAnchor, constant: 32),
-            petPicButton.leadingAnchor.constraint(equalTo: petBackgroundButton.leadingAnchor, constant: 23),
-            petPicButton.widthAnchor.constraint(equalToConstant: 130),
-            petPicButton.heightAnchor.constraint(equalToConstant: 130),
+            petPicButton.topAnchor.constraint(equalTo: petBackgroundButton.topAnchor, constant: 16),
+            petPicButton.leadingAnchor.constraint(equalTo: petBackgroundButton.leadingAnchor, constant: 16),
+            petPicButton.widthAnchor.constraint(equalToConstant: 150),
+            petPicButton.heightAnchor.constraint(equalToConstant: 150),
             
             textFieldName.bottomAnchor.constraint(equalTo: petPicButton.bottomAnchor),
             textFieldName.leadingAnchor.constraint(equalTo: petPicButton.trailingAnchor, constant: 32),
+            textFieldName.trailingAnchor.constraint(equalTo: petBackgroundButton.trailingAnchor, constant: -16),
             
             displayWrapper.topAnchor.constraint(equalTo: petPicButton.bottomAnchor, constant: 32),
-            displayWrapper.bottomAnchor.constraint(equalTo: petBackgroundButton.bottomAnchor, constant: -16),
-            displayWrapper.leadingAnchor.constraint(equalTo: petBackgroundButton.leadingAnchor, constant: 16),
-            displayWrapper.trailingAnchor.constraint(equalTo: petBackgroundButton.trailingAnchor, constant: -16),
+            displayWrapper.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -242),
+            displayWrapper.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 37),
+            displayWrapper.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -28),
             
             textFieldSex.topAnchor.constraint(equalTo: displayWrapper.topAnchor),
             textFieldSex.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
-            textFieldSex.trailingAnchor.constraint(equalTo: displayWrapper.trailingAnchor),
+            textFieldSex.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
             
             textFieldBreed.topAnchor.constraint(equalTo: textFieldSex.bottomAnchor, constant: 16),
             textFieldBreed.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
-            textFieldBreed.trailingAnchor.constraint(equalTo: displayWrapper.trailingAnchor),
+            textFieldBreed.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
             
             textFieldBDay.topAnchor.constraint(equalTo: textFieldBreed.bottomAnchor, constant: 16),
             textFieldBDay.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
-            textFieldBDay.trailingAnchor.constraint(equalTo: displayWrapper.trailingAnchor),
+            textFieldBDay.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
             
             textFieldWeight.topAnchor.constraint(equalTo: textFieldBDay.bottomAnchor, constant: 16),
             textFieldWeight.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
-            textFieldWeight.trailingAnchor.constraint(equalTo: displayWrapper.trailingAnchor),
+            textFieldWeight.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
             
             textFieldCity.topAnchor.constraint(equalTo: textFieldWeight.bottomAnchor, constant: 16),
             textFieldCity.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
-            textFieldCity.trailingAnchor.constraint(equalTo: displayWrapper.trailingAnchor),
+            textFieldCity.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
             
             textFieldVac.topAnchor.constraint(equalTo: textFieldCity.bottomAnchor, constant: 16),
             textFieldVac.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
-            textFieldVac.trailingAnchor.constraint(equalTo: displayWrapper.trailingAnchor),
+            textFieldVac.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
             
             textFieldDescrip.topAnchor.constraint(equalTo: textFieldVac.bottomAnchor, constant: 16),
             textFieldDescrip.bottomAnchor.constraint(equalTo: displayWrapper.bottomAnchor),
             textFieldDescrip.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
-            textFieldDescrip.trailingAnchor.constraint(equalTo: displayWrapper.trailingAnchor),
+            textFieldDescrip.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
         ])
     }
     
@@ -238,5 +245,25 @@ extension UIImage {
                 height: scaledImageSize.height
             ))
         }
+    }
+}
+
+extension UIImage {
+    func withAlpha(_ alpha: CGFloat) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        defer { UIGraphicsEndImageContext() }
+
+        guard let context = UIGraphicsGetCurrentContext(), let cgImage = cgImage else { return nil }
+
+        context.scaleBy(x: 1, y: -1)
+        context.translateBy(x: 0, y: -size.height)
+
+        context.setBlendMode(.normal)
+        context.setAlpha(alpha)
+
+        let rect = CGRect(origin: .zero, size: size)
+        context.draw(cgImage, in: rect)
+
+        return UIGraphicsGetImageFromCurrentImageContext()
     }
 }
