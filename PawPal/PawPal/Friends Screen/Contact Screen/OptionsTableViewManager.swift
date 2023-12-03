@@ -122,10 +122,11 @@ extension ContactViewController {
     }
     
     func deleteContact(contactEmail: String) {
-        let alertController = UIAlertController(title: "Delete Contact", message: "Are you sure you want to delete this contact? This action cannot be undone.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Delete Contact", message: "Are you sure you want to delete this contact? This will also delete your chat history.", preferredStyle: .alert)
 
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
             self.performDeletion(contactEmail: contactEmail)
+            self.changeFriendStatus(contactEmail: contactEmail)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
 
@@ -136,7 +137,110 @@ extension ContactViewController {
     }
     
     func performDeletion(contactEmail: String) {
-        // delete...
+        guard let currentUserEmail = currentUser?.email else { return }
+
+        let userDocument = Firestore.firestore().collection("users").document(currentUserEmail)
+        let userChatsCollection = userDocument.collection("chats")
+
+        //remove the contactEmail from the friends list
+        userDocument.getDocument { (document, error) in
+            if let document = document, let data = document.data() {
+                var friends = data["friends"] as? [String] ?? []
+
+                if let index = friends.firstIndex(of: contactEmail) {
+                    friends.remove(at: index)
+
+                    userDocument.updateData(["friends": friends]) { error in
+                        if let error = error {
+                            print("Error updating document: \(error)")
+                        } else {
+                            print("Contact successfully deleted from friends list.")
+                            
+                            //delete the chat reference of contactEmail and currentUserEmail
+                            self.removeChatReference(userChatsCollection: userChatsCollection, contactEmail: contactEmail)
+                        }
+                    }
+                }
+            } else if let error = error {
+                print("Error getting document: \(error)")
+            }
+        }
     }
+
+    func removeChatReference(userChatsCollection: CollectionReference, contactEmail: String) {
+        userChatsCollection.getDocuments { snapshot, error in
+            if let error = error {
+                print("Error getting chat references: \(error)")
+                return
+            }
+
+            guard let snapshot = snapshot else {
+                print("No chat references found.")
+                return
+            }
+
+            for chatRefDocument in snapshot.documents {
+                if let chatRef = chatRefDocument.get("ref") as? DocumentReference {
+                    chatRef.getDocument { (document, error) in
+                        if let document = document, document.exists {
+                            
+                            let friends = document.get("friends") as? [String] ?? []
+                            
+                            if friends.count == 2 && Set(friends) == Set([contactEmail, self.currentUser?.email]) {
+                                // Delete the chat reference if it contains only the two specified users
+                                userChatsCollection.document(chatRefDocument.documentID).delete() { error in
+                                    if let error = error {
+                                        print("Error removing chat reference: \(error)")
+                                    } else {
+                                        print("Chat reference successfully deleted.")
+                                    }
+                                }
+                            }
+                            
+                        } else if let error = error {
+                            print("Error getting chat document: \(error)")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func changeFriendStatus(contactEmail: String) {
+        //Remove currentUserEmail from the contact's friends array, and add it to the contact's notFriends array
+        guard let currentUserEmail = currentUser?.email else { return }
+
+        let contactDocument = Firestore.firestore().collection("users").document(contactEmail)
+
+        contactDocument.getDocument { documentSnapshot, error in
+            if let document = documentSnapshot, let data = document.data() {
+                var friends = data["friends"] as? [String] ?? []
+                var notFriends = data["notFriends"] as? [String] ?? []
+
+                
+                if let index = friends.firstIndex(of: currentUserEmail) {
+                    friends.remove(at: index)
+                }
+
+                if !notFriends.contains(currentUserEmail) {
+                    notFriends.append(currentUserEmail)
+                }
+
+                contactDocument.updateData([
+                    "friends": friends,
+                    "notFriends": notFriends
+                ]) { error in
+                    if let error = error {
+                        print("Error updating contact document: \(error)")
+                    } else {
+                        print("Contact document successfully updated with notFriends field.")
+                    }
+                }
+            } else if let error = error {
+                print("Error getting contact document: \(error)")
+            }
+        }
+    }
+
 
 }

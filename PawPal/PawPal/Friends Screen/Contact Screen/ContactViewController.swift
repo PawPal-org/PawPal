@@ -36,6 +36,7 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
         contactView.tableViewOptions.isScrollEnabled = false
         
         fetchProfilePic()
+        displayFriendStatus()
     }
     
     func fetchProfilePic() {
@@ -49,5 +50,15 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
             }.resume()
         }
     }
-
+    
+    func displayFriendStatus() {
+        if let contact = contact {
+            if !contact.isFriend! {
+                contactView.friendStatusMessageLabel.text = "This user is no longer your friend."
+            } else {
+                contactView.friendStatusMessageLabel.text = ""
+            }
+        }
+    }
+    
 }

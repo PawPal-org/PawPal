@@ -11,6 +11,7 @@ class ContactView: UIView {
     
     var profilePicButton: UIButton!
     var tableViewOptions: UITableView!
+    var friendStatusMessageLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,6 +19,7 @@ class ContactView: UIView {
         
         setupProfilePicButton()
         setupTableViewOptions()
+        setupFriendStatusMessageLabel()
         initConstraints()
     }
     
@@ -45,6 +47,16 @@ class ContactView: UIView {
         self.addSubview(tableViewOptions)
     }
     
+    func setupFriendStatusMessageLabel() {
+        friendStatusMessageLabel = UILabel()
+        friendStatusMessageLabel.textColor = .red
+        friendStatusMessageLabel.textAlignment = .center
+        friendStatusMessageLabel.numberOfLines = 0 // Allows for multiple lines
+        friendStatusMessageLabel.font = UIFont.systemFont(ofSize: 14)
+        friendStatusMessageLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(friendStatusMessageLabel)
+    }
+    
     func initConstraints() {
         NSLayoutConstraint.activate([
             profilePicButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 64),
@@ -56,6 +68,10 @@ class ContactView: UIView {
             tableViewOptions.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             tableViewOptions.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             tableViewOptions.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            
+            friendStatusMessageLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 2),
+            friendStatusMessageLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            friendStatusMessageLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16)
         ])
         self.layoutIfNeeded()
     }

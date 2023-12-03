@@ -83,8 +83,14 @@ class FriendsViewController: UIViewController {
             }
             
             self?.contactsList.removeAll()
-            if let friends = document.data()?["friends"] as? [String] {
-                self?.contactsList = friends.map { Contact(userEmail: $0, userName: nil, userProfilePicUrl: nil) }
+
+            if let friends = document.data()?["friends"] as? [String],
+               let notFriends = document.data()?["notFriends"] as? [String] {
+
+                self?.contactsList = friends.map { Contact(userEmail: $0, userName: nil, userProfilePicUrl: nil, isFriend: true) }
+                let notFriendsList = notFriends.map { Contact(userEmail: $0, userName: nil, userProfilePicUrl: nil, isFriend: false) }
+
+                self?.contactsList.append(contentsOf: notFriendsList)
                 self?.fetchFriendsDetails()
             }
         }
