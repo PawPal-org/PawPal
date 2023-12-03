@@ -29,9 +29,17 @@ extension ContactViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         let selectedOption = options[indexPath.row]
         if selectedOption == "Send a Message", let currentUserEmail = currentUser?.email, let contactEmail = contact?.userEmail {
-            sendMessage(currentUserEmail: currentUserEmail, contactEmail: contactEmail)
+            if !(contact?.isFriend)! {
+                showAlert(title:"Alert", message:"Chat history is retained, but the counterpart will not receive your subsequent message.")
+            }else {
+                sendMessage(currentUserEmail: currentUserEmail, contactEmail: contactEmail)
+            }
         }else if selectedOption == "Moments", let contact = contact {
-            navigateToMyMomentsScreen(contact: contact)
+            if !(contact.isFriend)! {
+                showAlert(title:"Unavailable", message:"You cannot see moments as this user is no longer your friend.")
+            }else {
+                navigateToMyMomentsScreen(contact: contact)
+            }
         }else if selectedOption == "Delete Contact", let contactEmail = contact?.userEmail {
             deleteContact(contactEmail: contactEmail)
         }
@@ -241,6 +249,11 @@ extension ContactViewController {
             }
         }
     }
-
+    
+    func showAlert(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
+    }
 
 }
