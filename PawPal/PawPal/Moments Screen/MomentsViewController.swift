@@ -19,6 +19,13 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func loadView() {
         view = momentsView
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.currentUser = Auth.auth().currentUser
+        reloadCurrentUser()
+        fetchFriendsMoments()
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()

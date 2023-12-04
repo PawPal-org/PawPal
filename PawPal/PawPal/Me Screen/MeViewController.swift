@@ -33,6 +33,12 @@ class MeViewController: UIViewController {
     override func loadView() {
         view = meScreen
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.currentUser = Auth.auth().currentUser
+        fetchUserProfilePicture()
+        fetchUserName()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
