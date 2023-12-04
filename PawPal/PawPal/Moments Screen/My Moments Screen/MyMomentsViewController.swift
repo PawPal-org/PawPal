@@ -33,6 +33,7 @@ class MyMomentsViewController: UIViewController, UITableViewDelegate, UITableVie
         
         myMomentsView.labelText.text = userName
         fetchUserProfilePicture()
+        fetchMyPetsCount()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -130,6 +131,21 @@ class MyMomentsViewController: UIViewController, UITableViewDelegate, UITableVie
               }
           }
         checkForMomentsAndUpdateUI()
+    }
+    
+    func fetchMyPetsCount() {
+        guard let userEmail = userEmail else { return }
+        let db = Firestore.firestore()
+        db.collection("users").document(userEmail).collection("myPets")
+          .getDocuments { [weak self] (querySnapshot, err) in
+              guard let self = self else { return }
+              if let err = err {
+                  print("Error getting documents: \(err)")
+              } else {
+                  let totalPets = querySnapshot?.documents.count ?? 0
+                  self.myMomentsView.labelPetsCountText.text = "\(totalPets)"
+              }
+          }
     }
     
     func checkForMomentsAndUpdateUI() {
