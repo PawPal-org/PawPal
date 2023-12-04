@@ -49,6 +49,10 @@ class SettingViewController: UIViewController {
 //        settingScreen.labelEmail.text = "Email"
 //        settingScreen.textFieldName.text = "Name"
         
+        //MARK: recognizing the taps on the app screen, not the keyboard
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
+    
         fetchUserProfilePicture()
         fetchUserName()
     }
@@ -187,5 +191,11 @@ class SettingViewController: UIViewController {
         
         photoPicker.delegate = self
         present(photoPicker, animated: true, completion: nil)
+    }
+    
+    //MARK: Hide Keyboard
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen
+        view.endEditing(true)
     }
 }

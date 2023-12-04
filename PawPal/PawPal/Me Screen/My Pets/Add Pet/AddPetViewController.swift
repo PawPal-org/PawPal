@@ -50,6 +50,10 @@ class AddPetViewController: UIViewController {
         
         addPetScreen.petBackgroundButton.menu = getMenuBGImagePicker()
         addPetScreen.petPicButton.menu = getMenuProfileImagePicker()
+        
+        //MARK: recognizing the taps on the app screen, not the keyboard
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     @objc func onSaveBarButtonTapped() {
@@ -144,5 +148,10 @@ class AddPetViewController: UIViewController {
         present(photoPicker, animated: true, completion: nil)
     }
 
+    //MARK: Hide Keyboard
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen
+        view.endEditing(true)
+    }
 }
 
