@@ -66,8 +66,6 @@ class NewFriendsViewController: UIViewController {
                 self?.fetchFriendsDetails()
             }
         }
-        checkForRequestAndUpdateUI()
-        
     }
     
     func fetchFriendsDetails() {
@@ -96,6 +94,7 @@ class NewFriendsViewController: UIViewController {
         group.notify(queue: .main) {
             self.newFriendsView.tableViewNewFriends.reloadData()
         }
+        checkForRequestAndUpdateUI()
     }
     
     func checkForRequestAndUpdateUI() {
