@@ -54,7 +54,8 @@ extension SettingViewController{
                         imageRef.downloadURL(completion: { (url, error) in
                             if let url = url, error == nil {
                                 profilePhotoURL = url
-                                self.saveUserPicToFireStore(photoURL: profilePhotoURL)
+//                                self.saveUserPicToFireStore(photoURL: profilePhotoURL)
+                                self.setNameAndPhotoOfTheUserInFirebaseAuth(newPhotoURL: profilePhotoURL)
                             } else {
                                 print("Error downloading URL: \(error?.localizedDescription ?? "Unknown error")")
                             }
@@ -65,32 +66,32 @@ extension SettingViewController{
                 })
             }
         } else {
-            self.saveUserPicToFireStore(photoURL: profilePhotoURL)
+            self.setNameAndPhotoOfTheUserInFirebaseAuth(newPhotoURL: profilePhotoURL)
         }
     }
 
     
-//    func setNameAndPhotoOfTheUserInFirebaseAuth(name: String, photoURL: URL?){
-//        guard let user = Auth.auth().currentUser else { return }
-//
-//        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-//        changeRequest?.displayName = name
-//        changeRequest?.photoURL = photoURL
-//
-//        print("\(String(describing: photoURL))")
-//        changeRequest?.commitChanges(completion: {(error) in
-//            if error != nil{
-//                print("Error occured: \(String(describing: error))")
-//            }else{
-//
-//                //Update the user to Firestore
-//                self.UpdateUserToFireStore(ImageURL: photoURL)
-//
-//                //MARK: hide the progress indicator...
-//                //self.hideActivityIndicator()
-//            }
-//        })
-//    }
+    func setNameAndPhotoOfTheUserInFirebaseAuth(newPhotoURL: URL?){
+        guard let user = Auth.auth().currentUser else { return }
+        let name = settingScreen.textFieldName.text ?? ""
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = name
+        changeRequest?.photoURL = newPhotoURL
+
+        print("Auth changed\(String(describing: newPhotoURL))")
+        changeRequest?.commitChanges(completion: {(error) in
+            if error != nil{
+                print("Error occured in Auth: \(String(describing: error))")
+            }else{
+
+                //Update the user to Firestore
+                self.saveUserPicToFireStore(photoURL: newPhotoURL)
+
+                //MARK: hide the progress indicator...
+                //self.hideActivityIndicator()
+            }
+        })
+    }
     
     //MARK: Firestore database...
     //MARK: logic to save a user profile to Firestore...
