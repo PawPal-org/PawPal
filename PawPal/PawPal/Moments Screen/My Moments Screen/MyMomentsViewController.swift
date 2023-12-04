@@ -60,6 +60,7 @@ class MyMomentsViewController: UIViewController, UITableViewDelegate, UITableVie
     @objc func refreshMoments(_ sender: UIRefreshControl) {
         print("refresh.")
         fetchMyMoments()
+        checkForMomentsAndUpdateUI()
         sender.endRefreshing()
     }
     
@@ -128,7 +129,23 @@ class MyMomentsViewController: UIViewController, UITableViewDelegate, UITableVie
                   self.myMomentsView.labelLikesCountText.text = "\(totalLikes)"
               }
           }
+        checkForMomentsAndUpdateUI()
     }
+    
+    func checkForMomentsAndUpdateUI() {
+        if myMoments.isEmpty {
+            let noDataLabel = UILabel()
+            noDataLabel.text = "No moments yet"
+            noDataLabel.textColor = UIColor.systemGray
+            noDataLabel.textAlignment = .center
+            noDataLabel.frame = CGRect(x: 0, y: 0, width: myMomentsView.tableViewMoments.bounds.size.width, height: myMomentsView.tableViewMoments.bounds.size.height)
+            myMomentsView.tableViewMoments.backgroundView = noDataLabel
+        } else {
+            myMomentsView.tableViewMoments.backgroundView = nil
+        }
+        myMomentsView.tableViewMoments.reloadData()
+    }
+
 }
 
 extension MyMomentsViewController: MomentsTableViewCellDelegate {

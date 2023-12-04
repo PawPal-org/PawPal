@@ -218,6 +218,21 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
         sortedNewMoments.sort { $0.timestamp > $1.timestamp }
         self.moments = sortedNewMoments
         self.momentsView.tableViewMoments.reloadData()
+        checkForMomentsAndUpdateUI()
+    }
+    
+    func checkForMomentsAndUpdateUI() {
+        if moments.isEmpty {
+            let noDataLabel: UILabel  = UILabel(frame: CGRect(x: 0, y: 0, width: momentsView.tableViewMoments.bounds.size.width, height: momentsView.tableViewMoments.bounds.size.height))
+            noDataLabel.text          = "No moments yet"
+            noDataLabel.textColor     = UIColor.systemGray
+            noDataLabel.textAlignment = .center
+            momentsView.tableViewMoments.backgroundView = noDataLabel
+            momentsView.tableViewMoments.separatorStyle = .none
+        } else {
+            momentsView.tableViewMoments.backgroundView = nil
+            momentsView.tableViewMoments.separatorStyle = .singleLine
+        }
     }
 
 }
