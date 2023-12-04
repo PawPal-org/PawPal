@@ -101,6 +101,11 @@ class MessageTableViewCell: UITableViewCell {
         otherUserConstraints = [wrapperLeadingConstraint, maxWidthConstraint]
 
         maxWidthConstraint.isActive = true
+        
+        let wrapperWidthConstraint = wrapperCellView.widthAnchor.constraint(greaterThanOrEqualTo: labelTimeStamp.widthAnchor)
+        wrapperWidthConstraint.isActive = true
+
+        labelTimeStamp.leadingAnchor.constraint(greaterThanOrEqualTo: wrapperCellView.leadingAnchor, constant: 8).isActive = true
     }
     
     func configureWithMessage(message: Message, isCurrentUser: Bool) {
@@ -120,12 +125,12 @@ class MessageTableViewCell: UITableViewCell {
 
         if isCurrentUser {
             NSLayoutConstraint.activate(currentUserConstraints)
-            wrapperCellView.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.2)
+            wrapperCellView.backgroundColor = UIColor.systemOrange.withAlphaComponent(0.2)
             wrapperCellView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMinXMaxYCorner] // Rounded corners except top right
             labelMessageText.textColor = .darkText
         } else {
             NSLayoutConstraint.activate(otherUserConstraints)
-            wrapperCellView.backgroundColor = UIColor.systemGray5
+            wrapperCellView.backgroundColor = UIColor.systemGray5.withAlphaComponent(0.5)
             wrapperCellView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner] // Rounded corners except top left
             labelMessageText.textColor = .black
         }

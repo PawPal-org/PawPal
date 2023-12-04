@@ -51,7 +51,9 @@ class MyMomentsView: UIView {
     
     func setupProfilePic(){
         profilePicButton = UIButton()
-        profilePicButton.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        if let image = UIImage(systemName: "person.crop.circle")?.withTintColor(.orange, renderingMode: .alwaysOriginal) {
+            profilePicButton.setBackgroundImage(image, for: .normal)
+        }
         profilePicButton.imageView?.contentMode = .scaleAspectFill
         profilePicButton.clipsToBounds = true
         // profilePicButton.layer.masksToBounds = true

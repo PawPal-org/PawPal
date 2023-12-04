@@ -56,7 +56,7 @@ class FriendsViewController: UIViewController {
     
     func setupNavigationBar() {
         let barIcon = UIBarButtonItem(
-            image: UIImage(systemName: "envelope.badge.person.crop"),
+            image: UIImage(systemName: "envelope.badge.person.crop")?.withTintColor(.orange, renderingMode: .alwaysOriginal),
             style: .plain,
             target: self,
             action: #selector(onNewFriendBarButtonTapped)

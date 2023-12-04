@@ -40,7 +40,7 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
         postMomentScreen.collectionView.reloadData()
         
         let barIcon = UIBarButtonItem(
-            image: UIImage(systemName: "arrow.up.circle"),
+            image: UIImage(systemName: "arrow.up.circle")?.withTintColor(.orange, renderingMode: .alwaysOriginal),
             style: .plain,
             target: self,
             action: #selector(onPostBarButtonTapped)

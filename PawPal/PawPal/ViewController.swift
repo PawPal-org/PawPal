@@ -88,7 +88,7 @@ class ViewController: UITabBarController, UITabBarControllerDelegate {
         self.viewControllers = [tabDiscover, tabFriends, tabMoments, tabChats, tabMe]
         
         // Apply tintColor for tab items
-        self.tabBar.tintColor = UIColor.systemBlue
+        self.tabBar.tintColor = UIColor.systemOrange
         self.tabBar.unselectedItemTintColor = UIColor.lightGray
     }
     

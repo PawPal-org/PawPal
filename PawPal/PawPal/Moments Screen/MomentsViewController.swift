@@ -42,7 +42,7 @@ class MomentsViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func setupNavigationBar() {
         let barIcon = UIBarButtonItem(
-            image: UIImage(systemName: "plus.circle.fill"),
+            image: UIImage(systemName: "plus.circle.fill")?.withTintColor(.orange, renderingMode: .alwaysOriginal),
             style: .plain,
             target: self,
             action: #selector(onAddBarButtonTapped)

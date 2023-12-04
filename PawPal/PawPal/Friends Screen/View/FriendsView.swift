@@ -31,6 +31,7 @@ class FriendsView: UIView {
     func setupTableViewContacts(){
         tableViewContacts = UITableView()
         tableViewContacts.register(ContactsTableViewCell.self, forCellReuseIdentifier: Configs.tableViewContactsID)
+        tableViewContacts.sectionIndexColor = UIColor.systemGray
         tableViewContacts.tableHeaderView = searchBar
         tableViewContacts.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(tableViewContacts)
