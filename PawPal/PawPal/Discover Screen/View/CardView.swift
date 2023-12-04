@@ -115,7 +115,7 @@ class CardView: UIView {
     private func setupLabelName() {
         labelName.font = UIFont(name: titleFont, size: 30)
         labelName.textAlignment = .center
-        labelName.attributedText = NSAttributedString(string: "LabelName", attributes: strokeTextAttributes)
+        labelName.attributedText = NSAttributedString(string: " ", attributes: strokeTextAttributes)
         labelName.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -144,12 +144,25 @@ class CardView: UIView {
 
     func setupFlippedButtonIcon(){
         
-        flippedButtonIcon.setBackgroundImage(UIImage(systemName: "dog.circle"), for: .normal)
+        flippedButtonIcon.setImage(UIImage(systemName: "dog.circle"), for: .normal)
         flippedButtonIcon.translatesAutoresizingMaskIntoConstraints = false
         flippedButtonIcon.tintColor = backgroundColorBeige
+        flippedButtonIcon.contentVerticalAlignment = .fill
+        flippedButtonIcon.contentHorizontalAlignment = .fill
+        flippedButtonIcon.imageView?.contentMode = .scaleAspectFill
         flippedButtonIcon.layer.cornerRadius = 75
         flippedButtonIcon.clipsToBounds = true
+        flippedButtonIcon.translatesAutoresizingMaskIntoConstraints = false
+        //flippedButtonIcon.frame = CGRect(x: 50, y: 100, width: 200, height: 50)
+
+        // To add a border
+        flippedButtonIcon.layer.borderWidth = 8.0
+        flippedButtonIcon.layer.borderColor = pawColor.cgColor // Specify the color you want here
+
+        // Optional: to make the button corners rounded as well
+        
     }
+
     
     private func setupFlippedLabelName() {
         //flippedLabelName.font = UIFont.boldSystemFont(ofSize: 30)
@@ -232,7 +245,9 @@ class CardView: UIView {
             flippedButtonIcon.setImage(UIImage(systemName: "dog.circle"), for: .normal)
         }else{
             if let url = URL(string: iconURL) {
-                flippedButtonIcon.kf.setBackgroundImage(with: url, for: .normal)
+                flippedButtonIcon.kf.setImage(with: url, for: .normal)
+                flippedButtonIcon.imageView?.image?.withRenderingMode(.alwaysOriginal)
+                
             }
         }
         flippedLabelName.text = name
