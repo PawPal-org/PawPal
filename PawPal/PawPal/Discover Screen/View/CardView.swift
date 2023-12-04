@@ -153,13 +153,10 @@ class CardView: UIView {
         flippedButtonIcon.layer.cornerRadius = 75
         flippedButtonIcon.clipsToBounds = true
         flippedButtonIcon.translatesAutoresizingMaskIntoConstraints = false
-        //flippedButtonIcon.frame = CGRect(x: 50, y: 100, width: 200, height: 50)
 
         // To add a border
         flippedButtonIcon.layer.borderWidth = 8.0
         flippedButtonIcon.layer.borderColor = pawColor.cgColor // Specify the color you want here
-
-        // Optional: to make the button corners rounded as well
         
     }
 
