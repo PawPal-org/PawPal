@@ -54,32 +54,33 @@ class SettingView: UIView {
     func setuplabelPhoto(){
         labelPhoto = UILabel()
         labelPhoto.text = "Tap to Change Photo"
-        labelPhoto.font = UIFont.boldSystemFont(ofSize: 14)
+        labelPhoto.font = UIFont(name: lightFont, size: 14)
         labelPhoto.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(labelPhoto)
     }
     
     func setupLabelEmail(){
         labelEmail = UILabel()
-        labelEmail.font = labelEmail.font.withSize(24)
+        labelEmail.font = UIFont(name: secondTitleFont, size: 24)
         labelEmail.textAlignment = .left
         labelEmail.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(labelEmail)
     }
     
     func setuptextFieldName(){
-            textFieldName = UITextField()
-            textFieldName.placeholder = "Name"
-            textFieldName.keyboardType = .default
-            textFieldName.borderStyle = .roundedRect
-            textFieldName.translatesAutoresizingMaskIntoConstraints = false
-            self.addSubview(textFieldName)
+        textFieldName = UITextField()
+        textFieldName.placeholder = "Name"
+        textFieldName.font = UIFont(name: secondTitleFont, size: 24)
+        textFieldName.keyboardType = .default
+        textFieldName.borderStyle = .roundedRect
+        textFieldName.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(textFieldName)
         }
     
     func setupbuttonSave(){
         buttonSave = UIButton(type: .system)
         buttonSave.setTitle("Save", for: .normal)
-        buttonSave.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        buttonSave.titleLabel?.font = UIFont(name: titleFont, size: 20)
         buttonSave.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(buttonSave)
     }

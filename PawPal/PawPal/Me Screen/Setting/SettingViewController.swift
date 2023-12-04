@@ -6,9 +6,10 @@
 //
 
 import UIKit
-import FirebaseFirestore
 import FirebaseAuth
+import FirebaseFirestore
 import PhotosUI
+import FirebaseStorage
 
 class SettingViewController: UIViewController {
     
@@ -16,7 +17,11 @@ class SettingViewController: UIViewController {
     let settingScreen = SettingView()
     //MARK: variable to store the picked Image...
     var pickedImage:UIImage?
+    var didChangeProfileImage = false
+    var hasProfilePicBefore = true
 
+    //MARK: add photo to Storage
+    let storage = Storage.storage()
     let db = Firestore.firestore()
     var currentUser: FirebaseAuth.User?
     var userProfileImageUrl: String?
@@ -31,6 +36,11 @@ class SettingViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        navigationController?.navigationBar.prefersLargeTitles = false
+        let attributes = [
+            NSAttributedString.Key.font: UIFont(name: titleFont, size: 18)!
+        ]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
         title = "Account Information"
         
         settingScreen.buttonTakePhoto.menu = getMenuImagePicker()
@@ -100,6 +110,7 @@ class SettingViewController: UIViewController {
                     }.resume()
                 }
             } else {
+                hasProfilePicBefore = false
                 print("Profile image URL not found")
             }
         }
@@ -111,8 +122,17 @@ class SettingViewController: UIViewController {
         //MARK: first verify the information...
         if (verifyInformation()) {
             //MARK: creating a new user on Firebase with photo...
-            //showActivityIndicator()
-            uploadProfilePhotoToStorage()
+            if didChangeProfileImage {
+                if hasProfilePicBefore{
+                    if let oldImageUrl = userProfileImageUrl {
+                        deleteProfileImageUrlFromFirestore()
+                        deleteOldProfilePhoto(oldPhotoURL: oldImageUrl)
+                    }
+                    uploadProfilePhotoToStorage()
+                } else { uploadProfilePhotoToStorage() }
+                //showActivityIndicator()
+            }
+            updateUserName()
         }
     }
     

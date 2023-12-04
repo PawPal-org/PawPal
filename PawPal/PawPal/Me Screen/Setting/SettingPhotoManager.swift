@@ -30,6 +30,7 @@ extension SettingViewController:PHPickerViewControllerDelegate{
                                     for: .normal
                                 )
                                 self.pickedImage = uwImage
+                                self.didChangeProfileImage = true
                             }
                         }
                     }
