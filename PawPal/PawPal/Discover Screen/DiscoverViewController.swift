@@ -114,13 +114,14 @@ class DiscoverViewController: UIViewController {
                 descriptions: petDescriptions,
                 email: petOwnerEmail
             )
-            
-            self.cardStack.append(cardView)
-            self.view.addSubview(cardView)
-            self.positionCard(cardView)
-            self.setupBackground(for: cardView)
-            self.setupGestures(for: cardView)
-            cardView.flippedButtonIcon.addTarget(self, action: #selector(self.flippedButtonIconTapped(sender:)), for: .touchUpInside)
+            if petOwnerEmail != self.getCurrentUserEmail(){
+                self.cardStack.append(cardView)
+                self.view.addSubview(cardView)
+                self.positionCard(cardView)
+                self.setupBackground(for: cardView)
+                self.setupGestures(for: cardView)
+                cardView.flippedButtonIcon.addTarget(self, action: #selector(self.flippedButtonIconTapped(sender:)), for: .touchUpInside)
+            }
                 
             // Bring the top card to front after all cards have been added
             if let lastCard = self.cardStack.last {
@@ -259,7 +260,12 @@ class DiscoverViewController: UIViewController {
                     targetEmail = ownerEmail
                 }
                 print(targetEmail)
-                sendFriendRequest(currentEmail: currEmail, petOwnerEmail: targetEmail)
+                if currEmail == targetEmail{
+                    print("can't send self friend request")
+                }else{
+                    sendFriendRequest(currentEmail: currEmail, petOwnerEmail: targetEmail)
+                }
+                
                 
             } else if translation.x < -100 { // Threshold for left swipe
                 animateCard(card: card, translation: -500) // Swipe left
