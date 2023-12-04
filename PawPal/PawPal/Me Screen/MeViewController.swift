@@ -184,9 +184,14 @@ extension MeViewController: UITableViewDataSource, UITableViewDelegate {
                 let mapViewController = MapViewController()
                 navigationController?.pushViewController(mapViewController, animated: true)
             }
+            
         } else if tableView == meScreen.settingTable {
             //Handle "Setting" cell tabbed
+            let settingViewController = SettingViewController()
+            navigationController?.pushViewController(settingViewController, animated: true)
+            
         } else if tableView == meScreen.logOutTable {
+            //Handle "Log Out" cell tabbed
             let logoutAlert = UIAlertController(title: "Logging out!", message: "Are you sure want to log out?",
                 preferredStyle: .actionSheet)
             logoutAlert.addAction(UIAlertAction(title: "Yes, log out!", style: .default, handler: {(_) in

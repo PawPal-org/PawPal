@@ -94,7 +94,7 @@ class AddPetView: UIView {
         displayWrapper = UIScrollView()
         displayWrapper.backgroundColor = .clear
         displayWrapper.translatesAutoresizingMaskIntoConstraints = false
-        petBackgroundButton.addSubview(displayWrapper)
+        self.addSubview(displayWrapper)
     }
     
     func setupTextFieldName(){
@@ -106,7 +106,7 @@ class AddPetView: UIView {
 //        textFieldName.layer.borderColor = UIColor.white.cgColor // Set border color
 //        textFieldName.layer.borderWidth = 2.0 // Set border width
         textFieldName.translatesAutoresizingMaskIntoConstraints = false
-        petBackgroundButton.addSubview(textFieldName)
+        self.addSubview(textFieldName)
     }
 
     func setupTextFieldSex(){
