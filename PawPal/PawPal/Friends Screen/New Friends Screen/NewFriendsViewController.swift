@@ -66,6 +66,7 @@ class NewFriendsViewController: UIViewController {
                 self?.fetchFriendsDetails()
             }
         }
+        checkForRequestAndUpdateUI()
         
     }
     
@@ -95,6 +96,20 @@ class NewFriendsViewController: UIViewController {
         group.notify(queue: .main) {
             self.newFriendsView.tableViewNewFriends.reloadData()
         }
+    }
+    
+    func checkForRequestAndUpdateUI() {
+        if newFriendsList.isEmpty {
+            let noDataLabel = UILabel()
+            noDataLabel.text = "No new friend requests yet"
+            noDataLabel.textColor = UIColor.systemGray
+            noDataLabel.textAlignment = .center
+            noDataLabel.frame = CGRect(x: 0, y: 0, width: newFriendsView.tableViewNewFriends.bounds.size.width, height: newFriendsView.tableViewNewFriends.bounds.size.height)
+            newFriendsView.tableViewNewFriends.backgroundView = noDataLabel
+        } else {
+            newFriendsView.tableViewNewFriends.backgroundView = nil
+        }
+        newFriendsView.tableViewNewFriends.reloadData()
     }
 
 }
