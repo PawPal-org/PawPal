@@ -71,6 +71,35 @@ class MapViewController: UIViewController {
         present(navForSearch, animated: true)
     }
     
+    
+    func searchNearbyDogParks(from location: CLLocation) {
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = "dog park"
+        request.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
+
+        let search = MKLocalSearch(request: request)
+        search.start { (response, error) in
+            guard let response = response else {
+                print("Error: \(error?.localizedDescription ?? "Unknown error").")
+                return
+            }
+
+            var allAnnotations = [MKAnnotation]()
+
+            for item in response.mapItems {
+                let place = Place(title: item.name ?? "Dog Park", coordinate: item.placemark.coordinate, info: "Dog Park")
+                self.mapView.mapView.addAnnotation(place)
+                allAnnotations.append(place)
+            }
+
+            self.showAnnotationsOnMap(annotations: allAnnotations)
+        }
+    }
+
+    func showAnnotationsOnMap(annotations: [MKAnnotation]) {
+        mapView.mapView.showAnnotations(annotations, animated: true)
+    }
+    
     //MARK: show selected place on map...
     func showSelectedPlace(placeItem: MKMapItem){
         let coordinate = placeItem.placemark.coordinate

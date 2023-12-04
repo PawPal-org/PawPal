@@ -30,6 +30,8 @@ extension MapViewController: CLLocationManagerDelegate{
         if let location = locations.first{
             mapView.buttonLoading.isHidden = true
             mapView.buttonSearch.isHidden = false
+            searchNearbyDogParks(from: location)
+            locationManager.stopUpdatingLocation()
         }
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
