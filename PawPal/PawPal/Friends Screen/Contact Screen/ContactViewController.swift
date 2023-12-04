@@ -40,15 +40,19 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func fetchProfilePic() {
+        // Use SDWebImage to set the image
         if let imageUrlString = contact?.userProfilePicUrl, let url = URL(string: imageUrlString) {
-            URLSession.shared.dataTask(with: url) { data, _, error in
-                if let data = data, error == nil, let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self.contactView.profilePicButton.setBackgroundImage(image, for: .normal)
-                    }
-                }
-            }.resume()
+            self.contactView.profilePicButton.sd_setBackgroundImage(with: url, for: .normal, completed: nil)
         }
+//        if let imageUrlString = contact?.userProfilePicUrl, let url = URL(string: imageUrlString) {
+//            URLSession.shared.dataTask(with: url) { data, _, error in
+//                if let data = data, error == nil, let image = UIImage(data: data) {
+//                    DispatchQueue.main.async {
+//                        self.contactView.profilePicButton.setBackgroundImage(image, for: .normal)
+//                    }
+//                }
+//            }.resume()
+//        }
     }
     
     func displayFriendStatus() {

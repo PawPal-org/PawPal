@@ -24,15 +24,19 @@ extension NewFriendsViewController: UITableViewDelegate, UITableViewDataSource{
         
         cell.buttonProfilePic.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
         
+        // Use SDWebImage to set the image
         if let imageUrlString = newFriend.userProfilePicUrl, let url = URL(string: imageUrlString) {
-            URLSession.shared.dataTask(with: url) { data, _, error in
-                if let data = data, error == nil, let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        cell.buttonProfilePic.setBackgroundImage(image, for: .normal)
-                    }
-                }
-            }.resume()
+            cell.buttonProfilePic.sd_setBackgroundImage(with: url, for: .normal, completed: nil)
         }
+//        if let imageUrlString = newFriend.userProfilePicUrl, let url = URL(string: imageUrlString) {
+//            URLSession.shared.dataTask(with: url) { data, _, error in
+//                if let data = data, error == nil, let image = UIImage(data: data) {
+//                    DispatchQueue.main.async {
+//                        cell.buttonProfilePic.setBackgroundImage(image, for: .normal)
+//                    }
+//                }
+//            }.resume()
+//        }
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium

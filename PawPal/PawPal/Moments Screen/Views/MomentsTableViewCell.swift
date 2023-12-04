@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseStorage
+import SDWebImage
 
 class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -222,41 +223,13 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     
     func fetchImages() {
         images.removeAll()
-        let storage = Storage.storage()
-        
-        // Sort the dictionary based on keys to maintain order
         let sortedUrls = imageUrls.sorted { $0.key < $1.key }.map { $0.value }
-        
+
         for urlString in sortedUrls {
             if let url = URL(string: urlString) {
-                let imageName = url.lastPathComponent
-
-                // Check cache first
-                if let cachedImage = ImageCache.shared.getImage(for: imageName) {
-                    self.images.append(cachedImage)
-                    continue
-                }
-
-                // Fetch from storage if not in cache
-                let storageRef = storage.reference().child("post_images").child(imageName)
-                fetchImage(storageRef, imageName: imageName)
-            }
-        }
-
-        self.collectionView.reloadData()
-        self.updatePageControl()
-    }
-    
-    func fetchImage(_ storageRef: StorageReference, imageName: String, isProfileImage: Bool = false) {
-        storageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    print("Error downloading image: \(error)")
-                } else if let data = data, let image = UIImage(data: data) {
-                    ImageCache.shared.setImage(image, for: imageName)
-                    if isProfileImage {
-                        self.userImageButton.setImage(image, for: .normal)
-                    } else {
+                // Use SDWebImage to set the image
+                SDWebImageManager.shared.loadImage(with: url, options: [], progress: nil) { (image, _, _, _, _, _) in
+                    if let image = image {
                         self.images.append(image)
                         self.collectionView.reloadData()
                         self.updatePageControl()
@@ -264,7 +237,50 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
                 }
             }
         }
+//        images.removeAll()
+//        let storage = Storage.storage()
+//
+//        // Sort the dictionary based on keys to maintain order
+//        let sortedUrls = imageUrls.sorted { $0.key < $1.key }.map { $0.value }
+//
+//        for urlString in sortedUrls {
+//            if let url = URL(string: urlString) {
+//                let imageName = url.lastPathComponent
+//
+//                // Check cache first
+//                if let cachedImage = ImageCache.shared.getImage(for: imageName) {
+//                    self.images.append(cachedImage)
+//                    continue
+//                }
+//
+//                // Fetch from storage if not in cache
+//                let storageRef = storage.reference().child("post_images").child(imageName)
+//                fetchImage(storageRef, imageName: imageName)
+//            }
+//        }
+//
+//        self.collectionView.reloadData()
+//        self.updatePageControl()
     }
+    
+//    func fetchImage(_ storageRef: StorageReference, imageName: String, isProfileImage: Bool = false) {
+//        storageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+//            DispatchQueue.main.async {
+//                if let error = error {
+//                    print("Error downloading image: \(error)")
+//                } else if let data = data, let image = UIImage(data: data) {
+//                    ImageCache.shared.setImage(image, for: imageName)
+//                    if isProfileImage {
+//                        self.userImageButton.setImage(image, for: .normal)
+//                    } else {
+//                        self.images.append(image)
+//                        self.collectionView.reloadData()
+//                        self.updatePageControl()
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     func fetchProfileImage(for moment: Moment) {
         guard let profileImageUrl = moment.profileImageUrl, let url = URL(string: profileImageUrl) else {
@@ -272,43 +288,52 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
             self.userImageButton.setImage(UIImage(systemName: "person.crop.circle")!, for: .normal)
             return
         }
-        let imageName = url.lastPathComponent
 
-        // Use cached image if available
-        if let cachedImage = ImageCache.shared.getImage(for: imageName) {
-            self.userImageButton.setImage(cachedImage, for: .normal)
-            return
-        }
-
-        // Fetch from storage if not in cache
-        let storageRef = Storage.storage().reference().child("user_images").child(imageName)
-
-        // Cancel any existing image load task
-        currentProfileImageLoadTask?.cancel()
-
-        storageRef.downloadURL { [weak self] (url, error) in
-            guard let url = url, error == nil else {
-                print("Error getting download URL: \(error?.localizedDescription ?? "unknown error")")
-                return
-            }
-
-            // Fetch the image from the download URL
-            self?.currentProfileImageLoadTask = URLSession.shared.dataTask(with: url) { data, response, error in
-                guard let data = data, error == nil, let image = UIImage(data: data) else {
-                    print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
-                    return
-                }
-
-                DispatchQueue.main.async {
-                    // Check if the cell is still displaying content related to the same moment
-                    if self?.momentID == moment.id {
-                        ImageCache.shared.setImage(image, for: imageName)
-                        self?.userImageButton.setImage(image, for: .normal)
-                    }
-                }
-            }
-            self?.currentProfileImageLoadTask?.resume()
-        }
+        // Use SDWebImage to set the image
+        userImageButton.sd_setImage(with: url, for: .normal, placeholderImage: UIImage(systemName: "person.crop.circle"), completed: nil)
+        
+//        guard let profileImageUrl = moment.profileImageUrl, let url = URL(string: profileImageUrl) else {
+//            // Set default profile image if no URL is provided
+//            self.userImageButton.setImage(UIImage(systemName: "person.crop.circle")!, for: .normal)
+//            return
+//        }
+//        let imageName = url.lastPathComponent
+//
+//        // Use cached image if available
+//        if let cachedImage = ImageCache.shared.getImage(for: imageName) {
+//            self.userImageButton.setImage(cachedImage, for: .normal)
+//            return
+//        }
+//
+//        // Fetch from storage if not in cache
+//        let storageRef = Storage.storage().reference().child("user_images").child(imageName)
+//
+//        // Cancel any existing image load task
+//        currentProfileImageLoadTask?.cancel()
+//
+//        storageRef.downloadURL { [weak self] (url, error) in
+//            guard let url = url, error == nil else {
+//                print("Error getting download URL: \(error?.localizedDescription ?? "unknown error")")
+//                return
+//            }
+//
+//            // Fetch the image from the download URL
+//            self?.currentProfileImageLoadTask = URLSession.shared.dataTask(with: url) { data, response, error in
+//                guard let data = data, error == nil, let image = UIImage(data: data) else {
+//                    print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
+//                    return
+//                }
+//
+//                DispatchQueue.main.async {
+//                    // Check if the cell is still displaying content related to the same moment
+//                    if self?.momentID == moment.id {
+//                        ImageCache.shared.setImage(image, for: imageName)
+//                        self?.userImageButton.setImage(image, for: .normal)
+//                    }
+//                }
+//            }
+//            self?.currentProfileImageLoadTask?.resume()
+//        }
     }
 
 
@@ -324,5 +349,3 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     }
 
 }
-
-

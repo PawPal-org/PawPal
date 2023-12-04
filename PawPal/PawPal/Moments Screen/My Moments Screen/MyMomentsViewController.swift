@@ -83,17 +83,25 @@ class MyMomentsViewController: UIViewController, UITableViewDelegate, UITableVie
                 self.userProfileImageUrl = profileImageUrlString // Store the URL
 
                 if let url = URL(string: profileImageUrlString) {
-                    URLSession.shared.dataTask(with: url) { data, response, error in
-                        guard let data = data, error == nil, let image = UIImage(data: data) else {
-                            print("Error downloading profile image: \(error?.localizedDescription ?? "Unknown error")")
-                            return
+                    // Use SDWebImage to set the image
+                    myMomentsView.profilePicButton.sd_setImage(with: url, for: .normal, placeholderImage: UIImage(systemName: "person.crop.circle"), completed: { [weak self] (image, error, cacheType, imageURL) in
+                        if error != nil {
+                            print("Error downloading profile image: \(error!.localizedDescription)")
+                        } else {
+                            self?.fetchMyMoments()
                         }
-
-                        DispatchQueue.main.async {
-                            self.myMomentsView.profilePicButton.setImage(image, for: .normal)
-                            self.fetchMyMoments()
-                        }
-                    }.resume()
+                    })
+//                    URLSession.shared.dataTask(with: url) { data, response, error in
+//                        guard let data = data, error == nil, let image = UIImage(data: data) else {
+//                            print("Error downloading profile image: \(error?.localizedDescription ?? "Unknown error")")
+//                            return
+//                        }
+//
+//                        DispatchQueue.main.async {
+//                            self.myMomentsView.profilePicButton.setImage(image, for: .normal)
+//                            self.fetchMyMoments()
+//                        }
+//                    }.resume()
                 }
             } else {
                 self.fetchMyMoments()
