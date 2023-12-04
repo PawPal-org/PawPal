@@ -132,9 +132,13 @@ extension ContactViewController {
     func deleteContact(contactEmail: String) {
         let alertController = UIAlertController(title: "Delete Contact", message: "Are you sure you want to delete this contact? This will also delete your chat history.", preferredStyle: .alert)
 
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [self] _ in
             self.performDeletion(contactEmail: contactEmail)
-            self.changeFriendStatus(contactEmail: contactEmail)
+            if !(contact?.isFriend)! {
+                self.deleteNotFriends(contactEmail: contactEmail)
+            }else {
+                self.changeFriendStatus(contactEmail: contactEmail)
+            }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
 
@@ -146,27 +150,27 @@ extension ContactViewController {
     
     func performDeletion(contactEmail: String) {
         guard let currentUserEmail = currentUser?.email else { return }
-
         let userDocument = Firestore.firestore().collection("users").document(currentUserEmail)
         let userChatsCollection = userDocument.collection("chats")
 
-        //remove the contactEmail from the friends list
         userDocument.getDocument { (document, error) in
             if let document = document, let data = document.data() {
-                var friends = data["friends"] as? [String] ?? []
+                var currentFriends = data["friends"] as? [String] ?? []
+                var currentNotFriends = data["notFriends"] as? [String] ?? []
 
-                if let index = friends.firstIndex(of: contactEmail) {
-                    friends.remove(at: index)
+                if let friendIndex = currentFriends.firstIndex(of: contactEmail) {
+                    currentFriends.remove(at: friendIndex)
+                }
+                if let notFriendIndex = currentNotFriends.firstIndex(of: contactEmail) {
+                    currentNotFriends.remove(at: notFriendIndex)
+                }
 
-                    userDocument.updateData(["friends": friends]) { error in
-                        if let error = error {
-                            print("Error updating document: \(error)")
-                        } else {
-                            print("Contact successfully deleted from friends list.")
-                            
-                            //delete the chat reference of contactEmail and currentUserEmail
-                            self.removeChatReference(userChatsCollection: userChatsCollection, contactEmail: contactEmail)
-                        }
+                userDocument.updateData(["friends": currentFriends, "notFriends": currentNotFriends]) { error in
+                    if let error = error {
+                        print("Error updating document: \(error)")
+                    } else {
+                        print("Contact successfully updated.")
+                        self.removeChatReference(userChatsCollection: userChatsCollection, contactEmail: contactEmail)
                     }
                 }
             } else if let error = error {
@@ -195,6 +199,30 @@ extension ContactViewController {
                             let friends = document.get("friends") as? [String] ?? []
                             
                             if friends.count == 2 && Set(friends) == Set([contactEmail, self.currentUser?.email]) {
+                                // Increment deletion operation count
+                                let existingDeletionCount = document.get("deletionOperations") as? Int ?? 0
+                                let updatedDeletionCount = existingDeletionCount + 1
+                                
+                                // Update deletion operation count
+                                chatRef.updateData(["deletionOperations": updatedDeletionCount]) { error in
+                                    if let error = error {
+                                        print("Error updating deletionOperations count: \(error)")
+                                    } else {
+                                        print("DeletionOperations count successfully updated.")
+                                        
+                                        // Check if deletion count equals friends count, then delete the chat
+                                        if updatedDeletionCount == friends.count {
+                                            chatRef.delete() { error in
+                                                if let error = error {
+                                                    print("Error deleting chat document: \(error)")
+                                                } else {
+                                                    print("Chat document successfully deleted.")
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                
                                 // Delete the chat reference if it contains only the two specified users
                                 userChatsCollection.document(chatRefDocument.documentID).delete() { error in
                                     if let error = error {
@@ -237,6 +265,34 @@ extension ContactViewController {
                 contactDocument.updateData([
                     "friends": friends,
                     "notFriends": notFriends
+                ]) { error in
+                    if let error = error {
+                        print("Error updating contact document: \(error)")
+                    } else {
+                        print("Contact document successfully updated with notFriends field.")
+                    }
+                }
+            } else if let error = error {
+                print("Error getting contact document: \(error)")
+            }
+        }
+    }
+    
+    func deleteNotFriends(contactEmail: String) {
+        guard let currentUserEmail = currentUser?.email else { return }
+        
+        let contactDocument = Firestore.firestore().collection("users").document(contactEmail)
+
+        contactDocument.getDocument { documentSnapshot, error in
+            if let document = documentSnapshot, let data = document.data() {
+                var friends = data["friends"] as? [String] ?? []
+                
+                if let index = friends.firstIndex(of: currentUserEmail) {
+                    friends.remove(at: index)
+                }
+
+                contactDocument.updateData([
+                    "friends": friends
                 ]) { error in
                     if let error = error {
                         print("Error updating contact document: \(error)")

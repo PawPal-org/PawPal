@@ -37,6 +37,11 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource{
         let contact = isSearchActive ? filteredContactsList[indexPath.row] : contactSections[indexPath.section].contacts[indexPath.row]
         
         cell.labelName.text = contact.userName
+        if !contact.isFriend! {
+            cell.labelName.textColor = .red
+        }else {
+            cell.labelName.textColor = .black
+        }
         
         cell.buttonProfilePic.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
         
