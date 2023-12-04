@@ -18,7 +18,8 @@ class CardView: UIView {
     let labelSex = UILabel()
     let labelBreed = UILabel()
     let labelLocation = UILabel()
-    
+    let backgroundImageView = UIImageView()
+    let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     //MARK: Variables for cards' back
     let flippedButtonIcon = UIButton()
     let flippedLabelName = UILabel()
@@ -31,6 +32,7 @@ class CardView: UIView {
     let flippedLabelDescriptions = UILabel()
     let ownerEmail = UILabel()
     var isFlipped = false
+    var petImageURL: String!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,10 +47,12 @@ class CardView: UIView {
     }
 
     private func setupCard() {
-        self.backgroundColor = themeColor // Customize as needed
+        self.backgroundColor = themeColor
         self.layer.cornerRadius = 40
         self.clipsToBounds = true
     }
+    
+    
 
     private func setupSubviews() {
         addSubview(imageView)
@@ -63,6 +67,9 @@ class CardView: UIView {
         setupLabelSex()
         setupLabelBreed()
         setupLabelLocation()
+        setupBackgroundImageView()
+        setupBlurEffectView()
+        
     }
     
     private func setupFlippedStateSubviews(){
@@ -101,6 +108,39 @@ class CardView: UIView {
     }
     
 
+    private func setupBackgroundImageView() {
+        addSubview(backgroundImageView)
+        sendSubviewToBack(backgroundImageView)
+        backgroundImageView.contentMode = .scaleAspectFill // maintain aspect ratio
+        
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImageView.layer.cornerRadius = self.layer.cornerRadius
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.clipsToBounds = true
+
+            // Constraints for backgroundImageView
+        NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: self.topAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
+    }
+    
+    private func setupBlurEffectView() {
+        // Adding the blur effect view as a subview of the backgroundImageView
+        backgroundImageView.addSubview(blurEffectView)
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+
+        // Constraints for blurEffectView
+        NSLayoutConstraint.activate([
+            blurEffectView.topAnchor.constraint(equalTo: backgroundImageView.topAnchor),
+            blurEffectView.leadingAnchor.constraint(equalTo: backgroundImageView.leadingAnchor),
+            blurEffectView.trailingAnchor.constraint(equalTo: backgroundImageView.trailingAnchor),
+            blurEffectView.bottomAnchor.constraint(equalTo: backgroundImageView.bottomAnchor)
+        ])
+    }
+    
     private func setupOwnerEmail(){
         ownerEmail.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -228,7 +268,7 @@ class CardView: UIView {
                 imageView.kf.setImage(with: url)
             }
         }
-        
+        petImageURL = imageUrl
         labelName.text = name
         labelSex.text = sex
         labelBreed.text = breed

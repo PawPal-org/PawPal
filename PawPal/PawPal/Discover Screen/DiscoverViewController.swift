@@ -18,6 +18,7 @@ class DiscoverViewController: UIViewController {
     var cardView: CardView!
     let db = Firestore.firestore()
     var currentUser: FirebaseAuth.User?
+    var bgURL: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,6 +85,7 @@ class DiscoverViewController: UIViewController {
         let petVaccinations = petData["vaccinations"] as? String ?? "not uploaded yet"
         let petOwnerEmail = petData["email"] as? String ?? "no email"
         let petImageUrl = petData["backgroundImageURL"] as? String ?? "default"
+        bgURL = petImageUrl
         let petIconUrl = petData["petImageURL"] as? String ?? "default"
         let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM-dd-yyyy"
@@ -116,6 +118,7 @@ class DiscoverViewController: UIViewController {
             self.cardStack.append(cardView)
             self.view.addSubview(cardView)
             self.positionCard(cardView)
+            self.setupBackground(for: cardView)
             self.setupGestures(for: cardView)
             cardView.flippedButtonIcon.addTarget(self, action: #selector(self.flippedButtonIconTapped(sender:)), for: .touchUpInside)
                 
@@ -136,7 +139,7 @@ class DiscoverViewController: UIViewController {
             print("Owner email not found")
             return
         }
-
+        
         fetchUserName(ownerEmail: ownerEmail) { [weak self] userName in
             guard let strongSelf = self else { return }
 
@@ -193,6 +196,46 @@ class DiscoverViewController: UIViewController {
         cardView.addGestureRecognizer(tapGesture)
     }
     
+    private func setupBackground(for card: CardView){
+        guard let url = URL(string: card.petImageURL) else {
+                print("Invalid URL")
+                return
+        }
+        print(url)
+        
+        card.backgroundImageView.kf.setImage(with: url){ result in
+            switch result {
+            case .success(let value):
+                var tempImage = value.image
+                print("tempImagetype:\(type(of: tempImage))")
+                var tempImageRounded = self.imageWithRoundedCorners(image: tempImage, radius: 40)
+                card.layer.contents = tempImageRounded!.withRenderingMode(.alwaysOriginal).cgImage
+                
+            case .failure(let error):
+                print("Error setting background: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func imageWithRoundedCorners(image: UIImage, radius: CGFloat) -> UIImage? {
+        let rect = CGRect(origin: .zero, size: image.size)
+
+        UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
+        let context = UIGraphicsGetCurrentContext()
+        
+        context?.beginPath()
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: radius)
+        context?.addPath(path.cgPath)
+        context?.clip()
+
+        image.draw(in: rect)
+        let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return roundedImage
+    }
+
+    
     func getCurrentUserEmail() -> String {
         return UserDefaults.standard.string(forKey: "currentUserEmail")!.lowercased()
     }
@@ -217,9 +260,6 @@ class DiscoverViewController: UIViewController {
                 }
                 print(targetEmail)
                 sendFriendRequest(currentEmail: currEmail, petOwnerEmail: targetEmail)
-                
-                
-                
                 
             } else if translation.x < -100 { // Threshold for left swipe
                 animateCard(card: card, translation: -500) // Swipe left
@@ -302,9 +342,10 @@ class DiscoverViewController: UIViewController {
     @objc func flipCard(_ sender: UITapGestureRecognizer) {
         guard let card = sender.view as? CardView else { return }
 
-        UIView.transition(with: card, duration: 0.8, options: [.transitionFlipFromRight, .showHideTransitionViews], animations: {
+        UIView.transition(with: card, duration: 0.8, options: [.transitionFlipFromRight, .showHideTransitionViews, .preferredFramesPerSecond60], animations: {
             // Change the content of the card to show detailed information
             card.isFlipped.toggle()
+            card.clipsToBounds = true
             let showFlipped = card.isFlipped
             card.imageView.isHidden = showFlipped
             card.labelName.isHidden = showFlipped
