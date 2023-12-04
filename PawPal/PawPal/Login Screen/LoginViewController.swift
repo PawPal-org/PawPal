@@ -60,6 +60,7 @@ class LoginViewController: UIViewController {
                 //MARK: hide the progress indicator here
                 //self.hideActivityIndicator()
                 print("Login successful")
+                UserDefaults.standard.set(email, forKey: "currentUserEmail")
                 // Transition to the main tab bar controller
                 let mainTabBarController = ViewController()
                 mainTabBarController.modalPresentationStyle = .fullScreen

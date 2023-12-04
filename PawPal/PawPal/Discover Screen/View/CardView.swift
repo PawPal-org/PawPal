@@ -17,6 +17,7 @@ class CardView: UIView {
     let labelSex = UILabel()
     let labelBreed = UILabel()
     let labelLocation = UILabel()
+    
     //MARK: Variables for cards' back
     let flippedButtonIcon = UIButton()
     let flippedLabelName = UILabel()
@@ -27,6 +28,7 @@ class CardView: UIView {
     let flippedLabelWeight = UILabel()
     let flippedLabelVaccinations = UILabel()
     let flippedLabelDescriptions = UILabel()
+    let ownerEmail = UILabel()
     var isFlipped = false
 
     override init(frame: CGRect) {
@@ -72,6 +74,7 @@ class CardView: UIView {
         addSubview(flippedLabelWeight)
         addSubview(flippedLabelVaccinations)
         addSubview(flippedLabelDescriptions)
+        addSubview(ownerEmail)
         
         setupFlippedLabelName()
         setupFlippedLabelSex()
@@ -82,6 +85,7 @@ class CardView: UIView {
         setupFlippedLabelWeight()
         setupFlippedLabelVaccinations()
         setupFlippedLabelDescriptions()
+        setupOwnerEmail()
         
         flippedButtonIcon.isHidden = true
         flippedLabelName.isHidden = true
@@ -92,9 +96,13 @@ class CardView: UIView {
         flippedLabelWeight.isHidden = true
         flippedLabelVaccinations.isHidden = true
         flippedLabelDescriptions.isHidden = true
+        ownerEmail.isHidden = true
     }
     
-    
+
+    private func setupOwnerEmail(){
+        ownerEmail.translatesAutoresizingMaskIntoConstraints = false
+    }
 
     private func setupImageView() {
         imageView.contentMode = .scaleAspectFill
@@ -211,7 +219,7 @@ class CardView: UIView {
     }
     
     func configureFlippedState(with image: UIImage, name: String, sex: String, age: String, breed: String,
-                               birthday: String, weight: String, vaccinations: String, descriptions: String){
+                               birthday: String, weight: String, vaccinations: String, descriptions: String, email: String){
         flippedButtonIcon.setImage(image, for: .normal)
         flippedLabelName.text = name
         flippedLabelSex.text = "\(sex)"
@@ -223,6 +231,7 @@ class CardView: UIView {
         let vacc = tempVacc.joined(separator: "\n")
         flippedLabelVaccinations.text = "Vaccinations: \n\(vacc)"
         flippedLabelDescriptions.text = "\n\(descriptions)"
+        ownerEmail.text = email
     }
     
     

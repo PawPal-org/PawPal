@@ -1,3 +1,4 @@
+
 //
 //  DiscoverViewController.swift
 //  PawPal
@@ -24,7 +25,6 @@ class DiscoverViewController: UIViewController {
         ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         title = "Discover"
-        //setupCardStack()
         fetchPetsData()
     }
     
@@ -46,7 +46,7 @@ class DiscoverViewController: UIViewController {
                     }
                         
                     guard let petsDocuments = petsSnapshot?.documents else { return }
-                    
+        
                     for petDocument in petsDocuments {
                         self.processPetDocument(petDocument)
                     }
@@ -65,6 +65,7 @@ class DiscoverViewController: UIViewController {
         let petWeight = petData["weight"] as? String ?? "Unknown"
         let petDescriptions = petData["descriptions"] as? String ?? "Woof~ Woof~"
         let petVaccinations = petData["vaccinations"] as? String ?? "not uploaded yet"
+        let petOwnerEmail = petData["email"] as? String ?? "no email"
         
         let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM-dd-yyyy"
@@ -87,7 +88,8 @@ class DiscoverViewController: UIViewController {
                 birthday: petBirthday,
                 weight: petWeight,
                 vaccinations: petVaccinations,
-                descriptions: petDescriptions
+                descriptions: petDescriptions,
+                email: petOwnerEmail
             )
             
             self.cardStack.append(cardView)
@@ -102,38 +104,8 @@ class DiscoverViewController: UIViewController {
         }
     }
     
-    //A loop for creating random puppy info just for testing
-    private func setupCardStack() {
-        for i in 1...5 {
-            let cardView = createNewCardView()
-            var tempSexArray = ["He","She"]
-            var tempBreedArray = ["Sibreian Husky", "Golden Retriver", "Border Collie", "Unknown"]
-            
-            cardView.configure(
-                with: ((UIImage(systemName: "pawprint.fill") ?? UIImage(systemName: "cross"))!),
-                name: "Puppy No.\(i)",
-                sex: "\(tempSexArray[i%2])",
-                breed: "\(tempBreedArray[i%4])",
-                location: "San Jose"
-            )
-            cardView.configureFlippedState(
-                with: ((UIImage(systemName: "dog.circle") ?? UIImage(systemName: "cross"))!),
-                name: "Puppy No.\(i)",
-                sex: "\(tempSexArray[i%2])",
-                age: "3 yrs",
-                breed: "\(tempBreedArray[i%4])",
-                birthday: "July 24, 2021",
-                weight: "80 lbs",
-                vaccinations: "Bordetella Bronchiseptica\nCanine Distemper\nCanine Hepatitis\nCanine Parainfluenza",
-                descriptions: "I would love to play with any other dogs!")
-            
-            cardStack.append(cardView)
-            view.addSubview(cardView)
-            positionCard(cardView)
-            setupGestures(for: cardView)
-        }
-        view.bringSubviewToFront(cardStack.last!) // Bring the top card to front
-    }
+    
+    
 
     private func createNewCardView() -> CardView {
         let cardSize = CGSize(width: 350, height: 600)
@@ -157,6 +129,10 @@ class DiscoverViewController: UIViewController {
         cardView.addGestureRecognizer(tapGesture)
     }
     
+    func getCurrentUserEmail() -> String {
+        return UserDefaults.standard.string(forKey: "currentUserEmail")!.lowercased()
+    }
+    
     @objc func handlePan(_ sender: UIPanGestureRecognizer) {
         guard let card = sender.view as? CardView else { return }
 
@@ -167,7 +143,20 @@ class DiscoverViewController: UIViewController {
             if translation.x > 100 { // Threshold for right swipe
                 animateCard(card: card, translation: 500) // Swipe right
                 likedCards.append(card)
-                print(likedCards)
+                //print(likedCards)
+                //MARK: Adding Friends
+                let currEmail = getCurrentUserEmail()
+                print(getCurrentUserEmail())
+                var targetEmail = ""
+                if let ownerEmail = card.ownerEmail.text{
+                    targetEmail = ownerEmail
+                }
+                print(targetEmail)
+                sendFriendRequest(currentEmail: currEmail, petOwnerEmail: targetEmail)
+                
+                
+                
+                
             } else if translation.x < -100 { // Threshold for left swipe
                 animateCard(card: card, translation: -500) // Swipe left
             } else {
@@ -179,6 +168,26 @@ class DiscoverViewController: UIViewController {
 
             if let topCard = cardStack.popLast() {
                 showNextCard()
+            }
+        }
+    }
+
+    func sendFriendRequest(currentEmail: String, petOwnerEmail: String) {
+        let usersCollectionRef = Firestore.firestore().collection("users")
+        let petOwnerDocRef = usersCollectionRef.document(petOwnerEmail)
+            
+        // Create a timestamp
+        let timestamp = FieldValue.serverTimestamp()
+
+        // Create a dictionary with the current email as key and the timestamp as value
+        let friendRequestUpdate = ["\(currentEmail)": timestamp]
+        // Update the document with the friend request
+        petOwnerDocRef.updateData([
+            "friendsRequest": friendRequestUpdate]) { error in
+            if let error = error {
+                print("Error adding friend request: \(error.localizedDescription)")
+            } else {
+                print("Friend request with timestamp sent successfully.")
             }
         }
     }
