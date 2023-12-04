@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseAuth
 
 class DiscoverViewController: UIViewController {
     
@@ -15,6 +16,7 @@ class DiscoverViewController: UIViewController {
     var likedCards: [CardView] = []
     var cardView: CardView!
     let db = Firestore.firestore()
+    var currentUser: FirebaseAuth.User?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,6 +98,7 @@ class DiscoverViewController: UIViewController {
             self.view.addSubview(cardView)
             self.positionCard(cardView)
             self.setupGestures(for: cardView)
+            cardView.flippedButtonIcon.addTarget(self, action: #selector(self.flippedButtonIconTapped(sender:)), for: .touchUpInside)
                 
             // Bring the top card to front after all cards have been added
             if let lastCard = self.cardStack.last {
@@ -104,6 +107,48 @@ class DiscoverViewController: UIViewController {
         }
     }
     
+    @objc func flippedButtonIconTapped(sender: UIButton) {
+        guard let card = sender.superview as? CardView else {
+            print("Card not found")
+            return
+        }
+
+        guard let ownerEmail = card.ownerEmail.text else {
+            print("Owner email not found")
+            return
+        }
+
+        fetchUserName(ownerEmail: ownerEmail) { [weak self] userName in
+            guard let strongSelf = self else { return }
+
+            let MyMomentScreen = MyMomentsViewController()
+            MyMomentScreen.userEmail = ownerEmail
+            MyMomentScreen.userName = userName
+            strongSelf.currentUser = Auth.auth().currentUser
+            MyMomentScreen.currentUser = strongSelf.currentUser
+            strongSelf.navigationController?.pushViewController(MyMomentScreen, animated: true)
+        }
+    }
+
+    func fetchUserName(ownerEmail: String, completion: @escaping (String?) -> Void) {
+        db.collection("users").document(ownerEmail).getDocument { documentSnapshot, error in
+            if let error = error {
+                print("Error fetching user: \(error)")
+                completion(nil)
+                return
+            }
+
+            guard let document = documentSnapshot, document.exists else {
+                print("User document not found")
+                completion(nil)
+                return
+            }
+
+            let userName = document.get("name") as? String
+            completion(userName)
+        }
+    }
+
     
     
 
