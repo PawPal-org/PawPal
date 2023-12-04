@@ -55,6 +55,10 @@ class MessageViewController: UIViewController {
         
         //MARK: adding action for Login screen...
         messageScreen.buttonSend.addTarget(self, action: #selector(onButtonSendTapped), for: .touchUpInside)
+        
+        //MARK: recognizing the taps on the app screen, not the keyboard
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     func fetchFriendNameAndPic() {
@@ -184,6 +188,12 @@ class MessageViewController: UIViewController {
                     }
                 }
             }
+    }
+    
+    //MARK: Hide Keyboard
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen
+        view.endEditing(true)
     }
 
 }

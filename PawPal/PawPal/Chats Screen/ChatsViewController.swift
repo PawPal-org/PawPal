@@ -44,6 +44,10 @@ class ChatsViewController: UIViewController {
         chatsView.tableViewChats.delegate = self
         chatsView.searchBar.delegate = self
         
+        //MARK: recognizing the taps on the app screen, not the keyboard
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
+        
     }
     
     func fetchChats() {
@@ -84,6 +88,12 @@ class ChatsViewController: UIViewController {
             }
             self?.chatsList.append(chat)
         }
+    }
+    
+    //MARK: Hide Keyboard
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen
+        view.endEditing(true)
     }
 
 }

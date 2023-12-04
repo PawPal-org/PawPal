@@ -46,6 +46,10 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
             action: #selector(onPostBarButtonTapped)
         )
         navigationItem.rightBarButtonItems = [barIcon]
+        
+        //MARK: recognizing the taps on the app screen, not the keyboard
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     @objc func onPostBarButtonTapped() {
@@ -241,5 +245,10 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
             selectedImages.append(newImage)
             postMomentScreen.collectionView.reloadData()
         }
+    }
+    //MARK: Hide Keyboard
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen
+        view.endEditing(true)
     }
 }

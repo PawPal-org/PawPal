@@ -52,6 +52,10 @@ class FriendsViewController: UIViewController {
         
         setupNavigationBar()
         
+        //MARK: recognizing the taps on the app screen, not the keyboard
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
+        
     }
     
     func setupNavigationBar() {
@@ -124,6 +128,12 @@ class FriendsViewController: UIViewController {
         contactSections = keys.map { key in
             return ContactSection(letter: key, contacts: groupedDictionary[key]!.sorted(by: { $0.userName ?? "" < $1.userName ?? "" }))
         }
+    }
+    
+    //MARK: Hide Keyboard
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen
+        view.endEditing(true)
     }
 
 }
