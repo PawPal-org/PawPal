@@ -115,7 +115,7 @@ class CardView: UIView {
     private func setupLabelName() {
         labelName.font = UIFont(name: titleFont, size: 30)
         labelName.textAlignment = .center
-        labelName.attributedText = NSAttributedString(string: "LabelName", attributes: strokeTextAttributes)
+        labelName.attributedText = NSAttributedString(string: " ", attributes: strokeTextAttributes)
         labelName.translatesAutoresizingMaskIntoConstraints = false
     }
     
