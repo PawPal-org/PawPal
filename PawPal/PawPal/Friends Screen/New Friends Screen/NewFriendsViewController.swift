@@ -66,6 +66,7 @@ class NewFriendsViewController: UIViewController {
                 self?.fetchFriendsDetails()
             }
         }
+        checkForRequestAndUpdateUI()
     }
     
     func fetchFriendsDetails() {
