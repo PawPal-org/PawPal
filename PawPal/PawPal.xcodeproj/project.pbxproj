@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		120B55852B1D6AA900C0FB8D /* AddPetPhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55842B1D6AA900C0FB8D /* AddPetPhotoManager.swift */; };
+		120B55872B1D6AC700C0FB8D /* AddPetFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55862B1D6AC700C0FB8D /* AddPetFirebaseManager.swift */; };
 		12B783A52B0B7E1F0004B7F8 /* MeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A42B0B7E1F0004B7F8 /* MeTableViewCell.swift */; };
 		12B783A72B0B7E3C0004B7F8 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A62B0B7E3C0004B7F8 /* SettingTableViewCell.swift */; };
 		12B783A92B0B7E5E0004B7F8 /* LogOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A82B0B7E5E0004B7F8 /* LogOutTableViewCell.swift */; };
@@ -95,6 +97,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		120B55842B1D6AA900C0FB8D /* AddPetPhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetPhotoManager.swift; sourceTree = "<group>"; };
+		120B55862B1D6AC700C0FB8D /* AddPetFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetFirebaseManager.swift; sourceTree = "<group>"; };
 		12B783A42B0B7E1F0004B7F8 /* MeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeTableViewCell.swift; sourceTree = "<group>"; };
 		12B783A62B0B7E3C0004B7F8 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		12B783A82B0B7E5E0004B7F8 /* LogOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutTableViewCell.swift; sourceTree = "<group>"; };
@@ -220,6 +224,8 @@
 			children = (
 				12B86B282B17F165005E1F3B /* AddPetView.swift */,
 				12B86B262B17F14D005E1F3B /* AddPetViewController.swift */,
+				120B55842B1D6AA900C0FB8D /* AddPetPhotoManager.swift */,
+				120B55862B1D6AC700C0FB8D /* AddPetFirebaseManager.swift */,
 			);
 			path = "Add Pet";
 			sourceTree = "<group>";
@@ -680,6 +686,7 @@
 				4FE2CCF92B0C8F53003AC533 /* LocationManager.swift in Sources */,
 				4FE2CCEF2B0AFE12003AC533 /* CardView.swift in Sources */,
 				6470099B2B188B1A00260136 /* SearchBarManager.swift in Sources */,
+				120B55872B1D6AC700C0FB8D /* AddPetFirebaseManager.swift in Sources */,
 				64824E082B0AB10D004CFE1D /* MomentsViewController.swift in Sources */,
 				647009B82B19B02C00260136 /* OptionsTableViewCell.swift in Sources */,
 				647009B62B19B00100260136 /* ContactView.swift in Sources */,
@@ -715,6 +722,7 @@
 				4FE2CCFF2B0C960A003AC533 /* SearchTableViewCell.swift in Sources */,
 				4FE2CCC92B0866D5003AC533 /* SceneDelegate.swift in Sources */,
 				6436E50E2B160C6B007FCB00 /* ChatsTableViewCell.swift in Sources */,
+				120B55852B1D6AA900C0FB8D /* AddPetPhotoManager.swift in Sources */,
 				647009A72B18B13200260136 /* NewFriendsTableViewCell.swift in Sources */,
 				64824E0D2B0AB141004CFE1D /* DiscoverView.swift in Sources */,
 				4FE2CCEB2B0ADF4F003AC533 /* RegisterViewController.swift in Sources */,

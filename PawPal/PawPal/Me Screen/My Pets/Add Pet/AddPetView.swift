@@ -24,13 +24,13 @@ class AddPetView: UIView {
     var textFieldVac: UITextField!
     var textFieldDescrip: UITextField!
 
-    
+    var isCustomBackgroundImageSet = false
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = .white //set the background color
+        self.backgroundColor = backgroundColorBeige //set the background color
         
         //MARK: call methods to setup the attributes of UI elements
         setupPetBackgroudButton()
@@ -57,20 +57,20 @@ class AddPetView: UIView {
         petBackgroundButton.backgroundColor = .systemYellow.withAlphaComponent(0.7)
         petBackgroundButton.layer.cornerRadius = 40
         petBackgroundButton.clipsToBounds = true
+        petBackgroundButton.showsMenuAsPrimaryAction = true
         petBackgroundButton.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(petBackgroundButton)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if let image = UIImage(systemName: "pawprint.fill") {
-            setButtonBackgroundImage(image: image, tintColor: .systemOrange, alpha: 0.2)
+        if !isCustomBackgroundImageSet, let image = UIImage(systemName: "pawprint.fill") {
+            setButtonBackgroundImage(image: image, tintColor: .systemOrange)
         }
     }
 
-    func setButtonBackgroundImage(image: UIImage, tintColor: UIColor, alpha: CGFloat) {
+    func setButtonBackgroundImage(image: UIImage, tintColor: UIColor) {
         let coloredImage = image.withTintColor(tintColor, renderingMode: .alwaysOriginal)
-        let translucentImage = coloredImage.withAlpha(alpha)
         let buttonSize = petBackgroundButton.bounds.size // obtain button size
         if let resizedImage = coloredImage.resizedImageForButtonBackground(newSize: buttonSize) {
             petBackgroundButton.setBackgroundImage(resizedImage, for: .normal)
@@ -82,8 +82,12 @@ class AddPetView: UIView {
         petPicButton = UIButton(type: .system)
         petPicButton.setBackgroundImage(UIImage(systemName: "dog.circle"), for: .normal)
         petPicButton.tintColor = .white
+        petPicButton.imageView?.contentMode = .scaleAspectFill
+        petPicButton.layer.cornerRadius = 75
+        petPicButton.clipsToBounds = true
+        petPicButton.showsMenuAsPrimaryAction = true
         petPicButton.translatesAutoresizingMaskIntoConstraints = false
-        petBackgroundButton.addSubview(petPicButton)
+        self.addSubview(petPicButton)
     }
     
     func setupDisplayWrapper(){
@@ -253,22 +257,22 @@ extension UIImage {
     }
 }
 
-extension UIImage {
-    func withAlpha(_ alpha: CGFloat) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        defer { UIGraphicsEndImageContext() }
-
-        guard let context = UIGraphicsGetCurrentContext(), let cgImage = cgImage else { return nil }
-
-        context.scaleBy(x: 1, y: -1)
-        context.translateBy(x: 0, y: -size.height)
-
-        context.setBlendMode(.normal)
-        context.setAlpha(alpha)
-
-        let rect = CGRect(origin: .zero, size: size)
-        context.draw(cgImage, in: rect)
-
-        return UIGraphicsGetImageFromCurrentImageContext()
-    }
-}
+//extension UIImage {
+//    func withAlpha(_ alpha: CGFloat) -> UIImage? {
+//        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+//        defer { UIGraphicsEndImageContext() }
+//
+//        guard let context = UIGraphicsGetCurrentContext(), let cgImage = cgImage else { return nil }
+//
+//        context.scaleBy(x: 1, y: -1)
+//        context.translateBy(x: 0, y: -size.height)
+//
+//        context.setBlendMode(.normal)
+//        context.setAlpha(alpha)
+//
+//        let rect = CGRect(origin: .zero, size: size)
+//        context.draw(cgImage, in: rect)
+//
+//        return UIGraphicsGetImageFromCurrentImageContext()
+//    }
+//}
