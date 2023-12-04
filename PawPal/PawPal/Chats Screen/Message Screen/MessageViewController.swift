@@ -56,8 +56,13 @@ class MessageViewController: UIViewController {
         //MARK: adding action for Login screen...
         messageScreen.buttonSend.addTarget(self, action: #selector(onButtonSendTapped), for: .touchUpInside)
         
-        //MARK: recognizing the taps on the app screen, not the keyboard
+        // Register for keyboard notifications
+       NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+       NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        // Recognizing taps on the app screen
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        tapRecognizer.cancelsTouchesInView = false // Important to allow interaction with other elements
         view.addGestureRecognizer(tapRecognizer)
     }
     
@@ -188,6 +193,41 @@ class MessageViewController: UIViewController {
                     }
                 }
             }
+    }
+
+    @objc func keyboardWillShow(notification: NSNotification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+
+        let keyboardHeight = keyboardSize.height - view.safeAreaInsets.bottom
+        messageScreen.bottomSendViewBottomConstraint.constant = -keyboardHeight // Adjust this line according to your layout constraints
+
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+
+        // Scroll to the last message
+        scrollToLastMessage()
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        messageScreen.bottomSendViewBottomConstraint.constant = 0 // Reset the bottom constraint
+
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    func scrollToLastMessage() {
+        if messages.count > 0 {
+            let lastIndexPath = IndexPath(row: messages.count - 1, section: 0)
+            self.messageScreen.tableViewMessages.scrollToRow(at: lastIndexPath, at: .bottom, animated: true)
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     //MARK: Hide Keyboard

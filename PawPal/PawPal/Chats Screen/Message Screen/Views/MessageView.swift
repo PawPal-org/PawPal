@@ -16,6 +16,7 @@ class MessageView: UIView {
     var bottomSendView: UIView!
     var textViewMessageText: UITextView!
     var buttonSend: UIButton!
+    var bottomSendViewBottomConstraint: NSLayoutConstraint!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,7 +24,7 @@ class MessageView: UIView {
         
         setupTableViewMessages()
         
-        setupBottomPostView()
+        setupBottomSendView()
         setupTextViewMessageText()
         setupButtonSend()
         
@@ -39,7 +40,7 @@ class MessageView: UIView {
     }
     
     //MARK: the bottom send view....
-    func setupBottomPostView(){
+    func setupBottomSendView(){
         bottomSendView = UIView()
         bottomSendView.backgroundColor = .white
         bottomSendView.layer.cornerRadius = 6
@@ -70,7 +71,10 @@ class MessageView: UIView {
     }
     
     func initConstraints() {
+        bottomSendViewBottomConstraint = bottomSendView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         NSLayoutConstraint.activate([
+            bottomSendViewBottomConstraint,
+            
             bottomSendView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             bottomSendView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             bottomSendView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -8),
