@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		120B55852B1D6AA900C0FB8D /* AddPetPhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55842B1D6AA900C0FB8D /* AddPetPhotoManager.swift */; };
 		120B55872B1D6AC700C0FB8D /* AddPetFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55862B1D6AC700C0FB8D /* AddPetFirebaseManager.swift */; };
+		120B55892B1D6C5B00C0FB8D /* PetUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55882B1D6C5B00C0FB8D /* PetUpload.swift */; };
 		12B783A52B0B7E1F0004B7F8 /* MeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A42B0B7E1F0004B7F8 /* MeTableViewCell.swift */; };
 		12B783A72B0B7E3C0004B7F8 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A62B0B7E3C0004B7F8 /* SettingTableViewCell.swift */; };
 		12B783A92B0B7E5E0004B7F8 /* LogOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A82B0B7E5E0004B7F8 /* LogOutTableViewCell.swift */; };
@@ -99,6 +100,7 @@
 /* Begin PBXFileReference section */
 		120B55842B1D6AA900C0FB8D /* AddPetPhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetPhotoManager.swift; sourceTree = "<group>"; };
 		120B55862B1D6AC700C0FB8D /* AddPetFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetFirebaseManager.swift; sourceTree = "<group>"; };
+		120B55882B1D6C5B00C0FB8D /* PetUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetUpload.swift; sourceTree = "<group>"; };
 		12B783A42B0B7E1F0004B7F8 /* MeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeTableViewCell.swift; sourceTree = "<group>"; };
 		12B783A62B0B7E3C0004B7F8 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		12B783A82B0B7E5E0004B7F8 /* LogOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutTableViewCell.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 		12B86B2A2B17F172005E1F3B /* Add Pet */ = {
 			isa = PBXGroup;
 			children = (
+				120B55882B1D6C5B00C0FB8D /* PetUpload.swift */,
 				12B86B282B17F165005E1F3B /* AddPetView.swift */,
 				12B86B262B17F14D005E1F3B /* AddPetViewController.swift */,
 				120B55842B1D6AA900C0FB8D /* AddPetPhotoManager.swift */,
@@ -699,6 +702,7 @@
 				12B783A72B0B7E3C0004B7F8 /* SettingTableViewCell.swift in Sources */,
 				4FE2CCF72B0C8C34003AC533 /* MapViewController.swift in Sources */,
 				6422F5452B0E766700EA69ED /* ImageCache.swift in Sources */,
+				120B55892B1D6C5B00C0FB8D /* PetUpload.swift in Sources */,
 				647009A22B189A5C00260136 /* Contact.swift in Sources */,
 				6436E5152B160F9E007FCB00 /* Chat.swift in Sources */,
 				4FE2CD012B0C9635003AC533 /* SearchBottomSheet.swift in Sources */,
