@@ -57,11 +57,25 @@ class DiscoverViewController: UIViewController {
             }
         }
     }
-        
+    
+    func calculateDogAge(fromBirthdayTimestamp birthdayDate: Date) -> String {
+        let calendar = Calendar.current
+        //let birthdayDate = timestamp.dateValue()
+        let currentDate = Date()
+
+        let ageComponents = calendar.dateComponents([.year, .month], from: birthdayDate, to: currentDate)
+        if let years = ageComponents.year, let months = ageComponents.month {
+            return "\(years) Y \(months) M"
+        } else {
+            return "Age could not be calculated"
+        }
+    }
+    
     private func processPetDocument(_ document: QueryDocumentSnapshot) {
         let petData = document.data()
         let petName = petData["name"] as? String ?? "Unknown"
-        let petAge = petData["age"] as? String ?? "Unknown"
+        //let petAge = petData["age"] as? String ?? "Unknown"
+        var petAge = ""
         let petBreed = petData["breed"] as? String ?? "Unknown"
         let petLocation = petData["location"] as? String ?? "Unknown"
         let petSex = petData["sex"] as? String ?? "Unknown"
@@ -77,7 +91,10 @@ class DiscoverViewController: UIViewController {
         if let tempBirthday = petData["birthday"] as? Timestamp {
             let date = tempBirthday.dateValue()
             petBirthday = dateFormatter.string(from: date)
+            petAge = calculateDogAge(fromBirthdayTimestamp: date)
+            
         }
+        
         
         // Use the pet data to configure card view
         DispatchQueue.main.async {

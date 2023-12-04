@@ -115,12 +115,14 @@ class CardView: UIView {
     private func setupLabelName() {
         labelName.font = UIFont(name: titleFont, size: 30)
         labelName.textAlignment = .center
+        labelName.attributedText = NSAttributedString(string: "LabelName", attributes: strokeTextAttributes)
         labelName.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setupLabelSex(){
         labelSex.font = UIFont(name: normalFont, size: 25)
         labelSex.textAlignment = .right
+        //labelSex.attributedText = NSAttributedString(string: "LabelName", attributes: strokeTextAttributes)
         labelSex.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -128,6 +130,7 @@ class CardView: UIView {
         labelBreed.font = UIFont(name: normalFont, size: 20)
         labelBreed.numberOfLines = 0
         labelBreed.textAlignment = .left
+        //labelBreed.attributedText = NSAttributedString(string: "LabelName", attributes: strokeTextAttributes)
         labelBreed.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -135,6 +138,7 @@ class CardView: UIView {
         labelLocation.font = UIFont(name: lightFont, size: 16)
         labelLocation.numberOfLines = 0
         labelLocation.textAlignment = .left
+        //labelLocation.attributedText = NSAttributedString(string: "LabelName", attributes: strokeTextAttributes)
         labelLocation.translatesAutoresizingMaskIntoConstraints = false
     }
 
