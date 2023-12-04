@@ -33,7 +33,14 @@ class SearchViewController: UIViewController {
             name: .placesFromMap,
             object: nil
         )
-        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    //MARK: Hide Keyboard
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen
+        view.endEditing(true)
     }
     
     @objc func notificationForPlaces(notification: Notification){

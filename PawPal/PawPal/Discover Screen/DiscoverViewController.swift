@@ -30,6 +30,14 @@ class DiscoverViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         title = "Discover"
         fetchPetsData()
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    //MARK: Hide Keyboard
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen
+        view.endEditing(true)
     }
     
     private func fetchPetsData() {
