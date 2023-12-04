@@ -13,11 +13,11 @@ struct PetUpload: Codable {
     var name: String
     var sex: String
     var breed: String
-    var city: String
+    var location: String
     var birthday: Date
     var weight: String
     var vaccinations: String
-    var description: String
+    var descriptions: String
     var backgroundImageURL: String?
     var petImageURL: String?
 
@@ -26,24 +26,24 @@ struct PetUpload: Codable {
         case name
         case sex
         case breed
-        case city
+        case location
         case birthday
         case weight
         case vaccinations
-        case description
+        case descriptions
         case backgroundImageURL
         case petImageURL
     }
 
-    init(name: String, sex: String, breed: String, city: String, birthday: Date, weight: String, vaccinations: String, description: String, backgroundImageURL: String? = nil, petImageURL: String? = nil) {
+    init(name: String, sex: String, breed: String, location: String, birthday: Date, weight: String, vaccinations: String, descriptions: String, backgroundImageURL: String? = nil, petImageURL: String? = nil) {
         self.name = name
         self.sex = sex
         self.breed = breed
-        self.city = city
+        self.location = location
         self.birthday = birthday
         self.weight = weight
         self.vaccinations = vaccinations
-        self.description = description
+        self.descriptions = descriptions
         self.backgroundImageURL = backgroundImageURL
         self.petImageURL = petImageURL
     }

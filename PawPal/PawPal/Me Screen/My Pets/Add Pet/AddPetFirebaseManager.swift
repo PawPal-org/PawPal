@@ -74,14 +74,14 @@ extension AddPetViewController{
         let name = addPetScreen.textFieldName.text ?? ""
         let sex = addPetScreen.textFieldSex.text ?? ""
         let breed = addPetScreen.textFieldBreed.text ?? ""
-        let city = addPetScreen.textFieldCity.text ?? ""
+        let location = addPetScreen.textFieldCity.text ?? ""
         let weight = addPetScreen.textFieldWeight.text ?? ""
         let vac = addPetScreen.textFieldVac.text ?? ""
         let descrip = addPetScreen.textFieldDescrip.text ?? ""
         let birthday = addPetScreen.datePickerBDay.date
         
         // Create a new Pet instance
-        let newPet = PetUpload(name: name, sex: sex, breed: breed, city: city, birthday: birthday, weight: weight, vaccinations: vac, description: descrip, backgroundImageURL: backgroundPhotoURL?.absoluteString, petImageURL: petPhotoURL?.absoluteString)
+        let newPet = PetUpload(name: name, sex: sex, breed: breed, location: location, birthday: birthday, weight: weight, vaccinations: vac, descriptions: descrip, backgroundImageURL: backgroundPhotoURL?.absoluteString, petImageURL: petPhotoURL?.absoluteString)
         
         // Convert the Pet instance to a dictionary for Firestore
         guard let petDict = try? Firestore.Encoder().encode(newPet) else {
