@@ -59,6 +59,8 @@
 		6422F5422B0E766700EA69ED /* MomentsTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6422F5332B0E766700EA69ED /* MomentsTableViewManager.swift */; };
 		6422F5452B0E766700EA69ED /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6422F5392B0E766700EA69ED /* ImageCache.swift */; };
 		6422F5462B0E766700EA69ED /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6422F53A2B0E766700EA69ED /* Configs.swift */; };
+		642AB4AD2B1DFA6E0068DD6E /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 642AB4AC2B1DFA6E0068DD6E /* SDWebImage */; };
+		642AB4AF2B1DFA6E0068DD6E /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 642AB4AE2B1DFA6E0068DD6E /* SDWebImageMapKit */; };
 		6436E50E2B160C6B007FCB00 /* ChatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6436E50D2B160C6B007FCB00 /* ChatsTableViewCell.swift */; };
 		6436E5102B160E82007FCB00 /* ChatsTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6436E50F2B160E82007FCB00 /* ChatsTableViewManager.swift */; };
 		6436E5152B160F9E007FCB00 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6436E5142B160F9E007FCB00 /* Chat.swift */; };
@@ -202,10 +204,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				642AB4AD2B1DFA6E0068DD6E /* SDWebImage in Frameworks */,
 				64824DF72B0AA4DA004CFE1D /* FirebaseAuth in Frameworks */,
 				64824DF92B0AA4E4004CFE1D /* FirebaseStorage in Frameworks */,
 				64824DFB2B0AA502004CFE1D /* FirebaseFirestore in Frameworks */,
 				64824DFD2B0AA502004CFE1D /* FirebaseFirestoreSwift in Frameworks */,
+				642AB4AF2B1DFA6E0068DD6E /* SDWebImageMapKit in Frameworks */,
 				4F6888252B1DB555000549A4 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -652,6 +656,8 @@
 				64824DFA2B0AA502004CFE1D /* FirebaseFirestore */,
 				64824DFC2B0AA502004CFE1D /* FirebaseFirestoreSwift */,
 				4F6888242B1DB555000549A4 /* Kingfisher */,
+				642AB4AC2B1DFA6E0068DD6E /* SDWebImage */,
+				642AB4AE2B1DFA6E0068DD6E /* SDWebImageMapKit */,
 			);
 			productName = PawPal;
 			productReference = 4FE2CCC32B0866D5003AC533 /* PawPal.app */;
@@ -684,6 +690,7 @@
 			packageReferences = (
 				4FE2CCDC2B086D2F003AC533 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				4F6888232B1DB555000549A4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				642AB4AB2B1DFA6E0068DD6E /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 4FE2CCC42B0866D5003AC533 /* Products */;
 			projectDirPath = "";
@@ -1044,6 +1051,14 @@
 				minimumVersion = 10.18.0;
 			};
 		};
+		642AB4AB2B1DFA6E0068DD6E /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.18.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1051,6 +1066,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4F6888232B1DB555000549A4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		642AB4AC2B1DFA6E0068DD6E /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 642AB4AB2B1DFA6E0068DD6E /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		642AB4AE2B1DFA6E0068DD6E /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 642AB4AB2B1DFA6E0068DD6E /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
 		};
 		64824DF62B0AA4DA004CFE1D /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

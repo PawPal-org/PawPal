@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import SDWebImage
 
 extension ChatsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,16 +57,18 @@ extension ChatsViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 
                 if let url = URL(string: profilePicUrlString) {
-                    URLSession.shared.dataTask(with: url) { data, response, error in
-                        guard let data = data, error == nil, let image = UIImage(data: data) else {
-                            print("Error downloading profile image: \(error?.localizedDescription ?? "Unknown error")")
-                            return
-                        }
-
-                        DispatchQueue.main.async {
-                            cell.buttonProfilePic.setBackgroundImage(image, for: .normal)
-                        }
-                    }.resume()
+//                    URLSession.shared.dataTask(with: url) { data, response, error in
+//                        guard let data = data, error == nil, let image = UIImage(data: data) else {
+//                            print("Error downloading profile image: \(error?.localizedDescription ?? "Unknown error")")
+//                            return
+//                        }
+//
+//                        DispatchQueue.main.async {
+//                            cell.buttonProfilePic.setBackgroundImage(image, for: .normal)
+//                        }
+//                    }.resume()
+                    // Using SDWebImage to set the image
+                    cell.buttonProfilePic.sd_setBackgroundImage(with: url, for: .normal, completed: nil)
                 } else {
                     cell.buttonProfilePic.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
                 }

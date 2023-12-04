@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import SDWebImage
 
 extension FriendsViewController: UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -33,27 +34,28 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Configs.tableViewContactsID, for: indexPath) as! ContactsTableViewCell
-        
+            
         let contact = isSearchActive ? filteredContactsList[indexPath.row] : contactSections[indexPath.section].contacts[indexPath.row]
         
         cell.labelName.text = contact.userName
-        if !contact.isFriend! {
-            cell.labelName.textColor = .red
-        }else {
-            cell.labelName.textColor = .black
-        }
+        cell.labelName.textColor = contact.isFriend! ? .black : .red
         
         cell.buttonProfilePic.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
         
+        // Use SDWebImage to set the image
         if let imageUrlString = contact.userProfilePicUrl, let url = URL(string: imageUrlString) {
-            URLSession.shared.dataTask(with: url) { data, _, error in
-                if let data = data, error == nil, let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        cell.buttonProfilePic.setBackgroundImage(image, for: .normal)
-                    }
-                }
-            }.resume()
+            cell.buttonProfilePic.sd_setBackgroundImage(with: url, for: .normal, completed: nil)
         }
+        
+//        if let imageUrlString = contact.userProfilePicUrl, let url = URL(string: imageUrlString) {
+//            URLSession.shared.dataTask(with: url) { data, _, error in
+//                if let data = data, error == nil, let image = UIImage(data: data) {
+//                    DispatchQueue.main.async {
+//                        cell.buttonProfilePic.setBackgroundImage(image, for: .normal)
+//                    }
+//                }
+//            }.resume()
+//        }
 
         return cell
     }
