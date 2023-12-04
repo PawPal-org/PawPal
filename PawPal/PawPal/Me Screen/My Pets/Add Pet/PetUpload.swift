@@ -18,6 +18,7 @@ struct PetUpload: Codable {
     var weight: String
     var vaccinations: String
     var descriptions: String
+    var email: String?
     var backgroundImageURL: String?
     var petImageURL: String?
 
@@ -31,11 +32,12 @@ struct PetUpload: Codable {
         case weight
         case vaccinations
         case descriptions
+        case email
         case backgroundImageURL
         case petImageURL
     }
 
-    init(name: String, sex: String, breed: String, location: String, birthday: Date, weight: String, vaccinations: String, descriptions: String, backgroundImageURL: String? = nil, petImageURL: String? = nil) {
+    init(name: String, sex: String, breed: String, location: String, birthday: Date, weight: String, vaccinations: String, descriptions: String, email: String, backgroundImageURL: String? = nil, petImageURL: String? = nil) {
         self.name = name
         self.sex = sex
         self.breed = breed
@@ -44,6 +46,7 @@ struct PetUpload: Codable {
         self.weight = weight
         self.vaccinations = vaccinations
         self.descriptions = descriptions
+        self.email = email
         self.backgroundImageURL = backgroundImageURL
         self.petImageURL = petImageURL
     }

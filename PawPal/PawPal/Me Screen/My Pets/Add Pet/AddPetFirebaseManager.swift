@@ -70,6 +70,14 @@ extension AddPetViewController{
     }
     
     func uploadPetInformation(backgroundPhotoURL: URL?, petPhotoURL: URL?) {
+        
+        // Get the Firestore database reference
+        let db = Firestore.firestore()
+        guard let currentUserEmail = Auth.auth().currentUser?.email else {
+            print("User is not logged in")
+            return
+        }
+        
         // Collect pet information from the UI
         let name = addPetScreen.textFieldName.text ?? ""
         let sex = addPetScreen.textFieldSex.text ?? ""
@@ -81,18 +89,11 @@ extension AddPetViewController{
         let birthday = addPetScreen.datePickerBDay.date
         
         // Create a new Pet instance
-        let newPet = PetUpload(name: name, sex: sex, breed: breed, location: location, birthday: birthday, weight: weight, vaccinations: vac, descriptions: descrip, backgroundImageURL: backgroundPhotoURL?.absoluteString, petImageURL: petPhotoURL?.absoluteString)
+        let newPet = PetUpload(name: name, sex: sex, breed: breed, location: location, birthday: birthday, weight: weight, vaccinations: vac, descriptions: descrip, email: currentUserEmail, backgroundImageURL: backgroundPhotoURL?.absoluteString, petImageURL: petPhotoURL?.absoluteString)
         
         // Convert the Pet instance to a dictionary for Firestore
         guard let petDict = try? Firestore.Encoder().encode(newPet) else {
             print("Error encoding pet information")
-            return
-        }
-        
-        // Get the Firestore database reference
-        let db = Firestore.firestore()
-        guard let currentUserEmail = Auth.auth().currentUser?.email else {
-            print("User is not logged in")
             return
         }
         
