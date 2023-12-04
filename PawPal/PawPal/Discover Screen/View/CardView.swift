@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseFirestore
+import Kingfisher
 
 class CardView: UIView {
     
@@ -44,7 +45,7 @@ class CardView: UIView {
     }
 
     private func setupCard() {
-        self.backgroundColor = .systemOrange // Customize as needed
+        self.backgroundColor = themeColor // Customize as needed
         self.layer.cornerRadius = 40
         self.clipsToBounds = true
     }
@@ -108,7 +109,7 @@ class CardView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.tintColor = backgroundColorBeige
+        imageView.tintColor = pawColor
     }
 
     private func setupLabelName() {
@@ -142,6 +143,8 @@ class CardView: UIView {
         flippedButtonIcon.setBackgroundImage(UIImage(systemName: "dog.circle"), for: .normal)
         flippedButtonIcon.translatesAutoresizingMaskIntoConstraints = false
         flippedButtonIcon.tintColor = backgroundColorBeige
+        flippedButtonIcon.layer.cornerRadius = 75
+        flippedButtonIcon.clipsToBounds = true
     }
     
     private func setupFlippedLabelName() {
@@ -202,25 +205,32 @@ class CardView: UIView {
         
     }
 
-    func configure(with image: UIImage, name: String, sex: String, breed: String, location: String) {
-        imageView.image = image
+    
+    func configure(with imageUrl: String, name: String, sex: String, breed: String, location: String) {
+        if imageUrl == "default"{
+            imageView.image = UIImage(systemName: "pawprint.fill")
+        }else{
+            if let url = URL(string: imageUrl) {
+                imageView.kf.setImage(with: url)
+            }
+        }
+        
         labelName.text = name
         labelSex.text = sex
         labelBreed.text = breed
         labelLocation.text = location
     }
     
-    func convertTimestampToString(_ timestamp: Timestamp) -> String {
-        let date = timestamp.dateValue()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // Change to the desired format
-        let dateString = dateFormatter.string(from: date)
-        return dateString
-    }
-    
-    func configureFlippedState(with image: UIImage, name: String, sex: String, age: String, breed: String,
+    func configureFlippedState(with iconURL: String, name: String, sex: String, age: String, breed: String,
                                birthday: String, weight: String, vaccinations: String, descriptions: String, email: String){
-        flippedButtonIcon.setImage(image, for: .normal)
+       
+        if iconURL == "default"{
+            flippedButtonIcon.setImage(UIImage(systemName: "dog.circle"), for: .normal)
+        }else{
+            if let url = URL(string: iconURL) {
+                flippedButtonIcon.kf.setBackgroundImage(with: url, for: .normal)
+            }
+        }
         flippedLabelName.text = name
         flippedLabelSex.text = "\(sex)"
         flippedLabelAge.text = "\(age)"
@@ -234,6 +244,15 @@ class CardView: UIView {
         ownerEmail.text = email
     }
     
+    func convertTimestampToString(_ timestamp: Timestamp) -> String {
+        let date = timestamp.dateValue()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // Change to the desired format
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
+
     
     
     func initConstraints(){

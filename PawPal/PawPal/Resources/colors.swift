@@ -13,3 +13,6 @@ let lighterBackgroundColorBeige = UIColor(red: min(240/255 + 0.08, 1.0),
                                           green: min(237/255 + 0.08, 1.0),
                                           blue: min(233/255 + 0.08, 1.0),
                                           alpha: 1.0)
+
+let themeColor = UIColor(hexString: "#F5CA65")
+let pawColor = UIColor(hexString: "#F4EDF7")

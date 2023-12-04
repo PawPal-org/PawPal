@@ -54,7 +54,7 @@ class AddPetView: UIView {
     //MARK: defining the attributes
     func setupPetBackgroudButton() {
         petBackgroundButton = UIButton(type: .system)
-        petBackgroundButton.backgroundColor = .systemYellow.withAlphaComponent(0.7)
+        petBackgroundButton.backgroundColor = themeColor.withAlphaComponent(0.7)
         petBackgroundButton.layer.cornerRadius = 40
         petBackgroundButton.clipsToBounds = true
         petBackgroundButton.showsMenuAsPrimaryAction = true

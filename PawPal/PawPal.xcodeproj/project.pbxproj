@@ -26,6 +26,8 @@
 		12B86AFC2B0C2E57005E1F3B /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B86AFB2B0C2E57005E1F3B /* colors.swift */; };
 		12B86B272B17F14D005E1F3B /* AddPetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B86B262B17F14D005E1F3B /* AddPetViewController.swift */; };
 		12B86B292B17F165005E1F3B /* AddPetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B86B282B17F165005E1F3B /* AddPetView.swift */; };
+		4F6888252B1DB555000549A4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4F6888242B1DB555000549A4 /* Kingfisher */; };
+		4F6888272B1DC22F000549A4 /* colorSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6888262B1DC22F000549A4 /* colorSetting.swift */; };
 		4FE2CCC72B0866D5003AC533 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCC62B0866D5003AC533 /* AppDelegate.swift */; };
 		4FE2CCC92B0866D5003AC533 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCC82B0866D5003AC533 /* SceneDelegate.swift */; };
 		4FE2CCCB2B0866D5003AC533 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE2CCCA2B0866D5003AC533 /* ViewController.swift */; };
@@ -123,6 +125,7 @@
 		12B86AFB2B0C2E57005E1F3B /* colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
 		12B86B262B17F14D005E1F3B /* AddPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetViewController.swift; sourceTree = "<group>"; };
 		12B86B282B17F165005E1F3B /* AddPetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetView.swift; sourceTree = "<group>"; };
+		4F6888262B1DC22F000549A4 /* colorSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colorSetting.swift; sourceTree = "<group>"; };
 		4FE2CCC32B0866D5003AC533 /* PawPal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PawPal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FE2CCC62B0866D5003AC533 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FE2CCC82B0866D5003AC533 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -207,6 +210,7 @@
 				64824DF92B0AA4E4004CFE1D /* FirebaseStorage in Frameworks */,
 				64824DFB2B0AA502004CFE1D /* FirebaseFirestore in Frameworks */,
 				64824DFD2B0AA502004CFE1D /* FirebaseFirestoreSwift in Frameworks */,
+				4F6888252B1DB555000549A4 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +331,7 @@
 				4FE2CCD12B0866D6003AC533 /* LaunchScreen.storyboard */,
 				4FE2CCD42B0866D6003AC533 /* Info.plist */,
 				4FE2CCDA2B086CF5003AC533 /* GoogleService-Info.plist */,
+				4F6888262B1DC22F000549A4 /* colorSetting.swift */,
 			);
 			path = PawPal;
 			sourceTree = "<group>";
@@ -660,6 +665,7 @@
 				64824DF82B0AA4E4004CFE1D /* FirebaseStorage */,
 				64824DFA2B0AA502004CFE1D /* FirebaseFirestore */,
 				64824DFC2B0AA502004CFE1D /* FirebaseFirestoreSwift */,
+				4F6888242B1DB555000549A4 /* Kingfisher */,
 			);
 			productName = PawPal;
 			productReference = 4FE2CCC32B0866D5003AC533 /* PawPal.app */;
@@ -691,6 +697,7 @@
 			mainGroup = 4FE2CCBA2B0866D5003AC533;
 			packageReferences = (
 				4FE2CCDC2B086D2F003AC533 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				4F6888232B1DB555000549A4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 4FE2CCC42B0866D5003AC533 /* Products */;
 			projectDirPath = "";
@@ -786,6 +793,7 @@
 				4FE2CCC92B0866D5003AC533 /* SceneDelegate.swift in Sources */,
 				6436E50E2B160C6B007FCB00 /* ChatsTableViewCell.swift in Sources */,
 				120B55852B1D6AA900C0FB8D /* AddPetPhotoManager.swift in Sources */,
+				4F6888272B1DC22F000549A4 /* colorSetting.swift in Sources */,
 				647009A72B18B13200260136 /* NewFriendsTableViewCell.swift in Sources */,
 				64824E0D2B0AB141004CFE1D /* DiscoverView.swift in Sources */,
 				4FE2CCEB2B0ADF4F003AC533 /* RegisterViewController.swift in Sources */,
@@ -1032,6 +1040,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4F6888232B1DB555000549A4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.0;
+			};
+		};
 		4FE2CCDC2B086D2F003AC533 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1043,6 +1059,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4F6888242B1DB555000549A4 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F6888232B1DB555000549A4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		64824DF62B0AA4DA004CFE1D /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4FE2CCDC2B086D2F003AC533 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

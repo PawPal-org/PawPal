@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseAuth
+import Kingfisher
 
 class DiscoverViewController: UIViewController {
     
@@ -68,7 +69,8 @@ class DiscoverViewController: UIViewController {
         let petDescriptions = petData["descriptions"] as? String ?? "Woof~ Woof~"
         let petVaccinations = petData["vaccinations"] as? String ?? "not uploaded yet"
         let petOwnerEmail = petData["email"] as? String ?? "no email"
-        
+        let petImageUrl = petData["backgroundImageURL"] as? String ?? "default"
+        let petIconUrl = petData["petImageURL"] as? String ?? "default"
         let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM-dd-yyyy"
         var petBirthday = "Unknown"
@@ -80,9 +82,9 @@ class DiscoverViewController: UIViewController {
         // Use the pet data to configure card view
         DispatchQueue.main.async {
             let cardView = self.createNewCardView()
-            cardView.configure(with: UIImage(systemName: "pawprint.fill")!, name: petName, sex: petSex, breed: petBreed, location: petLocation)
+            cardView.configure(with: petImageUrl, name: petName, sex: petSex, breed: petBreed, location: petLocation)
             cardView.configureFlippedState(
-                with: UIImage(systemName: "dog.circle")!,
+                with: petIconUrl,
                 name: petName,
                 sex: petSex,
                 age: petAge,
