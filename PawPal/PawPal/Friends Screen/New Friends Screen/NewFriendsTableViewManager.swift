@@ -106,7 +106,8 @@ extension NewFriendsViewController: UITableViewDelegate, UITableViewDataSource{
             if let error = error {
                 print("Error updating documents: \(error)")
             } else {
-                self?.fetchNewFriends()
+                self?.newFriendsList.remove(at: indexPath.row)
+                self?.newFriendsView.tableViewNewFriends.deleteRows(at: [indexPath], with: .fade)
             }
         }
     }
@@ -145,7 +146,8 @@ extension NewFriendsViewController: UITableViewDelegate, UITableViewDataSource{
                     if let error = error {
                         print("Error updating document: \(error)")
                     } else {
-                        self?.fetchNewFriends()
+                        self?.newFriendsList.remove(at: indexPath.row)
+                        self?.newFriendsView.tableViewNewFriends.deleteRows(at: [indexPath], with: .fade)
                     }
                 }
             } else if let error = error {

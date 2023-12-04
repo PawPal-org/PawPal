@@ -131,15 +131,23 @@ extension ContactViewController {
     
     func deleteContact(contactEmail: String) {
         let alertController = UIAlertController(title: "Delete Contact", message: "Are you sure you want to delete this contact? This will also delete your chat history.", preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            guard let strongSelf = self else { return }
 
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [self] _ in
-            self.performDeletion(contactEmail: contactEmail)
-            if !(contact?.isFriend)! {
-                self.deleteNotFriends(contactEmail: contactEmail)
-            }else {
-                self.changeFriendStatus(contactEmail: contactEmail)
+            strongSelf.performDeletion(contactEmail: contactEmail) {
+                if !(strongSelf.contact?.isFriend ?? true) {
+                    strongSelf.deleteNotFriends(contactEmail: contactEmail) {
+                        strongSelf.showDeletionSuccessAndPop()
+                    }
+                } else {
+                    strongSelf.changeFriendStatus(contactEmail: contactEmail) {
+                        strongSelf.showDeletionSuccessAndPop()
+                    }
+                }
             }
         }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
 
         alertController.addAction(deleteAction)
@@ -148,7 +156,7 @@ extension ContactViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func performDeletion(contactEmail: String) {
+    func performDeletion(contactEmail: String, completion: @escaping () -> Void) {
         guard let currentUserEmail = currentUser?.email else { return }
         let userDocument = Firestore.firestore().collection("users").document(currentUserEmail)
         let userChatsCollection = userDocument.collection("chats")
@@ -177,6 +185,8 @@ extension ContactViewController {
                 print("Error getting document: \(error)")
             }
         }
+        
+        completion()
     }
 
     func removeChatReference(userChatsCollection: CollectionReference, contactEmail: String) {
@@ -242,7 +252,7 @@ extension ContactViewController {
         }
     }
     
-    func changeFriendStatus(contactEmail: String) {
+    func changeFriendStatus(contactEmail: String, completion: @escaping () -> Void) {
         //Remove currentUserEmail from the contact's friends array, and add it to the contact's notFriends array
         guard let currentUserEmail = currentUser?.email else { return }
 
@@ -276,9 +286,10 @@ extension ContactViewController {
                 print("Error getting contact document: \(error)")
             }
         }
+        completion()
     }
     
-    func deleteNotFriends(contactEmail: String) {
+    func deleteNotFriends(contactEmail: String, completion: @escaping () -> Void) {
         guard let currentUserEmail = currentUser?.email else { return }
         
         let contactDocument = Firestore.firestore().collection("users").document(contactEmail)
@@ -304,6 +315,15 @@ extension ContactViewController {
                 print("Error getting contact document: \(error)")
             }
         }
+        completion()
+    }
+    
+    func showDeletionSuccessAndPop() {
+        let alert = UIAlertController(title: "Success", message: "Contact successfully deleted.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        })
+        self.present(alert, animated: true)
     }
     
     func showAlert(title: String, message: String){
