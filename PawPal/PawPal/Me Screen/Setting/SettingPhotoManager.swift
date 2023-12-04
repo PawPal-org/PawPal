@@ -1,5 +1,5 @@
 //
-//  EditPhotoManager.swift
+//  SettingPhotoManager.swift
 //  PawPal
 //
 //  Created by Cynthia Zhang on 12/3/23.
@@ -10,7 +10,7 @@ import UIKit
 import PhotosUI
 
 //MARK: adopting required protocols for PHPicker...
-extension SettingEditViewController:PHPickerViewControllerDelegate{
+extension SettingViewController:PHPickerViewControllerDelegate{
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         dismiss(animated: true)
         
@@ -25,7 +25,7 @@ extension SettingEditViewController:PHPickerViewControllerDelegate{
                     completionHandler: { (image, error) in
                         DispatchQueue.main.async{
                             if let uwImage = image as? UIImage{
-                                self.settingEditScreen.buttonTakePhoto.setImage(
+                                self.settingScreen.buttonTakePhoto.setImage(
                                     uwImage.withRenderingMode(.alwaysOriginal),
                                     for: .normal
                                 )
@@ -40,12 +40,12 @@ extension SettingEditViewController:PHPickerViewControllerDelegate{
 }
 
 //MARK: adopting required protocols for UIImagePicker...
-extension SettingEditViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate{
+extension SettingViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
         
         if let image = info[.editedImage] as? UIImage{
-            self.settingEditScreen.buttonTakePhoto.setImage(
+            self.settingScreen.buttonTakePhoto.setImage(
                 image.withRenderingMode(.alwaysOriginal),
                 for: .normal
             )

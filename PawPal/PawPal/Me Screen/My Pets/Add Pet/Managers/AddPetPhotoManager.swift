@@ -32,7 +32,8 @@ extension AddPetViewController: PHPickerViewControllerDelegate {
                         
                         
                     case .pet:
-                        self.addPetScreen.petPicButton.setBackgroundImage(uwImage, for: .normal)
+                        self.addPetScreen.petPicButton.setImage(uwImage.withRenderingMode(.alwaysOriginal),
+                                                                for: .normal)
                         self.addPetScreen.petPicButton.layer.borderWidth = 3
                         self.addPetScreen.petPicButton.layer.borderColor = UIColor.white.cgColor
                         self.pickedPetImage = uwImage
@@ -60,7 +61,8 @@ extension AddPetViewController: UINavigationControllerDelegate, UIImagePickerCon
                     self.pickedBackgroundImage = image
                 }
             case .pet:
-                self.addPetScreen.petPicButton.setBackgroundImage(image, for: .normal)
+                self.addPetScreen.petPicButton.setImage(image.withRenderingMode(.alwaysOriginal),
+                                                        for: .normal)
                 self.addPetScreen.petPicButton.layer.borderWidth = 3
                 self.addPetScreen.petPicButton.layer.borderColor = UIColor.white.cgColor
                 self.pickedPetImage = image

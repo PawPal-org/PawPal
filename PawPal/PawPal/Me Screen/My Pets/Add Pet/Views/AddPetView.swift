@@ -80,8 +80,11 @@ class AddPetView: UIView {
 
     func setupPetPicButton() {
         petPicButton = UIButton(type: .system)
-        petPicButton.setBackgroundImage(UIImage(systemName: "dog.circle"), for: .normal)
+        petPicButton.setTitle("", for: .normal)
+        petPicButton.setImage(UIImage(systemName: "dog.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
         petPicButton.tintColor = .white
+        petPicButton.contentHorizontalAlignment = .fill
+        petPicButton.contentVerticalAlignment = .fill
         petPicButton.imageView?.contentMode = .scaleAspectFill
         petPicButton.layer.cornerRadius = 75
         petPicButton.clipsToBounds = true

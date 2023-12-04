@@ -12,10 +12,8 @@
 		120B55892B1D6C5B00C0FB8D /* PetUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55882B1D6C5B00C0FB8D /* PetUpload.swift */; };
 		120B559C2B1D99CD00C0FB8D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B559B2B1D99CD00C0FB8D /* SettingView.swift */; };
 		120B559E2B1D99DF00C0FB8D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B559D2B1D99DF00C0FB8D /* SettingViewController.swift */; };
-		120B55A02B1D9A2900C0FB8D /* SettingEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B559F2B1D9A2900C0FB8D /* SettingEditViewController.swift */; };
-		120B55A22B1D9A3C00C0FB8D /* SettingEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55A12B1D9A3C00C0FB8D /* SettingEditView.swift */; };
-		120B55A42B1D9A5C00C0FB8D /* EditPhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55A32B1D9A5C00C0FB8D /* EditPhotoManager.swift */; };
-		120B55A62B1D9A7B00C0FB8D /* EditFIrebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55A52B1D9A7B00C0FB8D /* EditFIrebaseManager.swift */; };
+		120B55AE2B1DC92100C0FB8D /* SettingPhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55AD2B1DC92100C0FB8D /* SettingPhotoManager.swift */; };
+		120B55B02B1DC93600C0FB8D /* SettingFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55AF2B1DC93600C0FB8D /* SettingFirebaseManager.swift */; };
 		12B783A52B0B7E1F0004B7F8 /* MeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A42B0B7E1F0004B7F8 /* MeTableViewCell.swift */; };
 		12B783A72B0B7E3C0004B7F8 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A62B0B7E3C0004B7F8 /* SettingTableViewCell.swift */; };
 		12B783A92B0B7E5E0004B7F8 /* LogOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A82B0B7E5E0004B7F8 /* LogOutTableViewCell.swift */; };
@@ -111,10 +109,8 @@
 		120B55882B1D6C5B00C0FB8D /* PetUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetUpload.swift; sourceTree = "<group>"; };
 		120B559B2B1D99CD00C0FB8D /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		120B559D2B1D99DF00C0FB8D /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		120B559F2B1D9A2900C0FB8D /* SettingEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingEditViewController.swift; sourceTree = "<group>"; };
-		120B55A12B1D9A3C00C0FB8D /* SettingEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingEditView.swift; sourceTree = "<group>"; };
-		120B55A32B1D9A5C00C0FB8D /* EditPhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoManager.swift; sourceTree = "<group>"; };
-		120B55A52B1D9A7B00C0FB8D /* EditFIrebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFIrebaseManager.swift; sourceTree = "<group>"; };
+		120B55AD2B1DC92100C0FB8D /* SettingPhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPhotoManager.swift; sourceTree = "<group>"; };
+		120B55AF2B1DC93600C0FB8D /* SettingFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFirebaseManager.swift; sourceTree = "<group>"; };
 		12B783A42B0B7E1F0004B7F8 /* MeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeTableViewCell.swift; sourceTree = "<group>"; };
 		12B783A62B0B7E3C0004B7F8 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		12B783A82B0B7E5E0004B7F8 /* LogOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutTableViewCell.swift; sourceTree = "<group>"; };
@@ -247,20 +243,10 @@
 			children = (
 				120B559B2B1D99CD00C0FB8D /* SettingView.swift */,
 				120B559D2B1D99DF00C0FB8D /* SettingViewController.swift */,
-				120B55A82B1D9AD900C0FB8D /* Edit Account */,
+				120B55AD2B1DC92100C0FB8D /* SettingPhotoManager.swift */,
+				120B55AF2B1DC93600C0FB8D /* SettingFirebaseManager.swift */,
 			);
 			path = Setting;
-			sourceTree = "<group>";
-		};
-		120B55A82B1D9AD900C0FB8D /* Edit Account */ = {
-			isa = PBXGroup;
-			children = (
-				120B55A12B1D9A3C00C0FB8D /* SettingEditView.swift */,
-				120B559F2B1D9A2900C0FB8D /* SettingEditViewController.swift */,
-				120B55A32B1D9A5C00C0FB8D /* EditPhotoManager.swift */,
-				120B55A52B1D9A7B00C0FB8D /* EditFIrebaseManager.swift */,
-			);
-			path = "Edit Account";
 			sourceTree = "<group>";
 		};
 		12B783B02B0B7ED00004B7F8 /* My Pets */ = {
@@ -728,6 +714,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6422F53C2B0E766700EA69ED /* ImageCollectionViewCell.swift in Sources */,
+				120B55B02B1DC93600C0FB8D /* SettingFirebaseManager.swift in Sources */,
 				6422F53E2B0E766700EA69ED /* MyMomentsView.swift in Sources */,
 				4FE2CCF22B0B87EF003AC533 /* fonts.swift in Sources */,
 				6436E5212B16BEC0007FCB00 /* MessageTableViewManager.swift in Sources */,
@@ -754,6 +741,7 @@
 				4FE2CCF92B0C8F53003AC533 /* LocationManager.swift in Sources */,
 				4FE2CCEF2B0AFE12003AC533 /* CardView.swift in Sources */,
 				6470099B2B188B1A00260136 /* SearchBarManager.swift in Sources */,
+				120B55AE2B1DC92100C0FB8D /* SettingPhotoManager.swift in Sources */,
 				120B55872B1D6AC700C0FB8D /* AddPetFirebaseManager.swift in Sources */,
 				64824E082B0AB10D004CFE1D /* MomentsViewController.swift in Sources */,
 				647009B82B19B02C00260136 /* OptionsTableViewCell.swift in Sources */,
@@ -783,7 +771,6 @@
 				12B86B292B17F165005E1F3B /* AddPetView.swift in Sources */,
 				6422F53B2B0E766700EA69ED /* MomentsView.swift in Sources */,
 				12B86AFA2B0C2D90005E1F3B /* Pet.swift in Sources */,
-				120B55A62B1D9A7B00C0FB8D /* EditFIrebaseManager.swift in Sources */,
 				64824E172B0AB1AD004CFE1D /* ChatsViewController.swift in Sources */,
 				4FE2CD032B0C9661003AC533 /* SearchViewController.swift in Sources */,
 				647009AC2B18B16B00260136 /* NewFriendsViewController.swift in Sources */,
@@ -803,13 +790,10 @@
 				64824E132B0AB189004CFE1D /* FriendsViewController.swift in Sources */,
 				64824E1C2B0AB1EA004CFE1D /* MeView.swift in Sources */,
 				647009A92B18B14800260136 /* NewFriendsView.swift in Sources */,
-				120B55A02B1D9A2900C0FB8D /* SettingEditViewController.swift in Sources */,
 				6436E51C2B16BE3B007FCB00 /* MessageViewController.swift in Sources */,
 				120B559C2B1D99CD00C0FB8D /* SettingView.swift in Sources */,
 				6422F5422B0E766700EA69ED /* MomentsTableViewManager.swift in Sources */,
-				120B55A42B1D9A5C00C0FB8D /* EditPhotoManager.swift in Sources */,
 				6422F5402B0E766700EA69ED /* Moment.swift in Sources */,
-				120B55A22B1D9A3C00C0FB8D /* SettingEditView.swift in Sources */,
 				6436E5232B16BF34007FCB00 /* Message.swift in Sources */,
 				120B559E2B1D99DF00C0FB8D /* SettingViewController.swift in Sources */,
 				64ECD8E12B0BB7670077E96E /* PostMomentView.swift in Sources */,
