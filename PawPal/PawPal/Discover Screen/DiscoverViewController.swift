@@ -227,12 +227,46 @@ class DiscoverViewController: UIViewController {
         // Create a dictionary with the current email as key and the timestamp as value
         let friendRequestUpdate = ["\(currentEmail)": timestamp]
         // Update the document with the friend request
-        petOwnerDocRef.updateData([
-            "friendsRequest": friendRequestUpdate]) { error in
-            if let error = error {
-                print("Error adding friend request: \(error.localizedDescription)")
+        checkIfEmailIsAlreadyAFriend(currentEmail: currentEmail, petOwnerEmail: petOwnerEmail) { isFriend in
+            if isFriend {
+                print("The user is already a friend.")
             } else {
-                print("Friend request with timestamp sent successfully.")
+                print("The user is not a friend yet. Sending Request...")
+                petOwnerDocRef.updateData([
+                    "friendsRequest": friendRequestUpdate]) { error in
+                    if let error = error {
+                        print("Error adding friend request: \(error.localizedDescription)")
+                    } else {
+                        print("Friend request with timestamp sent successfully.")
+                    }
+                }
+            }
+        }
+    }
+
+    func checkIfEmailIsAlreadyAFriend(currentEmail: String, petOwnerEmail: String, completion: @escaping (Bool) -> Void) {
+        let usersCollectionRef = Firestore.firestore().collection("users")
+        let petOwnerDocRef = usersCollectionRef.document(petOwnerEmail)
+
+        petOwnerDocRef.getDocument { (document, error) in
+            if let error = error {
+                print("Error fetching document: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            if let document = document, document.exists {
+                let friendsArray = document.data()?["friends"] as? [String] ?? []
+                if friendsArray.contains(currentEmail) {
+                    print("\(currentEmail) is already a friend.")
+                    completion(true)
+                } else {
+                    print("\(currentEmail) is not in the friends array.")
+                    completion(false)
+                }
+            } else {
+                print("Document does not exist.")
+                completion(false)
             }
         }
     }
