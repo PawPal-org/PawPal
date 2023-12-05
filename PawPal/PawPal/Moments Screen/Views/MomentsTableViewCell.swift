@@ -19,6 +19,7 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     var pageControl: UIPageControl!
     var userImageButton: UIButton!
     var likeButton: UIButton!
+    var buttonOptions: UIButton!
     
     var delegate: MomentsTableViewCellDelegate?
     
@@ -45,6 +46,7 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
         setupPageControl()
         setupLikeButton()
         setupUserImageButton()
+        setupButtonOptions()
 
         initConstraints()
     }
@@ -152,6 +154,29 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
         wrapperCellView.addSubview(pageControl)
     }
     
+    func setupButtonOptions() {
+        buttonOptions = UIButton(type: .system)
+        buttonOptions.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        buttonOptions.tintColor = .gray
+        buttonOptions.translatesAutoresizingMaskIntoConstraints = false
+        buttonOptions.showsMenuAsPrimaryAction = true
+        
+        buttonOptions.menu = UIMenu(title: "", children: [
+            UIAction(title: "Delete", handler: { [weak self] _ in
+                self?.handleDeleteAction()
+            })
+        ])
+        
+        wrapperCellView.addSubview(buttonOptions)
+        buttonOptions.isHidden = true
+        buttonOptions.isUserInteractionEnabled = false
+    }
+
+    func showButtonOptions(shouldShow: Bool) {
+        buttonOptions.isHidden = !shouldShow
+        buttonOptions.isUserInteractionEnabled = shouldShow
+    }
+    
     func initConstraints(){
         NSLayoutConstraint.activate([
             
@@ -191,6 +216,11 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
             likeButton.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
             likeButton.heightAnchor.constraint(equalToConstant: 24),
             likeButton.widthAnchor.constraint(equalToConstant: 24),
+            
+            buttonOptions.topAnchor.constraint(equalTo: wrapperCellView.topAnchor, constant: 0),
+            buttonOptions.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
+            buttonOptions.widthAnchor.constraint(equalToConstant: 30),
+            buttonOptions.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     
@@ -200,6 +230,10 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     
     @objc func userImageButtonTapped() {
         delegate?.didTapUserImageButton(on: self)
+    }
+    
+    func handleDeleteAction() {
+        delegate?.didTapDeleteButton(on: self)
     }
     
     func setLiked(_ isLiked: Bool) {
@@ -237,6 +271,33 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
                 }
             }
         }
+    }
+    
+    func fetchProfileImage(for moment: Moment) {
+        guard let profileImageUrl = moment.profileImageUrl, let url = URL(string: profileImageUrl) else {
+            // Set default profile image if no URL is provided
+            self.userImageButton.setImage(UIImage(systemName: "person.crop.circle")!, for: .normal)
+            return
+        }
+        // Use SDWebImage to set the image
+        userImageButton.sd_setImage(with: url, for: .normal, placeholderImage: UIImage(systemName: "person.crop.circle"), completed: nil)
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+
+}
+
+//MARK: - Discard the use of /Utilities/ImageCahce
+//    func fetchImages() {
 //        images.removeAll()
 //        let storage = Storage.storage()
 //
@@ -261,8 +322,8 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
 //
 //        self.collectionView.reloadData()
 //        self.updatePageControl()
-    }
-    
+//     }
+//
 //    func fetchImage(_ storageRef: StorageReference, imageName: String, isProfileImage: Bool = false) {
 //        storageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
 //            DispatchQueue.main.async {
@@ -281,49 +342,40 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
 //            }
 //        }
 //    }
-    
-    func fetchProfileImage(for moment: Moment) {
-        guard let profileImageUrl = moment.profileImageUrl, let url = URL(string: profileImageUrl) else {
-            // Set default profile image if no URL is provided
-            self.userImageButton.setImage(UIImage(systemName: "person.crop.circle")!, for: .normal)
-            return
-        }
-
-        // Use SDWebImage to set the image
-        userImageButton.sd_setImage(with: url, for: .normal, placeholderImage: UIImage(systemName: "person.crop.circle"), completed: nil)
-        
+//
+//    func fetchProfileImage(for moment: Moment) {
 //        guard let profileImageUrl = moment.profileImageUrl, let url = URL(string: profileImageUrl) else {
 //            // Set default profile image if no URL is provided
 //            self.userImageButton.setImage(UIImage(systemName: "person.crop.circle")!, for: .normal)
 //            return
 //        }
 //        let imageName = url.lastPathComponent
-//
+//        
 //        // Use cached image if available
 //        if let cachedImage = ImageCache.shared.getImage(for: imageName) {
 //            self.userImageButton.setImage(cachedImage, for: .normal)
 //            return
 //        }
-//
+//        
 //        // Fetch from storage if not in cache
 //        let storageRef = Storage.storage().reference().child("user_images").child(imageName)
-//
+//        
 //        // Cancel any existing image load task
 //        currentProfileImageLoadTask?.cancel()
-//
+//        
 //        storageRef.downloadURL { [weak self] (url, error) in
 //            guard let url = url, error == nil else {
 //                print("Error getting download URL: \(error?.localizedDescription ?? "unknown error")")
 //                return
 //            }
-//
+//            
 //            // Fetch the image from the download URL
 //            self?.currentProfileImageLoadTask = URLSession.shared.dataTask(with: url) { data, response, error in
 //                guard let data = data, error == nil, let image = UIImage(data: data) else {
 //                    print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
 //                    return
 //                }
-//
+//                
 //                DispatchQueue.main.async {
 //                    // Check if the cell is still displaying content related to the same moment
 //                    if self?.momentID == moment.id {
@@ -334,18 +386,4 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
 //            }
 //            self?.currentProfileImageLoadTask?.resume()
 //        }
-    }
-
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
-}
+//    }

@@ -1,8 +1,8 @@
 //
-//  MomentsTableViewManager.swift
+//  MyMomentsTableViewManager.swift
 //  PawPal
 //
-//  Created by Yitian Guo on 11/20/23.
+//  Created by Yitian Guo on 12/5/23.
 //
 
 import Foundation
@@ -11,34 +11,30 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
 
-extension MomentsViewController: UITableViewDelegate, UITableViewDataSource{
+extension MyMomentsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return moments.count
-    }
-    
+            return myMoments.count
+        }
+        
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Configs.tableViewMomentsID, for: indexPath) as! MomentsTableViewCell
         cell.selectionStyle = .none
         cell.delegate = self
-        let moment = moments[indexPath.row]
-        cell.userEmail = moment.userEmail
+        let moment = myMoments[indexPath.row]
         let isLiked = moment.likes.contains(Auth.auth().currentUser?.email ?? "")
+        cell.configureCell(with: moment)
         cell.setLiked(isLiked)
         cell.configureCell(with: moment)
-        
-        if moment.userEmail == Auth.auth().currentUser?.email {
-            cell.showButtonOptions(shouldShow: true)
-        } else {
-            cell.showButtonOptions(shouldShow: false)
-        }
+        cell.showButtonOptions(shouldShow: true)
         return cell
     }
 }
 
-extension MomentsViewController: MomentsTableViewCellDelegate {
+extension MyMomentsViewController: MomentsTableViewCellDelegate {
+    
     func didTapDeleteButton(on cell: MomentsTableViewCell) {
-        if let indexPath = momentsView.tableViewMoments.indexPath(for: cell) {
-            let momentToDelete = moments[indexPath.row]
+        if let indexPath = myMomentsView.tableViewMoments.indexPath(for: cell) {
+            let momentToDelete = myMoments[indexPath.row]
 
             // Show confirmation alert
             let deleteAlert = UIAlertController(title: "Delete Moment", message: "Are you sure you want to delete this moment?", preferredStyle: .alert)
@@ -47,8 +43,8 @@ extension MomentsViewController: MomentsTableViewCellDelegate {
 
             deleteAlert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
                 // Proceed with deletion
-                self?.moments.remove(at: indexPath.row)
-                self?.momentsView.tableViewMoments.deleteRows(at: [indexPath], with: .automatic)
+                self?.myMoments.remove(at: indexPath.row)
+                self?.myMomentsView.tableViewMoments.deleteRows(at: [indexPath], with: .automatic)
                 self?.deleteMomentFromDatabase(moment: momentToDelete)
             }))
 
@@ -62,7 +58,7 @@ extension MomentsViewController: MomentsTableViewCellDelegate {
         let storage = Storage.storage()
 
         // Delete the moment document from Firestore
-        db.collection("users").document(moment.userEmail!).collection("moments").document(momentID).delete() { error in
+        db.collection("users").document(userEmail!).collection("moments").document(momentID).delete() { error in
             if let error = error {
                 print("Error removing document: \(error)")
             } else {
@@ -86,25 +82,24 @@ extension MomentsViewController: MomentsTableViewCellDelegate {
     }
     
     func didTapLikeButton(on cell: MomentsTableViewCell) {
-        guard let indexPath = momentsView.tableViewMoments.indexPath(for: cell),
-              let userEmail = Auth.auth().currentUser?.email else { return }
+        guard let indexPath = myMomentsView.tableViewMoments.indexPath(for: cell),
+              let currentUserEmail = Auth.auth().currentUser?.email else { return }
 
-        let moment = moments[indexPath.row]
+        let moment = myMoments[indexPath.row]
         var updatedLikes = moment.likes
         
         let isLiked: Bool
-        if let index = updatedLikes.firstIndex(of: userEmail) {
+        if let index = updatedLikes.firstIndex(of: currentUserEmail) {
             updatedLikes.remove(at: index)
             isLiked = false
         } else {
-            updatedLikes.append(userEmail)
+            updatedLikes.append(currentUserEmail)
             isLiked = true
         }
         cell.setLiked(isLiked)
 
-
         let db = Firestore.firestore()
-        db.collection("users").document(moment.userEmail!).collection("moments").document(moment.id!).updateData([
+        db.collection("users").document(self.userEmail!).collection("moments").document(moment.id!).updateData([
             "likes": updatedLikes
         ]) { error in
             if let error = error {
@@ -116,9 +111,7 @@ extension MomentsViewController: MomentsTableViewCellDelegate {
     }
     
     func didTapUserImageButton(on cell: MomentsTableViewCell) {
-        let myMomentsView = MyMomentsViewController()
-        myMomentsView.userEmail = cell.userEmail
-        myMomentsView.userName = cell.labelName.text
-        self.navigationController?.pushViewController(myMomentsView, animated: true)
+        // nothing, won't navigate again
     }
+    
 }
