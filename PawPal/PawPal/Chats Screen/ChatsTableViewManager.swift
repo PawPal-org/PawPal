@@ -68,7 +68,7 @@ extension ChatsViewController: UITableViewDelegate, UITableViewDataSource{
 //                        }
 //                    }.resume()
                     // Using SDWebImage to set the image
-                    cell.buttonProfilePic.sd_setBackgroundImage(with: url, for: .normal, completed: nil)
+                    cell.buttonProfilePic.sd_setImage(with: url, for: .normal, completed: nil)
                 } else {
                     cell.buttonProfilePic.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
                 }

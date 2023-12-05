@@ -44,7 +44,7 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource{
         
         // Use SDWebImage to set the image
         if let imageUrlString = contact.userProfilePicUrl, let url = URL(string: imageUrlString) {
-            cell.buttonProfilePic.sd_setBackgroundImage(with: url, for: .normal, completed: nil)
+            cell.buttonProfilePic.sd_setImage(with: url, for: .normal, completed: nil)
         }
         
 //        if let imageUrlString = contact.userProfilePicUrl, let url = URL(string: imageUrlString) {
