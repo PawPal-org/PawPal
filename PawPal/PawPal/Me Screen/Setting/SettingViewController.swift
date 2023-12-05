@@ -15,6 +15,8 @@ class SettingViewController: UIViewController {
     
     //MARK: creating instance of DisplayView
     let settingScreen = SettingView()
+    let childProgressView = ProgressSpinnerViewController()
+    
     //MARK: variable to store the picked Image...
     var pickedImage:UIImage?
     var didChangeProfileImage = false
@@ -120,11 +122,12 @@ class SettingViewController: UIViewController {
         }
     }
 
+    //Logic of update user info to firebase
     @objc func onSaveTapped(){
-        //MARK: creating a new user on Firebase
-        //self.registerNewAccount()
         //MARK: first verify the information...
         if (verifyInformation()) {
+            //MARK: show the progress indicator...
+            showActivityIndicator()
             //MARK: creating a new user on Firebase with photo...
             if didChangeProfileImage {
                 if hasProfilePicBefore{
@@ -134,7 +137,6 @@ class SettingViewController: UIViewController {
                     }
                     uploadProfilePhotoToStorage()
                 } else { uploadProfilePhotoToStorage() }
-                //showActivityIndicator()
             }
             updateUserName()
         }

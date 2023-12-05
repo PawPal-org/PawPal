@@ -14,6 +14,9 @@
 		120B559E2B1D99DF00C0FB8D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B559D2B1D99DF00C0FB8D /* SettingViewController.swift */; };
 		120B55AE2B1DC92100C0FB8D /* SettingPhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55AD2B1DC92100C0FB8D /* SettingPhotoManager.swift */; };
 		120B55B02B1DC93600C0FB8D /* SettingFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55AF2B1DC93600C0FB8D /* SettingFirebaseManager.swift */; };
+		120B55B22B1F28D100C0FB8D /* ProgressSpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55B12B1F28D100C0FB8D /* ProgressSpinnerViewController.swift */; };
+		120B55B42B1F28E900C0FB8D /* ProgressSpinnerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55B32B1F28E900C0FB8D /* ProgressSpinnerDelegate.swift */; };
+		120B55B72B1F29DA00C0FB8D /* SettingProgressIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55B62B1F29DA00C0FB8D /* SettingProgressIndicatorManager.swift */; };
 		12B783A52B0B7E1F0004B7F8 /* MeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A42B0B7E1F0004B7F8 /* MeTableViewCell.swift */; };
 		12B783A72B0B7E3C0004B7F8 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A62B0B7E3C0004B7F8 /* SettingTableViewCell.swift */; };
 		12B783A92B0B7E5E0004B7F8 /* LogOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A82B0B7E5E0004B7F8 /* LogOutTableViewCell.swift */; };
@@ -113,6 +116,9 @@
 		120B559D2B1D99DF00C0FB8D /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		120B55AD2B1DC92100C0FB8D /* SettingPhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPhotoManager.swift; sourceTree = "<group>"; };
 		120B55AF2B1DC93600C0FB8D /* SettingFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFirebaseManager.swift; sourceTree = "<group>"; };
+		120B55B12B1F28D100C0FB8D /* ProgressSpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerViewController.swift; sourceTree = "<group>"; };
+		120B55B32B1F28E900C0FB8D /* ProgressSpinnerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerDelegate.swift; sourceTree = "<group>"; };
+		120B55B62B1F29DA00C0FB8D /* SettingProgressIndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProgressIndicatorManager.swift; sourceTree = "<group>"; };
 		12B783A42B0B7E1F0004B7F8 /* MeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeTableViewCell.swift; sourceTree = "<group>"; };
 		12B783A62B0B7E3C0004B7F8 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		12B783A82B0B7E5E0004B7F8 /* LogOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutTableViewCell.swift; sourceTree = "<group>"; };
@@ -249,8 +255,18 @@
 				120B559D2B1D99DF00C0FB8D /* SettingViewController.swift */,
 				120B55AD2B1DC92100C0FB8D /* SettingPhotoManager.swift */,
 				120B55AF2B1DC93600C0FB8D /* SettingFirebaseManager.swift */,
+				120B55B62B1F29DA00C0FB8D /* SettingProgressIndicatorManager.swift */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		120B55B52B1F28F300C0FB8D /* Progress Indicator */ = {
+			isa = PBXGroup;
+			children = (
+				120B55B12B1F28D100C0FB8D /* ProgressSpinnerViewController.swift */,
+				120B55B32B1F28E900C0FB8D /* ProgressSpinnerDelegate.swift */,
+			);
+			path = "Progress Indicator";
 			sourceTree = "<group>";
 		};
 		12B783B02B0B7ED00004B7F8 /* My Pets */ = {
@@ -306,6 +322,7 @@
 			children = (
 				64455DCE2B0E47060073A9BC /* NotificationNames.swift */,
 				6422F53A2B0E766700EA69ED /* Configs.swift */,
+				120B55B52B1F28F300C0FB8D /* Progress Indicator */,
 				4FE2CCF02B0B87CA003AC533 /* Resources */,
 				4FE2CCE72B0ADEE7003AC533 /* Register Screen */,
 				64824E022B0AB0BB004CFE1D /* Discover Screen */,
@@ -723,9 +740,11 @@
 				6422F53C2B0E766700EA69ED /* ImageCollectionViewCell.swift in Sources */,
 				120B55B02B1DC93600C0FB8D /* SettingFirebaseManager.swift in Sources */,
 				6422F53E2B0E766700EA69ED /* MyMomentsView.swift in Sources */,
+				120B55B22B1F28D100C0FB8D /* ProgressSpinnerViewController.swift in Sources */,
 				4FE2CCF22B0B87EF003AC533 /* fonts.swift in Sources */,
 				6436E5212B16BEC0007FCB00 /* MessageTableViewManager.swift in Sources */,
 				647009AE2B18B17A00260136 /* NewFriendsTableViewManager.swift in Sources */,
+				120B55B42B1F28E900C0FB8D /* ProgressSpinnerDelegate.swift in Sources */,
 				64824E192B0AB1B8004CFE1D /* ChatsView.swift in Sources */,
 				12B783AF2B0B7EC80004B7F8 /* MyPetsViewController.swift in Sources */,
 				64455DCF2B0E47060073A9BC /* NotificationNames.swift in Sources */,
@@ -793,6 +812,7 @@
 				4FE2CCEB2B0ADF4F003AC533 /* RegisterViewController.swift in Sources */,
 				6422F5412B0E766700EA69ED /* ImageCollectionViewManager.swift in Sources */,
 				64ECD8E02B0BB7670077E96E /* PostMomentViewController.swift in Sources */,
+				120B55B72B1F29DA00C0FB8D /* SettingProgressIndicatorManager.swift in Sources */,
 				4FE2CCE92B0ADF23003AC533 /* RegisterView.swift in Sources */,
 				64824E132B0AB189004CFE1D /* FriendsViewController.swift in Sources */,
 				64824E1C2B0AB1EA004CFE1D /* MeView.swift in Sources */,

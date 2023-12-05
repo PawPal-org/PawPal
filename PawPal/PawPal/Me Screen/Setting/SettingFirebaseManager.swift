@@ -73,9 +73,7 @@ extension SettingViewController{
     
     func setNameAndPhotoOfTheUserInFirebaseAuth(newPhotoURL: URL?){
         guard let user = Auth.auth().currentUser else { return }
-        let name = settingScreen.textFieldName.text ?? ""
         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-        changeRequest?.displayName = name
         changeRequest?.photoURL = newPhotoURL
 
         print("Auth changed\(String(describing: newPhotoURL))")
@@ -87,8 +85,6 @@ extension SettingViewController{
                 //Update the user to Firestore
                 self.saveUserPicToFireStore(photoURL: newPhotoURL)
 
-                //MARK: hide the progress indicator...
-                //self.hideActivityIndicator()
             }
         })
     }
@@ -116,20 +112,39 @@ extension SettingViewController{
 
                                                   
     func updateUserName(){
-        let email = settingScreen.labelEmail.text ?? ""
-        let userDocument = db.collection("users").document(email)
-        
-        if let name = settingScreen.textFieldName.text{
-            userDocument.updateData(["name": name]) { error in
-                if let error = error {
-                    print("Error updating user profile: \(error)")
-                } else {
-                    print("User profile updated successfully.")
-                    //MARK: pop the current controller...
-                    self.navigationController?.popViewController(animated: true)
+        let name = settingScreen.textFieldName.text ?? ""
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = name
+
+        print("Auth changed\(name)")
+        changeRequest?.commitChanges(completion: {(error) in
+            if error != nil{
+                print("Error occured in Auth: \(String(describing: error))")
+            }else{
+
+                //Update the user to Firestore
+                let email = self.settingScreen.labelEmail.text ?? ""
+                let userDocument = self.db.collection("users").document(email)
+                
+                if let name = self.settingScreen.textFieldName.text{
+                    userDocument.updateData(["name": name]) { error in
+                        if let error = error {
+                            print("Error updating user profile: \(error)")
+                        } else {
+                            print("User profile updated successfully.")
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.7) {
+                                //MARK: hide the progress indicator...
+                                self.hideActivityIndicator()
+                                //MARK: pop the current controller...
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                        }
+                    }
                 }
+
             }
-        }
+        })
+  
     }
                                                   
 }

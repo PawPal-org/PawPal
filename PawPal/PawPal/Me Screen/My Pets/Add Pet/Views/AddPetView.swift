@@ -163,7 +163,6 @@ class AddPetView: UIView {
         textFieldDescrip = UITextField()
         textFieldDescrip.placeholder = "Description"
         textFieldDescrip.borderStyle = .roundedRect
-        textFieldDescrip.keyboardType = .numberPad
         textFieldDescrip.translatesAutoresizingMaskIntoConstraints = false
         displayWrapper.addSubview(textFieldDescrip)
     }
