@@ -70,13 +70,13 @@ extension ChatsViewController: UITableViewDelegate, UITableViewDataSource{
                     // Using SDWebImage to set the image
                     cell.buttonProfilePic.sd_setImage(with: url, for: .normal, completed: nil)
                 } else {
-                    cell.buttonProfilePic.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
+                    cell.buttonProfilePic.setImage(nil, for: .normal)
                 }
             } else {
                 print("Error fetching friend's information: \(error?.localizedDescription ?? "Unknown error")")
                 DispatchQueue.main.async {
                     cell.labelName.text = "Unknown"
-                    cell.buttonProfilePic.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
+                    cell.buttonProfilePic.setImage(nil, for: .normal)
                 }
             }
         }
