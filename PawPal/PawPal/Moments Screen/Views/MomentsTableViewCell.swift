@@ -112,7 +112,7 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
         userImageButton = UIButton()
         userImageButton.setImage(UIImage(systemName: "person.crop.circle")!, for: .normal)
         userImageButton.tintColor = .gray
-        userImageButton.contentMode = .scaleAspectFill
+        userImageButton.imageView?.contentMode = .scaleAspectFill
         userImageButton.clipsToBounds = true
         userImageButton.layer.cornerRadius = 11.5
         userImageButton.translatesAutoresizingMaskIntoConstraints = false
