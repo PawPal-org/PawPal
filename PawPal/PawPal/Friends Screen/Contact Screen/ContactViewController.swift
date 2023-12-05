@@ -42,7 +42,9 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
     func fetchProfilePic() {
         // Use SDWebImage to set the image
         if let imageUrlString = contact?.userProfilePicUrl, let url = URL(string: imageUrlString) {
-            self.contactView.profilePicButton.sd_setBackgroundImage(with: url, for: .normal, completed: nil)
+            self.contactView.profilePicButton.sd_setImage(with: url, for: .normal, completed: nil)
+        }else {
+            self.contactView.profilePicButton.setImage(nil, for: .normal)
         }
 //        if let imageUrlString = contact?.userProfilePicUrl, let url = URL(string: imageUrlString) {
 //            URLSession.shared.dataTask(with: url) { data, _, error in

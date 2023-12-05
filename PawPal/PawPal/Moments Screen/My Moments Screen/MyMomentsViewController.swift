@@ -111,6 +111,7 @@ class MyMomentsViewController: UIViewController {
                       do {
                           var moment = try document.data(as: Moment.self)
                           moment.name = userName
+                          moment.userEmail = userEmail
                           moment.profileImageUrl = self.userProfileImageUrl
                           self.myMoments.append(moment)
                           totalLikes += moment.likes.count

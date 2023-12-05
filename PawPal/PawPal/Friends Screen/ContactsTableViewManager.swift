@@ -40,11 +40,11 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource{
         cell.labelName.text = contact.userName
         cell.labelName.textColor = contact.isFriend! ? .black : .red
         
-        cell.buttonProfilePic.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        
         // Use SDWebImage to set the image
         if let imageUrlString = contact.userProfilePicUrl, let url = URL(string: imageUrlString) {
             cell.buttonProfilePic.sd_setImage(with: url, for: .normal, completed: nil)
+        }else {
+            cell.buttonProfilePic.setImage(nil, for: .normal)
         }
         
 //        if let imageUrlString = contact.userProfilePicUrl, let url = URL(string: imageUrlString) {

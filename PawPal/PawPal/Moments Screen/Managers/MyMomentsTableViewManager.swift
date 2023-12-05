@@ -25,7 +25,12 @@ extension MyMomentsViewController: UITableViewDelegate, UITableViewDataSource{
         cell.configureCell(with: moment)
         cell.setLiked(isLiked)
         cell.configureCell(with: moment)
-        cell.showButtonOptions(shouldShow: true)
+        
+        if moment.userEmail == Auth.auth().currentUser?.email {
+            cell.showButtonOptions(shouldShow: true)
+        } else {
+            cell.showButtonOptions(shouldShow: false)
+        }
         return cell
     }
 }
