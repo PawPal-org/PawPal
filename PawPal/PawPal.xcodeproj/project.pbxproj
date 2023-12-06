@@ -76,6 +76,7 @@
 		64455DCF2B0E47060073A9BC /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64455DCE2B0E47060073A9BC /* NotificationNames.swift */; };
 		644F973E2B1F4D1000C689B5 /* MomentsTableViewDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644F973D2B1F4D1000C689B5 /* MomentsTableViewDelegateProtocol.swift */; };
 		644F97412B1F4D5300C689B5 /* MyMomentsTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644F97402B1F4D5300C689B5 /* MyMomentsTableViewManager.swift */; };
+		644F97472B203B9C00C689B5 /* PostMomentProgressIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644F97462B203B9C00C689B5 /* PostMomentProgressIndicatorManager.swift */; };
 		645F922A2B0982C700FAC72C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F92292B0982C700FAC72C /* LoginView.swift */; };
 		6470099B2B188B1A00260136 /* SearchBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6470099A2B188B1900260136 /* SearchBarManager.swift */; };
 		6470099D2B18996700260136 /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6470099C2B18996700260136 /* ContactsTableViewCell.swift */; };
@@ -179,6 +180,7 @@
 		64455DCE2B0E47060073A9BC /* NotificationNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		644F973D2B1F4D1000C689B5 /* MomentsTableViewDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentsTableViewDelegateProtocol.swift; sourceTree = "<group>"; };
 		644F97402B1F4D5300C689B5 /* MyMomentsTableViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMomentsTableViewManager.swift; sourceTree = "<group>"; };
+		644F97462B203B9C00C689B5 /* PostMomentProgressIndicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMomentProgressIndicatorManager.swift; sourceTree = "<group>"; };
 		645F92292B0982C700FAC72C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6470099A2B188B1900260136 /* SearchBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarManager.swift; sourceTree = "<group>"; };
 		6470099C2B18996700260136 /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
@@ -643,6 +645,7 @@
 		64ECD8D42B0BB7670077E96E /* Post Moment Screen */ = {
 			isa = PBXGroup;
 			children = (
+				644F97462B203B9C00C689B5 /* PostMomentProgressIndicatorManager.swift */,
 				64ECD8D52B0BB7670077E96E /* PostMomentViewController.swift */,
 				64ECD8D62B0BB7670077E96E /* View */,
 			);
@@ -815,6 +818,7 @@
 				6436E50E2B160C6B007FCB00 /* ChatsTableViewCell.swift in Sources */,
 				120B55852B1D6AA900C0FB8D /* AddPetPhotoManager.swift in Sources */,
 				4F6888272B1DC22F000549A4 /* colorSetting.swift in Sources */,
+				644F97472B203B9C00C689B5 /* PostMomentProgressIndicatorManager.swift in Sources */,
 				647009A72B18B13200260136 /* NewFriendsTableViewCell.swift in Sources */,
 				64824E0D2B0AB141004CFE1D /* DiscoverView.swift in Sources */,
 				4FE2CCEB2B0ADF4F003AC533 /* RegisterViewController.swift in Sources */,
