@@ -10,6 +10,10 @@ import FirebaseFirestore
 import FirebaseStorage
 
 class PostMomentViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    //MARK: creating instance of DisplayView
+    let settingScreen = SettingView()
+    let childProgressView = ProgressSpinnerViewController()
 
     var userEmail: String?
     let postMomentScreen = PostMomentView()
@@ -67,7 +71,9 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
             self.present(alert, animated: true)
             return
         }
-
+        
+        showActivityIndicator()
+        
         let firestore = Firestore.firestore()
         var imageUrlsMap: [String: String] = [:]
         let group = DispatchGroup()
@@ -129,6 +135,7 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
                 } else {
                     
                     // NotificationCenter.default.post(name: .didPostMoment, object: nil)
+                    self?.hideActivityIndicator()
 
                     let alert = UIAlertController(title: "Success", message: "Your moment has been posted!", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
