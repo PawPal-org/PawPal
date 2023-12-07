@@ -30,7 +30,7 @@ class OptionsTableViewCell: UITableViewCell {
     
     func configure(with option: String) {
         self.textLabel?.text = option
-        //further styling
+        self.textLabel?.font = UIFont(name: normalFont, size: 18)
         if option == "Delete Contact" {
             self.textLabel?.textColor = .red
         }

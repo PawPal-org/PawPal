@@ -56,13 +56,13 @@ extension NewFriendsViewController: UITableViewDelegate, UITableViewDataSource{
             self?.handleAcceptAction(at: indexPath)
             completionHandler(true)
         }
-        acceptAction.backgroundColor = .red
+        acceptAction.backgroundColor = .systemRed
         
         let rejectAction = UIContextualAction(style: .destructive, title: "Reject") { [weak self] (action, view, completionHandler) in
             self?.handleRejectAction(at: indexPath)
             completionHandler(true)
         }
-        rejectAction.backgroundColor = .green
+        rejectAction.backgroundColor = .systemGreen
         
         let configuration = UISwipeActionsConfiguration(actions: [rejectAction, acceptAction])
         

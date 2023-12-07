@@ -21,6 +21,7 @@ extension MomentsViewController: UITableViewDelegate, UITableViewDataSource{
         cell.selectionStyle = .none
         cell.delegate = self
         let moment = moments[indexPath.row]
+        cell.updateLikeCount(moment.likes.count)
         cell.userEmail = moment.userEmail
         let isLiked = moment.likes.contains(Auth.auth().currentUser?.email ?? "")
         cell.setLiked(isLiked)
@@ -89,7 +90,7 @@ extension MomentsViewController: MomentsTableViewCellDelegate {
         guard let indexPath = momentsView.tableViewMoments.indexPath(for: cell),
               let userEmail = Auth.auth().currentUser?.email else { return }
 
-        let moment = moments[indexPath.row]
+        var moment = moments[indexPath.row]
         var updatedLikes = moment.likes
         
         let isLiked: Bool
@@ -100,8 +101,13 @@ extension MomentsViewController: MomentsTableViewCellDelegate {
             updatedLikes.append(userEmail)
             isLiked = true
         }
+        
+        // Update the moment in the local array
+        moment.likes = updatedLikes
+        moments[indexPath.row] = moment
+        
         cell.setLiked(isLiked)
-
+        cell.animateLikeButton()
 
         let db = Firestore.firestore()
         db.collection("users").document(moment.userEmail!).collection("moments").document(moment.id!).updateData([
@@ -112,6 +118,11 @@ extension MomentsViewController: MomentsTableViewCellDelegate {
             } else {
                 print("Likes updated successfully")
             }
+        }
+
+        // Reload the specific row
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.momentsView.tableViewMoments.reloadRows(at: [indexPath], with: .none)
         }
     }
     

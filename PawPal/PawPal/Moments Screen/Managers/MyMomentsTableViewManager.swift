@@ -21,8 +21,8 @@ extension MyMomentsViewController: UITableViewDelegate, UITableViewDataSource{
         cell.selectionStyle = .none
         cell.delegate = self
         let moment = myMoments[indexPath.row]
+        cell.updateLikeCount(moment.likes.count)
         let isLiked = moment.likes.contains(Auth.auth().currentUser?.email ?? "")
-        cell.configureCell(with: moment)
         cell.setLiked(isLiked)
         cell.configureCell(with: moment)
         
@@ -41,13 +41,11 @@ extension MyMomentsViewController: MomentsTableViewCellDelegate {
         if let indexPath = myMomentsView.tableViewMoments.indexPath(for: cell) {
             let momentToDelete = myMoments[indexPath.row]
 
-            // Show confirmation alert
             let deleteAlert = UIAlertController(title: "Delete Moment", message: "Are you sure you want to delete this moment?", preferredStyle: .alert)
 
             deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
             deleteAlert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
-                // Proceed with deletion
                 self?.myMoments.remove(at: indexPath.row)
                 self?.myMomentsView.tableViewMoments.deleteRows(at: [indexPath], with: .automatic)
                 self?.deleteMomentFromDatabase(moment: momentToDelete)
@@ -90,21 +88,29 @@ extension MyMomentsViewController: MomentsTableViewCellDelegate {
         guard let indexPath = myMomentsView.tableViewMoments.indexPath(for: cell),
               let currentUserEmail = Auth.auth().currentUser?.email else { return }
 
-        let moment = myMoments[indexPath.row]
+        var moment = myMoments[indexPath.row]
         var updatedLikes = moment.likes
         
         let isLiked: Bool
         if let index = updatedLikes.firstIndex(of: currentUserEmail) {
             updatedLikes.remove(at: index)
             isLiked = false
+            self.totalLikes -= 1
         } else {
             updatedLikes.append(currentUserEmail)
             isLiked = true
+            self.totalLikes += 1
         }
+        
+        // Update the moment in the local array
+        moment.likes = updatedLikes
+        myMoments[indexPath.row] = moment
+        
         cell.setLiked(isLiked)
+        cell.animateLikeButton()
 
         let db = Firestore.firestore()
-        db.collection("users").document(self.userEmail!).collection("moments").document(moment.id!).updateData([
+        db.collection("users").document(moment.userEmail!).collection("moments").document(moment.id!).updateData([
             "likes": updatedLikes
         ]) { error in
             if let error = error {
@@ -113,6 +119,12 @@ extension MyMomentsViewController: MomentsTableViewCellDelegate {
                 print("Likes updated successfully")
             }
         }
+        
+        // Reload the specific row
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.myMomentsView.tableViewMoments.reloadRows(at: [indexPath], with: .none)
+        }
+        myMomentsView.labelLikesCountText.text = "\(self.totalLikes)"
     }
     
     func didTapUserImageButton(on cell: MomentsTableViewCell) {

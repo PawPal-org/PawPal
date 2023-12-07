@@ -9,7 +9,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseStorage
 
-class PostMomentViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class PostMomentViewController: UIViewController {
     
     //MARK: creating instance of DisplayView
     let settingScreen = SettingView()
@@ -147,7 +147,38 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
-    //MARK: UICollectionViewDataSource Methods
+    @objc func deleteImageButtonTapped(_ sender: UIButton) {
+        let index = sender.tag
+
+        let alert = UIAlertController(title: "Delete Image", message: "Are you sure you want to delete this image?", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            self?.selectedImages.remove(at: index)
+            self?.postMomentScreen.collectionView.reloadData()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+
+        self.present(alert, animated: true)
+    }
+    
+    @objc func addImageButtonTapped() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        self.present(imagePicker, animated: true)
+    }
+    
+    //MARK: Hide Keyboard
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen
+        view.endEditing(true)
+    }
+}
+
+extension PostMomentViewController: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return selectedImages.count + 1
     }
@@ -213,37 +244,19 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
             return cell
         }
     }
+}
+
+extension PostMomentViewController: UICollectionViewDelegateFlowLayout {
     
-    @objc func deleteImageButtonTapped(_ sender: UIButton) {
-        let index = sender.tag
-
-        let alert = UIAlertController(title: "Delete Image", message: "Are you sure you want to delete this image?", preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
-            self?.selectedImages.remove(at: index)
-            self?.postMomentScreen.collectionView.reloadData()
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-
-        alert.addAction(deleteAction)
-        alert.addAction(cancelAction)
-
-        self.present(alert, animated: true)
-    }
-
-    //MARK: UICollectionViewDelegateFlowLayout Methods
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let padding: CGFloat = 30
         let collectionViewSize = collectionView.frame.size.width - padding
         let width = collectionViewSize / 3
         return CGSize(width: width, height: width)
     }
-    
-    @objc func addImageButtonTapped() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        self.present(imagePicker, animated: true)
-    }
+}
+
+extension PostMomentViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
@@ -252,10 +265,5 @@ class PostMomentViewController: UIViewController, UICollectionViewDataSource, UI
             selectedImages.append(newImage)
             postMomentScreen.collectionView.reloadData()
         }
-    }
-    //MARK: Hide Keyboard
-    @objc func hideKeyboardOnTap(){
-        //MARK: removing the keyboard from screen
-        view.endEditing(true)
     }
 }

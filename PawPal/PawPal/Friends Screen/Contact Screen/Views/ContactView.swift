@@ -31,6 +31,7 @@ class ContactView: UIView {
         profilePicButton = UIButton()
         profilePicButton.setBackgroundImage(UIImage(systemName: "person.crop.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
         profilePicButton.imageView?.contentMode = .scaleAspectFill
+        profilePicButton.tintColor = .gray
         profilePicButton.clipsToBounds = true
         profilePicButton.layer.masksToBounds = true
         // maintain a square shape

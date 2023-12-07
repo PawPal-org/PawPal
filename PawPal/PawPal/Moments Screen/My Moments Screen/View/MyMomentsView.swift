@@ -51,7 +51,7 @@ class MyMomentsView: UIView {
     
     func setupProfilePic(){
         profilePicButton = UIButton()
-        if let image = UIImage(systemName: "person.crop.circle")?.withTintColor(.orange, renderingMode: .alwaysOriginal) {
+        if let image = UIImage(systemName: "person.crop.circle")?.withTintColor(.gray, renderingMode: .alwaysOriginal) {
             profilePicButton.setBackgroundImage(image, for: .normal)
         }
         profilePicButton.imageView?.contentMode = .scaleAspectFill

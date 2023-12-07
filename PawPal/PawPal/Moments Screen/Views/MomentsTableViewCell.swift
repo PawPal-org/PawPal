@@ -19,6 +19,7 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
     var pageControl: UIPageControl!
     var userImageButton: UIButton!
     var likeButton: UIButton!
+    var likeCountLabel: UILabel!
     var buttonOptions: UIButton!
     
     var delegate: MomentsTableViewCellDelegate?
@@ -45,6 +46,7 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
         setupCollectionView()
         setupPageControl()
         setupLikeButton()
+        setupLikeCountLabel()
         setupUserImageButton()
         setupButtonOptions()
 
@@ -106,6 +108,14 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
         likeButton.translatesAutoresizingMaskIntoConstraints = false
         likeButton.addTarget(self, action: #selector(onLikeButtonTapped), for: .touchUpInside)
         wrapperCellView.addSubview(likeButton)
+    }
+    
+    func setupLikeCountLabel() {
+        likeCountLabel = UILabel()
+        likeCountLabel.font = UIFont.systemFont(ofSize: 10)
+        likeCountLabel.textColor = .systemGray
+        likeCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        wrapperCellView.addSubview(likeCountLabel)
     }
     
     func setupUserImageButton() {
@@ -203,7 +213,7 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
             pageControl.centerXAnchor.constraint(equalTo: wrapperCellView.centerXAnchor),
             pageControl.heightAnchor.constraint(equalToConstant: 20),
             
-            labelText.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 8),
+            labelText.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 12),
             labelText.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
             labelText.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
             
@@ -214,8 +224,12 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
             
             likeButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 10),
             likeButton.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
-            likeButton.heightAnchor.constraint(equalToConstant: 24),
-            likeButton.widthAnchor.constraint(equalToConstant: 24),
+            likeButton.heightAnchor.constraint(equalToConstant: 20),
+            likeButton.widthAnchor.constraint(equalToConstant: 20),
+            
+            likeCountLabel.topAnchor.constraint(equalTo: likeButton.bottomAnchor),
+            likeCountLabel.centerXAnchor.constraint(equalTo: likeButton.centerXAnchor),
+            likeCountLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 50),
             
             buttonOptions.topAnchor.constraint(equalTo: wrapperCellView.topAnchor, constant: 0),
             buttonOptions.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
@@ -236,10 +250,24 @@ class MomentsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColle
         delegate?.didTapDeleteButton(on: self)
     }
     
+    func updateLikeCount(_ count: Int) {
+        likeCountLabel.text = "\(count)"
+    }
+    
     func setLiked(_ isLiked: Bool) {
         let imageName = isLiked ? "heart.fill" : "heart"
         likeButton.setImage(UIImage(systemName: imageName), for: .normal)
         likeButton.tintColor = isLiked ? UIColor.orange : UIColor.systemGray
+    }
+    
+    func animateLikeButton() {
+        UIView.animate(withDuration: 0.1, animations: {
+            self.likeButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.1) {
+                self.likeButton.transform = CGAffineTransform.identity
+            }
+        })
     }
     
     func updatePageControl() {

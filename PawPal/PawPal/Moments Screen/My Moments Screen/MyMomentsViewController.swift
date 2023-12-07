@@ -18,6 +18,7 @@ class MyMomentsViewController: UIViewController {
     var userName: String?
     var currentUser: FirebaseAuth.User?
     var userProfileImageUrl: String?
+    var totalLikes = 0
     
     override func loadView() {
         view = myMomentsView
@@ -106,7 +107,7 @@ class MyMomentsViewController: UIViewController {
                   print("Error getting documents: \(err)")
               } else {
                   self.myMoments.removeAll()
-                  var totalLikes = 0
+                  self.totalLikes = 0
                   for document in querySnapshot!.documents {
                       do {
                           var moment = try document.data(as: Moment.self)
@@ -114,14 +115,14 @@ class MyMomentsViewController: UIViewController {
                           moment.userEmail = userEmail
                           moment.profileImageUrl = self.userProfileImageUrl
                           self.myMoments.append(moment)
-                          totalLikes += moment.likes.count
+                          self.totalLikes += moment.likes.count
                       } catch {
                           print(error)
                       }
                   }
                   self.myMomentsView.tableViewMoments.reloadData()
                   self.myMomentsView.labelMomentsCountText.text = "\(self.myMoments.count)"
-                  self.myMomentsView.labelLikesCountText.text = "\(totalLikes)"
+                  self.myMomentsView.labelLikesCountText.text = "\(self.totalLikes)"
               }
           }
         checkForMomentsAndUpdateUI()
@@ -131,15 +132,15 @@ class MyMomentsViewController: UIViewController {
         guard let userEmail = userEmail else { return }
         let db = Firestore.firestore()
         db.collection("users").document(userEmail).collection("myPets")
-          .getDocuments { [weak self] (querySnapshot, err) in
-              guard let self = self else { return }
-              if let err = err {
-                  print("Error getting documents: \(err)")
-              } else {
-                  let totalPets = querySnapshot?.documents.count ?? 0
-                  self.myMomentsView.labelPetsCountText.text = "\(totalPets)"
-              }
-          }
+            .getDocuments { [weak self] (querySnapshot, err) in
+                guard let self = self else { return }
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    let totalPets = querySnapshot?.documents.count ?? 0
+                    self.myMomentsView.labelPetsCountText.text = "\(totalPets)"
+                }
+            }
     }
     
     func checkForMomentsAndUpdateUI() {
