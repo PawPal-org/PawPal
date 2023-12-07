@@ -1,5 +1,5 @@
 # PawPal
-![lanchScreen](screenshots/lauchScreen.png)
+![lanchScreen](screenshots/lauch.png)
 ## Where Dogs Find Their Soulmates
 This application is designed to facilitate social interactions among dogs and their owners in local dog parks. 
 It would serve as a platform for dog lovers to connect, schedule meetups, and create opportunities for their puppies to make new friends in a safe environment. 
