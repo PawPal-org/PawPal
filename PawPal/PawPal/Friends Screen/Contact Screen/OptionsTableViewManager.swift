@@ -137,7 +137,7 @@ extension ContactViewController {
     
     func navigateToMyPetsScreen(contactEmail: String) {
         let MyPetsScreen = MyPetsViewController()
-//        MyPetsScreen.userEmail = contactEmail
+        MyPetsScreen.userEmail = contactEmail
         self.navigationController?.pushViewController(MyPetsScreen, animated: true)
     }
     

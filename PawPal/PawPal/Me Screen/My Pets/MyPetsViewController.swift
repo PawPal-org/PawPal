@@ -17,6 +17,7 @@ class MyPetsViewController: UIViewController{
     let db = Firestore.firestore()
     var petsData: [PetData] = []
     var currentUser: FirebaseAuth.User?
+    var userEmail: String?
     
     //MARK: creating instance of DisplayView
     let myPetScreen = MyPetsView()
@@ -103,7 +104,7 @@ class MyPetsViewController: UIViewController{
     }
     
     private func fetchPetsData() {
-        let currentUserEmail = Auth.auth().currentUser?.email ?? ""
+        let currentUserEmail = userEmail ?? Auth.auth().currentUser?.email ?? ""
         
 
         db.collection("users").document(currentUserEmail).collection("myPets").getDocuments { [weak self] (querySnapshot, error) in
