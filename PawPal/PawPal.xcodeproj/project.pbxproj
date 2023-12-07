@@ -17,13 +17,14 @@
 		120B55B22B1F28D100C0FB8D /* ProgressSpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55B12B1F28D100C0FB8D /* ProgressSpinnerViewController.swift */; };
 		120B55B42B1F28E900C0FB8D /* ProgressSpinnerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55B32B1F28E900C0FB8D /* ProgressSpinnerDelegate.swift */; };
 		120B55B72B1F29DA00C0FB8D /* SettingProgressIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B55B62B1F29DA00C0FB8D /* SettingProgressIndicatorManager.swift */; };
+		127754EF2B21CC7400724BDA /* PetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127754EE2B21CC7400724BDA /* PetData.swift */; };
+		127754F22B21CCD300724BDA /* MyPetsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127754F12B21CCD300724BDA /* MyPetsCollectionViewCell.swift */; };
+		127754F42B21CD0B00724BDA /* MyPetsCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127754F32B21CD0B00724BDA /* MyPetsCollectionViewManager.swift */; };
 		12B783A52B0B7E1F0004B7F8 /* MeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A42B0B7E1F0004B7F8 /* MeTableViewCell.swift */; };
 		12B783A72B0B7E3C0004B7F8 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A62B0B7E3C0004B7F8 /* SettingTableViewCell.swift */; };
 		12B783A92B0B7E5E0004B7F8 /* LogOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783A82B0B7E5E0004B7F8 /* LogOutTableViewCell.swift */; };
 		12B783AB2B0B7E9A0004B7F8 /* MyPetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783AA2B0B7E9A0004B7F8 /* MyPetsView.swift */; };
-		12B783AD2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783AC2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift */; };
 		12B783AF2B0B7EC80004B7F8 /* MyPetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B783AE2B0B7EC80004B7F8 /* MyPetsViewController.swift */; };
-		12B86AFA2B0C2D90005E1F3B /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B86AF92B0C2D90005E1F3B /* Pet.swift */; };
 		12B86AFC2B0C2E57005E1F3B /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B86AFB2B0C2E57005E1F3B /* colors.swift */; };
 		12B86B272B17F14D005E1F3B /* AddPetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B86B262B17F14D005E1F3B /* AddPetViewController.swift */; };
 		12B86B292B17F165005E1F3B /* AddPetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B86B282B17F165005E1F3B /* AddPetView.swift */; };
@@ -122,13 +123,14 @@
 		120B55B12B1F28D100C0FB8D /* ProgressSpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerViewController.swift; sourceTree = "<group>"; };
 		120B55B32B1F28E900C0FB8D /* ProgressSpinnerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerDelegate.swift; sourceTree = "<group>"; };
 		120B55B62B1F29DA00C0FB8D /* SettingProgressIndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProgressIndicatorManager.swift; sourceTree = "<group>"; };
+		127754EE2B21CC7400724BDA /* PetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetData.swift; sourceTree = "<group>"; };
+		127754F12B21CCD300724BDA /* MyPetsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsCollectionViewCell.swift; sourceTree = "<group>"; };
+		127754F32B21CD0B00724BDA /* MyPetsCollectionViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsCollectionViewManager.swift; sourceTree = "<group>"; };
 		12B783A42B0B7E1F0004B7F8 /* MeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeTableViewCell.swift; sourceTree = "<group>"; };
 		12B783A62B0B7E3C0004B7F8 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		12B783A82B0B7E5E0004B7F8 /* LogOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutTableViewCell.swift; sourceTree = "<group>"; };
 		12B783AA2B0B7E9A0004B7F8 /* MyPetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsView.swift; sourceTree = "<group>"; };
-		12B783AC2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsTableViewCell.swift; sourceTree = "<group>"; };
 		12B783AE2B0B7EC80004B7F8 /* MyPetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsViewController.swift; sourceTree = "<group>"; };
-		12B86AF92B0C2D90005E1F3B /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
 		12B86AFB2B0C2E57005E1F3B /* colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
 		12B86B262B17F14D005E1F3B /* AddPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetViewController.swift; sourceTree = "<group>"; };
 		12B86B282B17F165005E1F3B /* AddPetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetView.swift; sourceTree = "<group>"; };
@@ -275,12 +277,21 @@
 			path = "Progress Indicator";
 			sourceTree = "<group>";
 		};
+		127754F02B21CC8E00724BDA /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				127754EE2B21CC7400724BDA /* PetData.swift */,
+			);
+			path = "Data Models";
+			sourceTree = "<group>";
+		};
 		12B783B02B0B7ED00004B7F8 /* My Pets */ = {
 			isa = PBXGroup;
 			children = (
 				12B783B12B0B7EE40004B7F8 /* My Pets View */,
+				127754F02B21CC8E00724BDA /* Data Models */,
 				12B783AE2B0B7EC80004B7F8 /* MyPetsViewController.swift */,
-				12B86AF92B0C2D90005E1F3B /* Pet.swift */,
+				127754F32B21CD0B00724BDA /* MyPetsCollectionViewManager.swift */,
 				12B86B2A2B17F172005E1F3B /* Add Pet */,
 			);
 			path = "My Pets";
@@ -290,7 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				12B783AA2B0B7E9A0004B7F8 /* MyPetsView.swift */,
-				12B783AC2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift */,
+				127754F12B21CCD300724BDA /* MyPetsCollectionViewCell.swift */,
 			);
 			path = "My Pets View";
 			sourceTree = "<group>";
@@ -767,6 +778,7 @@
 				6436E51A2B16BE2E007FCB00 /* MessageView.swift in Sources */,
 				644F973E2B1F4D1000C689B5 /* MomentsTableViewDelegateProtocol.swift in Sources */,
 				4FE2CD052B0C96AF003AC533 /* SearchTableViewManager.swift in Sources */,
+				127754F22B21CCD300724BDA /* MyPetsCollectionViewCell.swift in Sources */,
 				64824E102B0AB171004CFE1D /* FriendsView.swift in Sources */,
 				6470099F2B1899B900260136 /* ContactsTableViewManager.swift in Sources */,
 				4FE2CD0B2B0C9788003AC533 /* MapAnnotationDelegate.swift in Sources */,
@@ -788,10 +800,10 @@
 				4FE2CCF52B0C8C22003AC533 /* MapView.swift in Sources */,
 				647009B42B19AFD400260136 /* ContactViewController.swift in Sources */,
 				647009B02B18B73B00260136 /* FriendRequest.swift in Sources */,
-				12B783AD2B0B7EB20004B7F8 /* MyPetsTableViewCell.swift in Sources */,
 				12B783A72B0B7E3C0004B7F8 /* SettingTableViewCell.swift in Sources */,
 				4FE2CCF72B0C8C34003AC533 /* MapViewController.swift in Sources */,
 				6422F5452B0E766700EA69ED /* ImageCache.swift in Sources */,
+				127754EF2B21CC7400724BDA /* PetData.swift in Sources */,
 				120B55892B1D6C5B00C0FB8D /* PetUpload.swift in Sources */,
 				647009A22B189A5C00260136 /* Contact.swift in Sources */,
 				6436E5152B160F9E007FCB00 /* Chat.swift in Sources */,
@@ -807,9 +819,9 @@
 				12B783A92B0B7E5E0004B7F8 /* LogOutTableViewCell.swift in Sources */,
 				12B86B292B17F165005E1F3B /* AddPetView.swift in Sources */,
 				6422F53B2B0E766700EA69ED /* MomentsView.swift in Sources */,
-				12B86AFA2B0C2D90005E1F3B /* Pet.swift in Sources */,
 				64824E172B0AB1AD004CFE1D /* ChatsViewController.swift in Sources */,
 				4FE2CD032B0C9661003AC533 /* SearchViewController.swift in Sources */,
+				127754F42B21CD0B00724BDA /* MyPetsCollectionViewManager.swift in Sources */,
 				647009AC2B18B16B00260136 /* NewFriendsViewController.swift in Sources */,
 				64824E1E2B0AB1F4004CFE1D /* MeViewController.swift in Sources */,
 				4FE2CCC72B0866D5003AC533 /* AppDelegate.swift in Sources */,
