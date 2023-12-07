@@ -9,6 +9,7 @@ import UIKit
 
 class FriendsView: UIView {
 
+    var backgroundView: UIView!
     var searchBar: UISearchBar!
     var tableViewContacts: UITableView!
     
@@ -16,9 +17,18 @@ class FriendsView: UIView {
         super.init(frame: frame)
         self.backgroundColor = .white
         
+        setupBackgroundView()
         setupSearchBar()
         setupTableViewContacts()
         initConstraints()
+    }
+    
+    func setupBackgroundView() {
+        backgroundView = UIView()
+        backgroundView.backgroundColor = backgroundColorBeige
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(backgroundView)
+        self.sendSubviewToBack(backgroundView)
     }
     
     func setupSearchBar() {
@@ -40,6 +50,11 @@ class FriendsView: UIView {
     //MARK: setting up constraints...
     func initConstraints(){
         NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: self.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: tableViewContacts.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
             tableViewContacts.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8),
             tableViewContacts.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             tableViewContacts.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),

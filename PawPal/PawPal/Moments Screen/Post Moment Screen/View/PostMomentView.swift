@@ -9,6 +9,7 @@ import UIKit
 
 class PostMomentView: UIView {
 
+    var backgroundView: UIView!
     let textView = UITextView()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
@@ -16,9 +17,18 @@ class PostMomentView: UIView {
         super.init(frame: frame)
         self.backgroundColor = .white
         
+        setupBackgroundView()
         setupTextView()
         setupCollectionView()
         initConstraints()
+    }
+    
+    func setupBackgroundView() {
+        backgroundView = UIView()
+        backgroundView.backgroundColor = backgroundColorBeige
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(backgroundView)
+        self.sendSubviewToBack(backgroundView)
     }
     
     func setupTextView() {
@@ -47,7 +57,12 @@ class PostMomentView: UIView {
     //MARK: setting up constraints...
     func initConstraints(){
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8),
+            backgroundView.topAnchor.constraint(equalTo: self.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: textView.topAnchor, constant: -8),
+            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
+            textView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
             textView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             textView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -8),
             textView.heightAnchor.constraint(equalToConstant: 120),

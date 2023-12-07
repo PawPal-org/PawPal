@@ -9,6 +9,7 @@ import UIKit
 
 class ChatsView: UIView{
 
+    var backgroundView: UIView!
     var searchBar: UISearchBar!
     var tableViewChats: UITableView!
     
@@ -16,9 +17,18 @@ class ChatsView: UIView{
         super.init(frame: frame)
         self.backgroundColor = .white
         
+        setupBackgroundView()
         setupSearchBar()
         setupTableViewChats()
         initConstraints()
+    }
+    
+    func setupBackgroundView() {
+        backgroundView = UIView()
+        backgroundView.backgroundColor = backgroundColorBeige
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(backgroundView)
+        self.sendSubviewToBack(backgroundView)
     }
     
     func setupSearchBar() {
@@ -39,6 +49,11 @@ class ChatsView: UIView{
     //MARK: setting up constraints...
     func initConstraints(){
         NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: self.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: tableViewChats.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
             tableViewChats.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8),
             tableViewChats.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             tableViewChats.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
