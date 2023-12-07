@@ -56,13 +56,13 @@ extension NewFriendsViewController: UITableViewDelegate, UITableViewDataSource{
             self?.handleAcceptAction(at: indexPath)
             completionHandler(true)
         }
-        acceptAction.backgroundColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        acceptAction.backgroundColor = .red
         
         let rejectAction = UIContextualAction(style: .destructive, title: "Reject") { [weak self] (action, view, completionHandler) in
             self?.handleRejectAction(at: indexPath)
             completionHandler(true)
         }
-        rejectAction.backgroundColor = UIColor(red: 255/255, green: 59/255, blue: 48/255, alpha: 1)
+        rejectAction.backgroundColor = .green
         
         let configuration = UISwipeActionsConfiguration(actions: [rejectAction, acceptAction])
         
@@ -87,23 +87,36 @@ extension NewFriendsViewController: UITableViewDelegate, UITableViewDataSource{
                 errorPointer?.pointee = fetchError
                 return nil
             }
-
+            
+            // currentUser
             var currentUserFriends = currentUserDocument.get("friends") as? [String] ?? []
             var currentUserFriendsRequest = currentUserDocument.get("friendsRequest") as? [String: Timestamp] ?? [:]
+            var currentUserNotFriends = currentUserDocument.get("notFriends") as? [String] ?? []
 
             currentUserFriendsRequest[newFriendEmail] = nil
             if !currentUserFriends.contains(newFriendEmail) {
                 currentUserFriends.append(newFriendEmail)
             }
 
-            transaction.updateData(["friends": currentUserFriends, "friendsRequest": currentUserFriendsRequest], forDocument: userDocRef)
+            if let index = currentUserNotFriends.firstIndex(of: newFriendEmail) {
+                currentUserNotFriends.remove(at: index)
+            }
 
+            transaction.updateData(["friends": currentUserFriends, "friendsRequest": currentUserFriendsRequest, "notFriends": currentUserNotFriends], forDocument: userDocRef)
+
+            // newFriendUser
             var newFriendFriends = newFriendDocument.get("friends") as? [String] ?? []
+            var newFriendNotFriends = newFriendDocument.get("notFriends") as? [String] ?? []
+            
             if !newFriendFriends.contains(currentUserEmail) {
                 newFriendFriends.append(currentUserEmail)
             }
-
-            transaction.updateData(["friends": newFriendFriends], forDocument: newFriendDocRef)
+            
+            if let index = newFriendNotFriends.firstIndex(of: currentUserEmail) {
+                newFriendNotFriends.remove(at: index)
+            }
+            
+            transaction.updateData(["friends": newFriendFriends, "notFriends": newFriendNotFriends], forDocument: newFriendDocRef)
 
             return nil
         }) { [weak self] (object, error) in

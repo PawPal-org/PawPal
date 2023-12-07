@@ -24,7 +24,7 @@ class MessageViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupRightBarButton()
+        // setupRightBarButton()
         fetchFriendNameAndPic()
         navigationItem.hidesBackButton = false
     }
@@ -86,7 +86,7 @@ class MessageViewController: UIViewController {
 
                         DispatchQueue.main.async {
                             self.title = friendName
-                            self.updateProfilePicture(urlString: profilePicUrlString)
+                            // self.updateProfilePicture(urlString: profilePicUrlString)
                         }
                     } else {
                         print("Error fetching friend's information: \(error?.localizedDescription ?? "Unknown error")")
@@ -101,20 +101,20 @@ class MessageViewController: UIViewController {
         }
     }
     
-    func updateProfilePicture(urlString: String) {
-        if let url = URL(string: urlString) {
-            URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-                guard let data = data, error == nil, let image = UIImage(data: data) else {
-                    print("Error downloading profile image: \(error?.localizedDescription ?? "Unknown error")")
-                    return
-                }
-
-                DispatchQueue.main.async {
-                    // Set the profile picture image
-                }
-            }.resume()
-        }
-    }
+//    func updateProfilePicture(urlString: String) {
+//        if let url = URL(string: urlString) {
+//            URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+//                guard let data = data, error == nil, let image = UIImage(data: data) else {
+//                    print("Error downloading profile image: \(error?.localizedDescription ?? "Unknown error")")
+//                    return
+//                }
+//
+//                DispatchQueue.main.async {
+//                    // Set the profile picture image
+//                }
+//            }.resume()
+//        }
+//    }
     
     //MARK: on send button tapped...
     @objc func onButtonSendTapped(){
