@@ -250,6 +250,32 @@ class MyPetsView: UIView {
         flippedLabelDescriptions.translatesAutoresizingMaskIntoConstraints = false
         
     }
+    
+    func setupBackgroundImageView(with url: URL) {
+        backgroundImageView.kf.setImage(with: url) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let value):
+                self.backgroundImageView.image = value.image
+                self.applyBlurEffect()
+
+                self.backgroundImageView.layer.cornerRadius = self.layer.cornerRadius
+                self.backgroundImageView.clipsToBounds = true
+
+            case .failure(let error):
+                print("Error setting background image: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func applyBlurEffect() {
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = backgroundImageView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        backgroundImageView.addSubview(blurEffectView)
+    }
 
     
     func configure(with imageUrl: String, name: String, sex: String, breed: String, location: String) {
@@ -258,6 +284,7 @@ class MyPetsView: UIView {
         }else{
             if let url = URL(string: imageUrl) {
                 imageView.kf.setImage(with: url)
+                setupBackgroundImageView(with: url)
             }
         }
         petImageURL = imageUrl

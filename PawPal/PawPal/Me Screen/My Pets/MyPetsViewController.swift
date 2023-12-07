@@ -129,18 +129,6 @@ class MyPetsViewController: UIViewController{
         }
     }
     
-    func calculateDogAge(fromBirthdayTimestamp birthdayDate: Date) -> String {
-        let calendar = Calendar.current
-        //let birthdayDate = timestamp.dateValue()
-        let currentDate = Date()
-
-        let ageComponents = calendar.dateComponents([.year, .month], from: birthdayDate, to: currentDate)
-        if let years = ageComponents.year, let months = ageComponents.month {
-            return "\(years) Y \(months) M"
-        } else {
-            return "Age could not be calculated"
-        }
-    }
     
     private func configurePageIndicator() {
         pageIndicator.numberOfPages = petsData.count
