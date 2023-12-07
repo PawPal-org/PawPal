@@ -62,6 +62,8 @@ class MyPetsCollectionViewCell: UICollectionViewCell {
     private func setupPageIndicator() {
         contentView.addSubview(pageIndicator)
         pageIndicator.translatesAutoresizingMaskIntoConstraints = false
+        //disable tapping indicator
+        pageIndicator.isUserInteractionEnabled = false
         NSLayoutConstraint.activate([
             pageIndicator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             pageIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)

@@ -61,19 +61,16 @@ class MyPetsViewController: UIViewController{
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        // 确保布局已经被加载
+        // make sure layout has been loaded
         guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             return
         }
 
-        // 更新内边距
         let horizontalInset = (view.frame.width - layout.itemSize.width) / 2
         layout.sectionInset = UIEdgeInsets(top: 0, left: horizontalInset, bottom: 0, right: horizontalInset)
         
-        // 更新最小行间距，如果需要的话
-        layout.minimumLineSpacing = 40 // 适当的值以适应您的设计
+        layout.minimumLineSpacing = 40
 
-        // 触发布局更新
         collectionView.collectionViewLayout.invalidateLayout()
     }
 
@@ -108,7 +105,7 @@ class MyPetsViewController: UIViewController{
     private func fetchPetsData() {
         let currentUserEmail = Auth.auth().currentUser?.email ?? ""
         
-        // Adjust this Firestore query as necessary to fetch the correct pet data
+
         db.collection("users").document(currentUserEmail).collection("myPets").getDocuments { [weak self] (querySnapshot, error) in
             if let error = error {
                 print("Error fetching pets: \(error)")
@@ -148,6 +145,8 @@ class MyPetsViewController: UIViewController{
         pageIndicator.numberOfPages = petsData.count
         pageIndicator.currentPage = 0
         pageIndicator.translatesAutoresizingMaskIntoConstraints = false
+        //disable tapping indicator
+        pageIndicator.isUserInteractionEnabled = false
         view.addSubview(pageIndicator)
         
         NSLayoutConstraint.activate([
