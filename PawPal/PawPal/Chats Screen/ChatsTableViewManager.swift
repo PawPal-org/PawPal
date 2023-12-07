@@ -48,15 +48,27 @@ extension ChatsViewController: UITableViewDelegate, UITableViewDataSource{
 
         let friendEmail = friends.first { $0 != currentUserEmail } ?? ""
 
-        database.collection("users").document(friendEmail).getDocument { (documentSnapshot, error) in
-            if let document = documentSnapshot, error == nil {
-                let friendName = document.data()?["name"] as? String ?? "Unknown"
-                let profilePicUrlString = document.data()?["profileImageUrl"] as? String ?? ""
-                DispatchQueue.main.async {
-                    cell.labelName.text = friendName
-                }
-                
-                if let url = URL(string: profilePicUrlString) {
+        // Fetch the current user's notFriend list
+        database.collection("users").document(currentUserEmail).getDocument { [weak self] (currentUserDoc, error) in
+            guard let notFriendList = currentUserDoc?.data()?["notFriends"] as? [String], error == nil else {
+                print("Error fetching current user's notFriend list: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+
+            let isNotFriend = notFriendList.contains(friendEmail)
+
+            // Fetch friend's details from the users collection
+            self?.database.collection("users").document(friendEmail).getDocument { (documentSnapshot, error) in
+                if let document = documentSnapshot, error == nil {
+                    let friendName = document.data()?["name"] as? String ?? "Unknown"
+                    let profilePicUrlString = document.data()?["profileImageUrl"] as? String ?? ""
+                    DispatchQueue.main.async {
+                        cell.labelName.text = friendName
+                        cell.labelName.textColor = isNotFriend ? .red : .black
+                    }
+                    
+                    // Set the profile picture
+                    if let url = URL(string: profilePicUrlString) {
 //                    URLSession.shared.dataTask(with: url) { data, response, error in
 //                        guard let data = data, error == nil, let image = UIImage(data: data) else {
 //                            print("Error downloading profile image: \(error?.localizedDescription ?? "Unknown error")")
@@ -67,26 +79,39 @@ extension ChatsViewController: UITableViewDelegate, UITableViewDataSource{
 //                            cell.buttonProfilePic.setBackgroundImage(image, for: .normal)
 //                        }
 //                    }.resume()
-                    // Using SDWebImage to set the image
-                    cell.buttonProfilePic.sd_setImage(with: url, for: .normal, completed: nil)
+                        // Using SDWebImage to set the image
+                        cell.buttonProfilePic.sd_setImage(with: url, for: .normal, completed: nil)
+                    } else {
+                        cell.buttonProfilePic.setImage(nil, for: .normal)
+                    }
                 } else {
-                    cell.buttonProfilePic.setImage(nil, for: .normal)
-                }
-            } else {
-                print("Error fetching friend's information: \(error?.localizedDescription ?? "Unknown error")")
-                DispatchQueue.main.async {
-                    cell.labelName.text = "Unknown"
-                    cell.buttonProfilePic.setImage(nil, for: .normal)
+                    print("Error fetching friend's information: \(error?.localizedDescription ?? "Unknown error")")
+                    DispatchQueue.main.async {
+                        cell.labelName.text = "Unknown"
+                        cell.buttonProfilePic.setImage(nil, for: .normal)
+                        cell.labelName.textColor = .black
+                    }
                 }
             }
         }
     }
 
     func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
+        let calendar = Calendar.current
+
+        if calendar.isDateInToday(date) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "h:mm a"
+            return formatter.string(from: date)
+        } else if calendar.isDateInYesterday(date) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "'Yesterday, 'h:mm a"
+            return formatter.string(from: date)
+        } else {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd/yyyy"
+            return formatter.string(from: date)
+        }
     }
 
 }

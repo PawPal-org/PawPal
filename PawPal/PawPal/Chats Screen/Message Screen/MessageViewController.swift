@@ -26,6 +26,7 @@ class MessageViewController: UIViewController {
         super.viewWillAppear(animated)
         // setupRightBarButton()
         fetchFriendNameAndPic()
+        checkIfChatIsExpired()
         navigationItem.hidesBackButton = false
     }
     
@@ -82,7 +83,7 @@ class MessageViewController: UIViewController {
                 self.database.collection("users").document(friendEmail).getDocument { (documentSnapshot, error) in
                     if let document = documentSnapshot, error == nil {
                         let friendName = document.data()?["name"] as? String ?? "Unknown"
-                        let profilePicUrlString = document.data()?["profileImageUrl"] as? String ?? ""
+                        // let profilePicUrlString = document.data()?["profileImageUrl"] as? String ?? ""
 
                         DispatchQueue.main.async {
                             self.title = friendName
@@ -116,14 +117,62 @@ class MessageViewController: UIViewController {
 //        }
 //    }
     
+    func checkIfChatIsExpired() {
+        guard let currentUserEmail = currentUser?.email, let chatID = self.chatID else {
+            print("Missing currentUser email or chatID")
+            return
+        }
+
+        database.collection("users").document(currentUserEmail).getDocument { [weak self] (documentSnapshot, error) in
+            guard let self = self else { return }
+
+            if let document = documentSnapshot, error == nil, let notFriendsList = document.data()?["notFriends"] as? [String] {
+                self.database.collection("chats").document(chatID).getDocument { (chatSnapshot, error) in
+                    if let chatDocument = chatSnapshot, let chatData = chatDocument.data(), let friends = chatData["friends"] as? [String] {
+                        let friendEmail = friends.first { $0 != currentUserEmail } ?? ""
+                        if notFriendsList.contains(friendEmail) {
+                            DispatchQueue.main.async {
+                                self.messageScreen.buttonSend.isHidden = true
+                                self.messageScreen.textViewMessageText.isHidden = true
+                                self.showMessageExpiredNotification()
+                            }
+                        }
+                    } else {
+                        print("Error fetching chat or counterpart details: \(error?.localizedDescription ?? "Unknown error")")
+                    }
+                }
+            } else {
+                print("Error fetching user's notFriends list: \(error?.localizedDescription ?? "Unknown error")")
+            }
+        }
+    }
+    
+    func showMessageExpiredNotification() {
+        let expiredLabel = UILabel()
+        expiredLabel.text = "This chat is expired as the user has deleted you."
+        expiredLabel.textColor = .systemRed
+        expiredLabel.textAlignment = .center
+        expiredLabel.numberOfLines = 0
+        expiredLabel.translatesAutoresizingMaskIntoConstraints = false
+        messageScreen.bottomSendView.addSubview(expiredLabel)
+
+        NSLayoutConstraint.activate([
+            expiredLabel.topAnchor.constraint(equalTo: messageScreen.bottomSendView.topAnchor),
+            expiredLabel.bottomAnchor.constraint(equalTo: messageScreen.bottomSendView.bottomAnchor),
+            expiredLabel.leadingAnchor.constraint(equalTo: messageScreen.bottomSendView.leadingAnchor),
+            expiredLabel.trailingAnchor.constraint(equalTo: messageScreen.bottomSendView.trailingAnchor)
+        ])
+    }
+    
     //MARK: on send button tapped...
     @objc func onButtonSendTapped(){
-        
         if let messageText = messageScreen.textViewMessageText.text, !messageText.isEmpty {
             sendANewMessage(text: messageText)
+            messageScreen.textViewMessageText.text = ""
+            messageScreen.textViewMessageText.resignFirstResponder()
+            
         } else {
-            // Handle the case where the text field is empty
-            print("send message is empty")
+            messageScreen.textViewMessageText.resignFirstResponder()
         }
     }
     
@@ -231,7 +280,11 @@ class MessageViewController: UIViewController {
     }
     
     //MARK: Hide Keyboard
-    @objc func hideKeyboardOnTap(){
+    @objc func hideKeyboardOnTap(_ recognizer: UITapGestureRecognizer){
+        let location = recognizer.location(in: view)
+        if view.hitTest(location, with: nil) is UIButton {
+            return
+        }
         //MARK: removing the keyboard from screen
         view.endEditing(true)
     }

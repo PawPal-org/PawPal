@@ -111,7 +111,7 @@ class MessageTableViewCell: UITableViewCell {
     func configureWithMessage(message: Message, isCurrentUser: Bool) {
         // labelSenderName.text = message.sender
         labelMessageText.text = message.messageText
-        labelTimeStamp.text = dateFormatter.string(from: message.timestamp)
+        labelTimeStamp.text = formatDate(message.timestamp)
         
         wrapperCellView.layer.cornerRadius = 15
         wrapperCellView.clipsToBounds = true
@@ -139,12 +139,23 @@ class MessageTableViewCell: UITableViewCell {
         self.layoutIfNeeded()
     }
 
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
-        return formatter
-    }()
+    func formatDate(_ date: Date) -> String {
+        let calendar = Calendar.current
+
+        if calendar.isDateInToday(date) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "h:mm a"
+            return formatter.string(from: date)
+        } else if calendar.isDateInYesterday(date) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "'Yesterday, 'h:mm a"
+            return formatter.string(from: date)
+        } else {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd/yyyy, h:mm a"
+            return formatter.string(from: date)
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
