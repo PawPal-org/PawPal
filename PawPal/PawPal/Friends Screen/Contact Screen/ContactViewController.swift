@@ -14,7 +14,7 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
     var contact: Contact?
     
     let contactView = ContactView()
-    var options = ["Moments", "Send a Message", "Delete Contact"]
+    var options = ["Pets", "Moments", "Send a Message", "Delete Contact"]
     
     override func loadView() {
         view = contactView

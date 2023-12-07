@@ -42,6 +42,12 @@ extension ContactViewController {
             }
         }else if selectedOption == "Delete Contact", let contactEmail = contact?.userEmail {
             deleteContact(contactEmail: contactEmail)
+        }else if selectedOption == "Pets", let contactEmail = contact?.userEmail {
+            if !(contact?.isFriend)! {
+                showAlert(title:"Unavailable", message:"You cannot see pets as this user is no longer your friend.")
+            }else {
+                navigateToMyPetsScreen(contactEmail: contactEmail)
+            }
         }
     }
     
@@ -127,6 +133,12 @@ extension ContactViewController {
         MyMomentScreen.userName = contact.userName
         MyMomentScreen.currentUser = self.currentUser
         self.navigationController?.pushViewController(MyMomentScreen, animated: true)
+    }
+    
+    func navigateToMyPetsScreen(contactEmail: String) {
+        let MyPetsScreen = MyPetsViewController()
+//        MyPetsScreen.userEmail = contactEmail
+        self.navigationController?.pushViewController(MyPetsScreen, animated: true)
     }
     
     func deleteContact(contactEmail: String) {

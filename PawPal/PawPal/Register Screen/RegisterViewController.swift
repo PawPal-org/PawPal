@@ -34,6 +34,10 @@ class RegisterViewController: UIViewController {
         registerView.buttonRegister.addTarget(self, action: #selector(onRegisterTapped), for: .touchUpInside)
         title = "Register"
         registerView.buttonTakePhoto.menu = getMenuImagePicker()
+        
+        //MARK: recognizing the taps on the app screen, not the keyboard
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     @objc func onRegisterTapped(){
@@ -138,5 +142,10 @@ class RegisterViewController: UIViewController {
         present(photoPicker, animated: true, completion: nil)
     }
     
+    //MARK: Hide Keyboard
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen
+        view.endEditing(true)
+    }
     
 }

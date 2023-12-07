@@ -24,6 +24,10 @@ class LoginViewController: UIViewController {
         loginView.buttonLogin.addTarget(self, action: #selector(onLoginTapped), for: .touchUpInside)
         loginView.buttonSignUp.addTarget(self, action: #selector(onSignUpTapped), for: .touchUpInside)
         loginView.buttonForgotPassword.addTarget(self, action: #selector(onForgotPasswordTapped), for: .touchUpInside)
+        
+        //MARK: recognizing the taps on the app screen, not the keyboard
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     @objc func onLoginTapped() {
@@ -79,6 +83,12 @@ class LoginViewController: UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true)
+    }
+    
+    //MARK: Hide Keyboard
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen
+        view.endEditing(true)
     }
 
 }
