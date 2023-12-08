@@ -149,7 +149,7 @@ class MessageViewController: UIViewController {
     
     func showMessageExpiredNotification() {
         let expiredLabel = UILabel()
-        expiredLabel.text = "This chat is expired as the user has deleted you."
+        expiredLabel.text = "This user is no longer your friend."
         expiredLabel.textColor = .systemRed
         expiredLabel.textAlignment = .center
         expiredLabel.numberOfLines = 0
