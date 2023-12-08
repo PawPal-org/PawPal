@@ -21,6 +21,15 @@ extension MyPetsViewController: UICollectionViewDataSource, UICollectionViewDele
         let petData = petsData[indexPath.row]
         cell.configureCell(with: petData, pageIndex: indexPath.row, totalPages: petsData.count)
 
+        // Setting the callback for the delete button
+        cell.deleteButtonTapCallback = { [weak self, weak cell] in
+            // Since the cell might be reused, we need to obtain the latest indexPath corresponding to the current button
+            guard let strongSelf = self, let currentIndexPath = cell.flatMap({ strongSelf.collectionView.indexPath(for: $0) }) else {
+                return
+            }
+            strongSelf.deletePetAndImages(at: currentIndexPath)
+        }
+
         return cell
     }
     
@@ -43,4 +52,3 @@ extension MyPetsViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
 }
-

@@ -8,6 +8,7 @@
 import UIKit
 
 class MyPetsCollectionViewCell: UICollectionViewCell {
+    
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -15,8 +16,22 @@ class MyPetsCollectionViewCell: UICollectionViewCell {
         return formatter
     }()
     
+    var deleteButtonTapCallback: (() -> Void)?
+    
     let myPetsView = MyPetsView()
     let pageIndicator = UIPageControl()
+    
+    lazy var deleteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "minus.circle.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.contentHorizontalAlignment = .fill
+        button.contentVerticalAlignment = .fill
+        button.imageView?.contentMode = .scaleAspectFit
+        button.tintColor = .systemOrange
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        return button
+    }()
 
      override init(frame: CGRect) {
          super.init(frame: frame)
@@ -24,10 +39,25 @@ class MyPetsCollectionViewCell: UICollectionViewCell {
          myPetsView.frame = contentView.bounds
          
          setupPageIndicator()
-         
+
          let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapCell))
          self.addGestureRecognizer(tapGesture)
+         
+         
+         setupDeleteButton()
+
+
      }
+
+    func setupDeleteButton() {
+        self.addSubview(deleteButton)
+        NSLayoutConstraint.activate([
+            deleteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 15),
+            deleteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            deleteButton.widthAnchor.constraint(equalToConstant: 30),
+            deleteButton.heightAnchor.constraint(equalToConstant: 30)
+        ])
+    }
     
     @objc func didTapCell() {
         UIView.transition(with: myPetsView, duration: 0.8, options: [.transitionFlipFromRight, .showHideTransitionViews, .preferredFramesPerSecond60], animations: {
@@ -58,6 +88,10 @@ class MyPetsCollectionViewCell: UICollectionViewCell {
      required init?(coder: NSCoder) {
          fatalError("init(coder:) has not been implemented")
      }
+    
+    @objc private func deleteButtonTapped() {
+        deleteButtonTapCallback?()
+    }
     
     private func setupPageIndicator() {
         contentView.addSubview(pageIndicator)
@@ -108,4 +142,6 @@ class MyPetsCollectionViewCell: UICollectionViewCell {
         return "\(years) Y \(months) M"
     }
 }
+
+
 

@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseStorage
 import FirebaseAuth
 import Kingfisher
 
@@ -15,6 +16,7 @@ class MyPetsViewController: UIViewController{
     var collectionView: UICollectionView!
     var pageIndicator = UIPageControl()
     let db = Firestore.firestore()
+    let storage = Storage.storage()
     var petsData: [PetData] = []
     var currentUser: FirebaseAuth.User?
     var userEmail: String?
@@ -118,7 +120,7 @@ class MyPetsViewController: UIViewController{
     }
     
     private func fetchPetsData() {
-        let currentUserEmail = userEmail ?? Auth.auth().currentUser?.email ?? ""
+        let currentUserEmail = Auth.auth().currentUser?.email ?? ""
         
 
         db.collection("users").document(currentUserEmail).collection("myPets").getDocuments { [weak self] (querySnapshot, error) in
@@ -134,7 +136,9 @@ class MyPetsViewController: UIViewController{
             
             self?.petsData = documents.compactMap { document -> PetData? in
                 // Assuming the document can be directly decoded into PetData
-                try? document.data(as: PetData.self)
+                var pet = try? document.data(as: PetData.self)
+                pet?.id = document.documentID
+                return pet
             }
             
             DispatchQueue.main.async {
@@ -143,6 +147,55 @@ class MyPetsViewController: UIViewController{
         }
     }
     
+    func deletePetAndImages(at indexPath: IndexPath) {
+        let petToDelete = petsData[indexPath.row]
+
+        guard let petId = petToDelete.id, !petId.isEmpty else {
+            print("Error: Pet ID is empty.")
+            return
+        }
+        
+        //delete images from storage
+        deleteImageFromStorage(url: petToDelete.petImageURL) { [weak self] in
+            self?.deleteImageFromStorage(url: petToDelete.backgroundImageURL) {
+                //delete pet info from firestore
+                self?.deletePetFromFirestore(petId: petId, indexPath: indexPath)
+            }
+        }
+    }
+
+    func deleteImageFromStorage(url: String?, completion: @escaping () -> Void) {
+        guard let urlString = url, let imageURL = URL(string: urlString) else {
+            completion()
+            return
+        }
+
+        let storageRef = Storage.storage().reference(forURL: imageURL.absoluteString)
+        storageRef.delete { error in
+            if let error = error {
+                print("Error deleting image from storage: \(error)")
+            } else {
+                print("Image deleted successfully from storage")
+            }
+            completion()
+        }
+    }
+
+    func deletePetFromFirestore(petId: String, indexPath: IndexPath) {
+        let currentUserEmail = userEmail ?? Auth.auth().currentUser?.email ?? ""
+        let userDocument = db.collection("users").document(currentUserEmail)
+        userDocument.collection("myPets").document(petId).delete { [weak self] error in
+            if let error = error {
+                print("Error removing pet document: \(error)")
+            } else {
+                print("Pet document successfully removed!")
+                // renew data and collectionView
+                self?.petsData.remove(at: indexPath.row)
+                self?.collectionView.deleteItems(at: [indexPath])
+            }
+        }
+    }
+
     
     private func configurePageIndicator() {
         pageIndicator.numberOfPages = petsData.count

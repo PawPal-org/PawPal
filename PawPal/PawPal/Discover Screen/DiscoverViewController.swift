@@ -246,6 +246,7 @@ class DiscoverViewController: UIViewController {
 
     
     func getCurrentUserEmail() -> String {
+        //return pp1@pp.com
         return UserDefaults.standard.string(forKey: "currentUserEmail")!.lowercased()
     }
     
