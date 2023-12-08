@@ -19,7 +19,8 @@ extension MyPetsViewController: UICollectionViewDataSource, UICollectionViewDele
         }
 
         let petData = petsData[indexPath.row]
-        cell.configureCell(with: petData, pageIndex: indexPath.row, totalPages: petsData.count)
+        
+        cell.configureCell(with: petData, pageIndex: indexPath.row, totalPages: petsData.count, hideDeleteButton: isDeleteButtonHidden)
 
         // Setting the callback for the delete button
         cell.deleteButtonTapCallback = { [weak self, weak cell] in

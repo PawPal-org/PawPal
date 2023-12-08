@@ -22,6 +22,7 @@ class MyPetsViewController: UIViewController{
     var userEmail: String?
     
     var hideAddBarButton: Bool = false
+    var isDeleteButtonHidden: Bool = false
     
     //MARK: creating instance of DisplayView
     let myPetScreen = MyPetsView()

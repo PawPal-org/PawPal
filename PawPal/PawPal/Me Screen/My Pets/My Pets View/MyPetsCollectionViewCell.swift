@@ -32,6 +32,12 @@ class MyPetsCollectionViewCell: UICollectionViewCell {
         button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         return button
     }()
+    
+    var isDeleteButtonHidden: Bool = false {
+        didSet {
+            deleteButton.isHidden = isDeleteButtonHidden
+        }
+    }
 
      override init(frame: CGRect) {
          super.init(frame: frame)
@@ -104,7 +110,10 @@ class MyPetsCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configureCell(with petData: PetData, pageIndex: Int, totalPages: Int) {
+    func configureCell(with petData: PetData, pageIndex: Int, totalPages: Int, hideDeleteButton: Bool) {
+        
+        // Set the visibility of the delete button
+        isDeleteButtonHidden = hideDeleteButton
 
         myPetsView.configure(with: petData.backgroundImageURL ?? "",
                              name: petData.name,

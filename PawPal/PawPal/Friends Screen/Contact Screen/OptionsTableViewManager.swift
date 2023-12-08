@@ -139,6 +139,7 @@ extension ContactViewController {
         let MyPetsScreen = MyPetsViewController()
         MyPetsScreen.userEmail = contactEmail
         MyPetsScreen.hideAddBarButton = true
+        MyPetsScreen.isDeleteButtonHidden = (contactEmail != currentUser?.email)
         self.navigationController?.pushViewController(MyPetsScreen, animated: true)
     }
     
