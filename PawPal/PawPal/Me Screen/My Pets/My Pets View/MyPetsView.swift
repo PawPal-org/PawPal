@@ -47,7 +47,7 @@ class MyPetsView: UIView {
     }
 
     private func setupCard() {
-        self.backgroundColor = themeColor
+//        self.backgroundColor = themeColor
         self.layer.cornerRadius = 40
         self.clipsToBounds = true
     }
@@ -128,7 +128,7 @@ class MyPetsView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.tintColor = pawColor
+//        imageView.tintColor = pawColor
     }
 
     private func setupLabelName() {
@@ -270,8 +270,9 @@ class MyPetsView: UIView {
         } else {
             //set default image
             let defaultImage = UIImage(systemName: "pawprint.fill")
+            imageView.tintColor = pawColor
             imageView.image = defaultImage
-//            imageView.backgroundColor = themeColor
+            imageView.backgroundColor = themeColor
             imageView.clipsToBounds = true
 
             backgroundImageView.image = nil

@@ -50,7 +50,7 @@ class MyPetsViewController: UIViewController{
         )
         
         let barIcon = UIBarButtonItem(
-            image: UIImage(systemName: "plus.circle.fill"),
+            image: UIImage(systemName: "plus.circle.fill")?.withTintColor(.systemOrange, renderingMode: .alwaysOriginal),
             style: .plain,
             target: self,
             action: #selector(onAddBarButtonTapped)
@@ -80,7 +80,7 @@ class MyPetsViewController: UIViewController{
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 350, height: 600)
-//        layout.minimumLineSpacing = 50
+//        layout.minimumLineSpacing = 40
 //        let horizontalInset = (view.frame.width - layout.itemSize.width) / 2
 //        layout.sectionInset = UIEdgeInsets(top: 0, left: horizontalInset, bottom: 0, right: horizontalInset)
         
