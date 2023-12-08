@@ -308,7 +308,7 @@ class DiscoverViewController: UIViewController {
                     let alertController = UIAlertController(title: nil, message: "You alreay sent a request", preferredStyle: .alert)
                             self.present(alertController, animated: true) {
                                 // 在两秒后自动消失
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                                     alertController.dismiss(animated: true, completion: nil)
                                 }
                             }
@@ -325,7 +325,7 @@ class DiscoverViewController: UIViewController {
                             let alertController = UIAlertController(title: nil, message: "Request has been sent", preferredStyle: .alert)
                                     self.present(alertController, animated: true) {
                                         // 在两秒后自动消失
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                                             alertController.dismiss(animated: true, completion: nil)
                                         }
                                     }
