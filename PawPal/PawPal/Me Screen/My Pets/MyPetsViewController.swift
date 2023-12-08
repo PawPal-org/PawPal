@@ -19,6 +19,8 @@ class MyPetsViewController: UIViewController{
     var currentUser: FirebaseAuth.User?
     var userEmail: String?
     
+    var hideAddBarButton: Bool = false
+    
     //MARK: creating instance of DisplayView
     let myPetScreen = MyPetsView()
     
@@ -56,6 +58,8 @@ class MyPetsViewController: UIViewController{
             action: #selector(onAddBarButtonTapped)
         )
         navigationItem.rightBarButtonItems = [barIcon]
+        
+        navigationItem.rightBarButtonItem?.isHidden = hideAddBarButton
         
     }
     
