@@ -1004,7 +1004,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DKV8P2247N;
+				DEVELOPMENT_TEAM = PWW7SUX9PA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PawPal/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access to provide all the utilities ";
@@ -1035,7 +1035,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DKV8P2247N;
+				DEVELOPMENT_TEAM = PWW7SUX9PA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PawPal/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access to provide all the utilities ";
