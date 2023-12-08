@@ -19,7 +19,7 @@ class MyPetsView: UIView {
     let labelBreed = UILabel()
     let labelLocation = UILabel()
     let backgroundImageView = UIImageView()
-    let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+
     //MARK: Variables for cards' back
     //change pet profile icon from button to image
     var flippedImagePet = UIImageView()
@@ -68,7 +68,6 @@ class MyPetsView: UIView {
         setupLabelBreed()
         setupLabelLocation()
         setupBackgroundImageView()
-        setupBlurEffectView()
         
     }
     
@@ -121,20 +120,6 @@ class MyPetsView: UIView {
             backgroundImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        ])
-    }
-    
-    private func setupBlurEffectView() {
-        // Adding the blur effect view as a subview of the backgroundImageView
-        backgroundImageView.addSubview(blurEffectView)
-        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
-
-        // Constraints for blurEffectView
-        NSLayoutConstraint.activate([
-            blurEffectView.topAnchor.constraint(equalTo: backgroundImageView.topAnchor),
-            blurEffectView.leadingAnchor.constraint(equalTo: backgroundImageView.leadingAnchor),
-            blurEffectView.trailingAnchor.constraint(equalTo: backgroundImageView.trailingAnchor),
-            blurEffectView.bottomAnchor.constraint(equalTo: backgroundImageView.bottomAnchor)
         ])
     }
     
@@ -279,13 +264,19 @@ class MyPetsView: UIView {
 
     
     func configure(with imageUrl: String, name: String, sex: String, breed: String, location: String) {
-        if imageUrl == "default"{
-            imageView.image = UIImage(systemName: "pawprint.fill")
-        }else{
-            if let url = URL(string: imageUrl) {
-                imageView.kf.setImage(with: url)
-                setupBackgroundImageView(with: url)
-            }
+        if let url = URL(string: imageUrl), imageUrl != "default" {
+            imageView.kf.setImage(with: url)
+            setupBackgroundImageView(with: url)
+        } else {
+            //set default image
+            let defaultImage = UIImage(systemName: "pawprint.fill")
+            imageView.image = defaultImage
+//            imageView.backgroundColor = themeColor
+            imageView.clipsToBounds = true
+
+            backgroundImageView.image = nil
+            backgroundImageView.backgroundColor = themeColor
+            backgroundImageView.clipsToBounds = imageView.clipsToBounds
         }
         petImageURL = imageUrl
         labelName.text = name
