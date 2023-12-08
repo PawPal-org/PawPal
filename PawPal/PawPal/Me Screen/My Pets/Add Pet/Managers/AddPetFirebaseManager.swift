@@ -105,9 +105,13 @@ extension AddPetViewController{
             if let error = error {
                 // Handle any errors
                 print("Error writing document: \(error)")
+                //MARK: hide the progress indicator...
+                self.hideActivityIndicator()
             } else {
                 // Document was successfully written
                 print("Document successfully written!")
+                //MARK: hide the progress indicator...
+                self.hideActivityIndicator()
                 // Handle success, e.g., navigate back or clear the form
                 self.navigationController?.popViewController(animated: true)
             }

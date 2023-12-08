@@ -14,6 +14,7 @@ import FirebaseStorage
 class AddPetViewController: UIViewController {
     
     let addPetScreen = AddPetView()
+    let childProgressView = ProgressSpinnerViewController()
     
     //MARK: add photo to Storage
     let storage = Storage.storage()
@@ -58,8 +59,8 @@ class AddPetViewController: UIViewController {
     
     @objc func onSaveBarButtonTapped() {
         if (verifyInformation()) {
-            //MARK: creating a new user on Firebase with photo...
-            //showActivityIndicator()
+            //MARK: show the progress indicator...
+            showActivityIndicator()
             uploadPhotosToStorage()
         }
     }

@@ -63,6 +63,16 @@ class MyPetsViewController: UIViewController{
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureCollectionView()
+        configurePageIndicator()
+        fetchPetsData()
+        collectionView.delegate = self
+    }
+
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
