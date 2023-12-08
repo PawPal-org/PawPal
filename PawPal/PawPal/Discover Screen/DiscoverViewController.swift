@@ -298,26 +298,50 @@ class DiscoverViewController: UIViewController {
         // Create a timestamp
         let timestamp = FieldValue.serverTimestamp()
 
-        // Create a dictionary with the current email as key and the timestamp as value
-        let friendRequestUpdate = ["\(currentEmail)": timestamp]
-        // Update the document with the friend request
-        checkIfEmailIsAlreadyAFriend(currentEmail: currentEmail, petOwnerEmail: petOwnerEmail) { isFriend in
-            if isFriend {
-                print("The user is already a friend.")
-            } else {
-                print("The user is not a friend yet. Sending Request...")
-                petOwnerDocRef.updateData([
-                    "friendsRequest": friendRequestUpdate]) { error in
-                    if let error = error {
-                        print("Error adding friend request: \(error.localizedDescription)")
-                    } else {
-                        print("Friend request with timestamp sent successfully.")
+        // First, get the current friend requests
+        petOwnerDocRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                var currentRequests = document.get("friendsRequest") as? [String: Any] ?? [:]
+
+                // Check if the user is already a friend or has already sent a request
+                if currentRequests[currentEmail] != nil {
+                    let alertController = UIAlertController(title: nil, message: "You alreay sent a request", preferredStyle: .alert)
+                            self.present(alertController, animated: true) {
+                                // 在两秒后自动消失
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    alertController.dismiss(animated: true, completion: nil)
+                                }
+                            }
+                    print("The user is already a friend or request is pending.")
+                } else {
+                    // Add the new friend request
+                    currentRequests[currentEmail] = timestamp
+
+                    // Update the document with the new friend requests
+                    petOwnerDocRef.updateData(["friendsRequest": currentRequests]) { error in
+                        if let error = error {
+                            print("Error adding friend request: \(error.localizedDescription)")
+                        } else {
+                            let alertController = UIAlertController(title: nil, message: "Request has been sent", preferredStyle: .alert)
+                                    self.present(alertController, animated: true) {
+                                        // 在两秒后自动消失
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                            alertController.dismiss(animated: true, completion: nil)
+                                        }
+                                    }
+                            print("Friend request with timestamp sent successfully.")
+                        }
                     }
                 }
+            } else if let error = error {
+                print("Error getting document: \(error.localizedDescription)")
+            } else {
+                print("Document does not exist")
             }
         }
     }
 
+    
     func checkIfEmailIsAlreadyAFriend(currentEmail: String, petOwnerEmail: String, completion: @escaping (Bool) -> Void) {
         let usersCollectionRef = Firestore.firestore().collection("users")
         let petOwnerDocRef = usersCollectionRef.document(petOwnerEmail)

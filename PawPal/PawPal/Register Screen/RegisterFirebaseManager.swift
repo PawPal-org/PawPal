@@ -52,6 +52,14 @@ extension RegisterViewController{
             Auth.auth().createUser(withEmail: email, password: password, completion: {result, error in
                 if error == nil{
                     self.setNameAndPhotoOfTheUserInFirebaseAuth(name: name, email: email, photoURL: photoURL)
+                    let alertController = UIAlertController(title: nil, message: "Sign up successfully!\n Please Log in", preferredStyle: .alert)
+                            self.present(alertController, animated: true) {
+                                // 在两秒后自动消失
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    alertController.dismiss(animated: true, completion: nil)
+                                }
+                            }
+                    self.navigationController?.popViewController(animated: true)
                 } else {
                     let errorMessage = error?.localizedDescription ?? "Registration failed."
                     let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
