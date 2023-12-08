@@ -23,6 +23,17 @@ class AddPetView: UIView {
     var textFieldWeight: UITextField!
     var textFieldVac: UITextField!
     var textFieldDescrip: UITextField!
+    
+    var labelHint: UILabel!
+    var labelName: UILabel!
+    var labelSex: UILabel!
+    var labelBreed: UILabel!
+    var labelBDay: UILabel!
+    var labelWeight: UILabel!
+    var labelCity: UILabel!
+    var labelVac: UILabel!
+    var labelDescrip: UILabel!
+
 
     var isCustomBackgroundImageSet = false
     
@@ -44,6 +55,16 @@ class AddPetView: UIView {
         setupTextFieldWeight()
         setupTextFieldVac()
         setupTextFieldDescrip()
+        
+        setupLabelHint()
+        setupLabelName()
+        setupLabelSex()
+        setupLabelBreed()
+        setupLabelBDay()
+        setupLabelWeight()
+        setupLabelCity()
+        setupLabelVac()
+        setupLabelDescrip()
 
         
         //initializing the constraints
@@ -102,7 +123,7 @@ class AddPetView: UIView {
     
     func setupTextFieldName(){
         textFieldName = UITextField()
-        textFieldName.placeholder = "Name"
+        textFieldName.placeholder = "PawPal"
 //        textFieldName.attributedPlaceholder = NSAttributedString(string: "Name",
 //                                                                 attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         textFieldName.borderStyle = .roundedRect
@@ -111,21 +132,57 @@ class AddPetView: UIView {
         textFieldName.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(textFieldName)
     }
+    
+    func setupLabelHint(){
+        labelHint = UILabel()
+        labelHint.font = UIFont(name: secondTitleFont, size: 15)
+        labelHint.textAlignment = .center
+        labelHint.text = "Tap the background or icon to update the image"
+        labelHint.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(labelHint)
+    }
+    
+    func setupLabelName() {
+        labelName = UILabel()
+        labelName.font = UIFont(name: titleFont, size: 24)
+        labelName.textAlignment = .left
+        labelName.attributedText = NSAttributedString(string: "Name:", attributes: strokeTextAttributes)
+        labelName.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(labelName)
+    }
 
     func setupTextFieldSex(){
         textFieldSex = UITextField()
-        textFieldSex.placeholder = "Sex"
+        textFieldSex.placeholder = "Spayed, Neutered, Female, Male"
         textFieldSex.borderStyle = .roundedRect
         textFieldSex.translatesAutoresizingMaskIntoConstraints = false
         displayWrapper.addSubview(textFieldSex)
     }
     
+    func setupLabelSex(){
+        labelSex = UILabel()
+        labelSex.font = UIFont(name: titleFont, size: 20)
+        labelSex.textAlignment = .left
+        labelSex.text = "Sex:"
+        labelSex.translatesAutoresizingMaskIntoConstraints = false
+        displayWrapper.addSubview(labelSex)
+    }
+    
     func setupTextFieldBreed(){
         textFieldBreed = UITextField()
-        textFieldBreed.placeholder = "Breed"
+        textFieldBreed.placeholder = "Husky, Golden Retriever, Mixed Breed, ..."
         textFieldBreed.borderStyle = .roundedRect
         textFieldBreed.translatesAutoresizingMaskIntoConstraints = false
         displayWrapper.addSubview(textFieldBreed)
+    }
+    
+    func setupLabelBreed() {
+        labelBreed = UILabel()
+        labelBreed.font = UIFont(name: titleFont, size: 20)
+        labelBreed.textAlignment = .left
+        labelBreed.text = "Breed:"
+        labelBreed.translatesAutoresizingMaskIntoConstraints = false
+        displayWrapper.addSubview(labelBreed)
     }
     
     func setupTextFieldCity(){
@@ -136,6 +193,15 @@ class AddPetView: UIView {
         displayWrapper.addSubview(textFieldCity)
     }
     
+    func setupLabelCity() {
+        labelCity = UILabel()
+        labelCity.font = UIFont(name: titleFont, size: 20)
+        labelCity.textAlignment = .left
+        labelCity.text = "City:"
+        labelCity.translatesAutoresizingMaskIntoConstraints = false
+        displayWrapper.addSubview(labelCity)
+    }
+    
     func setupDatePickerBDay(){
         datePickerBDay = UIDatePicker()
         datePickerBDay.datePickerMode = .date
@@ -143,31 +209,66 @@ class AddPetView: UIView {
         displayWrapper.addSubview(datePickerBDay)
     }
     
+    func setupLabelBDay() {
+        labelBDay = UILabel()
+        labelBDay.font = UIFont(name: titleFont, size: 20)
+        labelBDay.textAlignment = .left
+        labelBDay.text = "Birthday:"
+        labelBDay.translatesAutoresizingMaskIntoConstraints = false
+        displayWrapper.addSubview(labelBDay)
+    }
+    
     func setupTextFieldWeight(){
         textFieldWeight = UITextField()
         textFieldWeight.placeholder = "Weight"
         textFieldWeight.borderStyle = .roundedRect
+        textFieldWeight.keyboardType = .numberPad
         textFieldWeight.translatesAutoresizingMaskIntoConstraints = false
         displayWrapper.addSubview(textFieldWeight)
     }
     
+    func setupLabelWeight() {
+        labelWeight = UILabel()
+        labelWeight.font = UIFont(name: titleFont, size: 20)
+        labelWeight.textAlignment = .left
+        labelWeight.text = "Weight:"
+        labelWeight.translatesAutoresizingMaskIntoConstraints = false
+        displayWrapper.addSubview(labelWeight)
+    }
+    
     func setupTextFieldVac(){
         textFieldVac = UITextField()
-        textFieldVac.placeholder = "Vac"
+        textFieldVac.placeholder = "Rabies, Distemper (DHPP), Bordetella, Lyme, ..."
         textFieldVac.borderStyle = .roundedRect
         textFieldVac.translatesAutoresizingMaskIntoConstraints = false
         displayWrapper.addSubview(textFieldVac)
     }
     
+    func setupLabelVac() {
+        labelVac = UILabel()
+        labelVac.font = UIFont(name: titleFont, size: 20)
+        labelVac.textAlignment = .left
+        labelVac.text = "Vaccination:"
+        labelVac.translatesAutoresizingMaskIntoConstraints = false
+        displayWrapper.addSubview(labelVac)
+    }
+    
     func setupTextFieldDescrip(){
         textFieldDescrip = UITextField()
-        textFieldDescrip.placeholder = "Description"
+        textFieldDescrip.placeholder = "Share a bit about your dog's charms"
         textFieldDescrip.borderStyle = .roundedRect
         textFieldDescrip.translatesAutoresizingMaskIntoConstraints = false
         displayWrapper.addSubview(textFieldDescrip)
     }
     
-    
+    func setupLabelDescrip() {
+        labelDescrip = UILabel()
+        labelDescrip.font = UIFont(name: titleFont, size: 20)
+        labelDescrip.textAlignment = .left
+        labelDescrip.text = "Description:"
+        labelDescrip.translatesAutoresizingMaskIntoConstraints = false
+        displayWrapper.addSubview(labelDescrip)
+    }
     
         
     //MARK: initializing the constraints
@@ -183,40 +284,76 @@ class AddPetView: UIView {
             petPicButton.widthAnchor.constraint(equalToConstant: 150),
             petPicButton.heightAnchor.constraint(equalToConstant: 150),
             
+            labelHint.bottomAnchor.constraint(equalTo: displayWrapper.bottomAnchor, constant: 75),
+            labelHint.leadingAnchor.constraint(equalTo: petBackgroundButton.leadingAnchor),
+            labelHint.trailingAnchor.constraint(equalTo: petBackgroundButton.trailingAnchor),
+            
+            labelName.bottomAnchor.constraint(equalTo: textFieldName.topAnchor),
+            labelName.leadingAnchor.constraint(equalTo: textFieldName.leadingAnchor),
+//            labelName.trailingAnchor.constraint(equalTo: petBackgroundButton.trailingAnchor, constant: -16),
+            
             textFieldName.bottomAnchor.constraint(equalTo: petPicButton.bottomAnchor),
             textFieldName.leadingAnchor.constraint(equalTo: petPicButton.trailingAnchor, constant: 32),
             textFieldName.trailingAnchor.constraint(equalTo: petBackgroundButton.trailingAnchor, constant: -16),
             
             displayWrapper.topAnchor.constraint(equalTo: petPicButton.bottomAnchor, constant: 32),
-            displayWrapper.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -242),
+            displayWrapper.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -212),
             displayWrapper.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 37),
             displayWrapper.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -28),
             
+            labelSex.bottomAnchor.constraint(equalTo: textFieldSex.bottomAnchor, constant: -3),
+            labelSex.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            labelSex.trailingAnchor.constraint(equalTo: labelSex.leadingAnchor, constant: 80),
+            
             textFieldSex.topAnchor.constraint(equalTo: displayWrapper.topAnchor),
-            textFieldSex.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            textFieldSex.leadingAnchor.constraint(equalTo: labelSex.trailingAnchor),
             textFieldSex.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
             
+            labelBreed.bottomAnchor.constraint(equalTo: textFieldBreed.bottomAnchor, constant: -3),
+            labelBreed.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            labelBreed.trailingAnchor.constraint(equalTo: labelBreed.leadingAnchor, constant: 80),
+            
             textFieldBreed.topAnchor.constraint(equalTo: textFieldSex.bottomAnchor, constant: 16),
-            textFieldBreed.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            textFieldBreed.leadingAnchor.constraint(equalTo: labelBreed.trailingAnchor),
             textFieldBreed.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
             
+            labelBDay.bottomAnchor.constraint(equalTo: datePickerBDay.bottomAnchor, constant: -3),
+            labelBDay.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            labelBDay.trailingAnchor.constraint(equalTo: labelBDay.leadingAnchor, constant: 80),
+            
             datePickerBDay.topAnchor.constraint(equalTo: textFieldBreed.bottomAnchor, constant: 16),
-            datePickerBDay.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
-            datePickerBDay.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
+            datePickerBDay.leadingAnchor.constraint(equalTo: labelBDay.trailingAnchor),
+//            datePickerBDay.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
+            
+            labelWeight.bottomAnchor.constraint(equalTo: textFieldWeight.bottomAnchor, constant: -3),
+            labelWeight.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            labelWeight.trailingAnchor.constraint(equalTo: labelWeight.leadingAnchor, constant: 80),
             
             textFieldWeight.topAnchor.constraint(equalTo: datePickerBDay.bottomAnchor, constant: 16),
-            textFieldWeight.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            textFieldWeight.leadingAnchor.constraint(equalTo: labelWeight.trailingAnchor),
             textFieldWeight.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
             
+            labelCity.bottomAnchor.constraint(equalTo: textFieldCity.bottomAnchor, constant: -3),
+            labelCity.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            labelCity.trailingAnchor.constraint(equalTo: labelCity.leadingAnchor, constant: 80),
+            
             textFieldCity.topAnchor.constraint(equalTo: textFieldWeight.bottomAnchor, constant: 16),
-            textFieldCity.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            textFieldCity.leadingAnchor.constraint(equalTo: labelCity.trailingAnchor),
             textFieldCity.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
             
-            textFieldVac.topAnchor.constraint(equalTo: textFieldCity.bottomAnchor, constant: 16),
+            labelVac.topAnchor.constraint(equalTo: textFieldCity.bottomAnchor, constant: 16),
+            labelVac.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            labelVac.trailingAnchor.constraint(equalTo: labelVac.leadingAnchor, constant: 120),
+            
+            textFieldVac.topAnchor.constraint(equalTo: labelVac.bottomAnchor, constant: 16),
             textFieldVac.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
             textFieldVac.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
             
-            textFieldDescrip.topAnchor.constraint(equalTo: textFieldVac.bottomAnchor, constant: 16),
+            labelDescrip.topAnchor.constraint(equalTo: textFieldVac.bottomAnchor, constant: 16),
+            labelDescrip.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
+            labelDescrip.trailingAnchor.constraint(equalTo: labelDescrip.leadingAnchor, constant: 120),
+            
+            textFieldDescrip.topAnchor.constraint(equalTo: labelDescrip.bottomAnchor, constant: 16),
             textFieldDescrip.bottomAnchor.constraint(equalTo: displayWrapper.bottomAnchor),
             textFieldDescrip.leadingAnchor.constraint(equalTo: displayWrapper.leadingAnchor),
             textFieldDescrip.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -38),
