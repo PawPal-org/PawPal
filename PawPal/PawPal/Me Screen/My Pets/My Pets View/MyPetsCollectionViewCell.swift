@@ -96,6 +96,11 @@ class MyPetsCollectionViewCell: UICollectionViewCell {
      }
     
     @objc private func deleteButtonTapped() {
+        showDeleteConfirmation()
+    }
+
+    private func showDeleteConfirmation() {
+        // notify ViewController show confirmation
         deleteButtonTapCallback?()
     }
     

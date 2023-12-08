@@ -28,10 +28,18 @@ extension MyPetsViewController: UICollectionViewDataSource, UICollectionViewDele
             guard let strongSelf = self, let currentIndexPath = cell.flatMap({ strongSelf.collectionView.indexPath(for: $0) }) else {
                 return
             }
-            strongSelf.deletePetAndImages(at: currentIndexPath)
-        }
 
-        return cell
+            let alertController = UIAlertController(title: "Delete Pet", message: "Are you sure you want to delete this pet?", preferredStyle: .alert)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+                strongSelf.deletePetAndImages(at: currentIndexPath)
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(deleteAction)
+            alertController.addAction(cancelAction)
+            strongSelf.present(alertController, animated: true, completion: nil)
+            }
+
+            return cell
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

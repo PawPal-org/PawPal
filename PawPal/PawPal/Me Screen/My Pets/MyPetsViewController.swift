@@ -121,7 +121,7 @@ class MyPetsViewController: UIViewController{
     }
     
     private func fetchPetsData() {
-        let currentUserEmail = Auth.auth().currentUser?.email ?? ""
+        let currentUserEmail = userEmail ?? Auth.auth().currentUser?.email ?? ""
         
 
         db.collection("users").document(currentUserEmail).collection("myPets").getDocuments { [weak self] (querySnapshot, error) in
@@ -183,7 +183,7 @@ class MyPetsViewController: UIViewController{
     }
 
     func deletePetFromFirestore(petId: String, indexPath: IndexPath) {
-        let currentUserEmail = userEmail ?? Auth.auth().currentUser?.email ?? ""
+        let currentUserEmail = Auth.auth().currentUser?.email ?? ""
         let userDocument = db.collection("users").document(currentUserEmail)
         userDocument.collection("myPets").document(petId).delete { [weak self] error in
             if let error = error {
