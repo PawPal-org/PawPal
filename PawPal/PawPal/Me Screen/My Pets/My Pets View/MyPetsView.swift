@@ -244,9 +244,12 @@ class MyPetsView: UIView {
             case .success(let value):
                 self.backgroundImageView.image = value.image
 
-                // Check if the blur effect view is already added
-                if self.backgroundImageView.subviews.first(where: { $0 is UIVisualEffectView }) == nil {
-                    self.applyBlurEffect()
+                // check if the image is not the default one before adding blur effect
+                if url.absoluteString != "default" {
+                    // Check if the blur effect view is already added
+                    if self.backgroundImageView.subviews.first(where: { $0 is UIVisualEffectView }) == nil {
+                        self.applyBlurEffect()
+                    }
                 }
 
                 self.backgroundImageView.layer.cornerRadius = self.layer.cornerRadius
