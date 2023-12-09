@@ -35,6 +35,7 @@ class SearchViewController: UIViewController {
         )
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
         view.addGestureRecognizer(tapRecognizer)
+        tapRecognizer.cancelsTouchesInView = false
     }
     
     //MARK: Hide Keyboard
